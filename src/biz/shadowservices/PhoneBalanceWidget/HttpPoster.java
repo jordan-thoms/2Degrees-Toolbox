@@ -35,25 +35,19 @@ public class HttpPoster {
 		try {
 			httppost.setEntity(new UrlEncodedFormEntity(values, HTTP.UTF_8));
 		} catch (UnsupportedEncodingException e) {
-			Log.e(TAG, "Error: Unsupported encoding exception on " + httppost.getURI());
+			Log.e(TAG, "Error:  Unsupported encoding exception on " + httppost.getURI());
 		}
 	}
-	public String execute()  {
+	public String execute() throws ClientProtocolException, IOException  {
 		//TODO: Better exception handling/retries here
 		if (response == null) {
 			HttpClient httpClient = HttpClientSingleton.getInstance();
 			HttpResponse serverresponse = null;
-			try {
-				serverresponse = httpClient.execute(httppost);
-				HttpEntity entity = serverresponse.getEntity();
-				StringWriter writer = new StringWriter();
-				IOUtils.copy(entity.getContent(), writer);
-				response = writer.toString();
-			} catch (ClientProtocolException e) {
-				Log.e(TAG, "Error: Client Protocol Exception on " + httppost.getURI());
-			} catch (IOException e) {
-				Log.e(TAG, "Error: IO Exception on " + httppost.getURI());
-			}
+			serverresponse = httpClient.execute(httppost);
+			HttpEntity entity = serverresponse.getEntity();
+			StringWriter writer = new StringWriter();
+			IOUtils.copy(entity.getContent(), writer);
+			response = writer.toString();
 		}
 		return response;
 	}

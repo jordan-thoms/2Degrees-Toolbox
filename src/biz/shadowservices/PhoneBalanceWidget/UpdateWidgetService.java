@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -34,14 +35,24 @@ public class UpdateWidgetService extends Service implements Runnable {
     private static boolean isThreadRunning = false;
     private static Object lock = new Object();
 
-    
+    public class LocalBinder extends Binder {
+        UpdateWidgetService getService() {
+            return UpdateWidgetService.this;
+        }
+    }
+    private final IBinder mBinder = new LocalBinder();
+
     public void onStart(Intent intent, int startId) {
     	Log.d(TAG, "Starting service");
     	synchronized (lock) {
     		if(!isThreadRunning) {
+    	    	Log.d(TAG, "Thread not running, starting.");
     			isThreadRunning = true;
     			new Thread(this).start();
+    		} else {
+    	    	Log.d(TAG, "Thread already running, not doing anything.");
     		}
+
     	}
     }
 	@Override
@@ -49,19 +60,21 @@ public class UpdateWidgetService extends Service implements Runnable {
 		//Build update
     	Log.d(TAG, "Building updates");
         RemoteViews updateViews = PhoneBalanceWidget.buildUpdate(this);
+        Log.d(TAG, updateViews.toString());
         //Push update to home screen
     	Log.d(TAG, "Pushing updates");
         ComponentName thisWidget = new ComponentName(this, PhoneBalanceWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(thisWidget, updateViews);
     	Log.d(TAG, "Sent updates");
+    	isThreadRunning = false;
     	stopSelf();
 	}
 
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBinder;
+    }
 	
 	
 

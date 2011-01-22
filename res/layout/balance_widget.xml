@@ -16,16 +16,59 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    style="@style/WidgetBackground">
+      <TextView
+        android:id="@+id/lastupdate"
+        android:includeFontPadding="true"
+        style="@style/WidgetText"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+       
+        android:gravity="right"
+        
+        android:layout_height="fill_parent" android:layout_width="fill_parent"/>
+    
+    <LinearLayout
+        android:id="@+id/widget"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:focusable="true">
+    android:paddingTop="10dp"
+    android:paddingLeft="20dp"
+    android:orientation="vertical"
+    style="@style/WidgetText">
+    >
     <TextView
-        android:id="@+id/widgettext"
+        android:id="@+id/line1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="4dip"
-        android:includeFontPadding="false"
+        android:includeFontPadding="true"
         android:text="@string/widget_text_placeholder"
+        style="@style/WidgetText"
+        />     
+     <TextView
+        android:id="@+id/line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="true"
+        style="@style/WidgetText"
         />
-
+    <TextView
+        android:id="@+id/line3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="true"
+        style="@style/WidgetText"
+        />
+        <TextView
+        android:id="@+id/line4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="true"
+        style="@style/WidgetText"
+        />
+    
+</LinearLayout>
 </RelativeLayout>

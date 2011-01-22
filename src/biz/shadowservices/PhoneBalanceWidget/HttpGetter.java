@@ -23,22 +23,16 @@ public class HttpGetter {
 	public HttpGetter(String uri) {
 		httpget = new HttpGet(uri);
 	}
-	public String execute()  {
+	public String execute() throws ClientProtocolException, IOException  {
 		//TODO: Better exception handling/retries here
 		if (response == null) {
 			HttpClient httpClient = HttpClientSingleton.getInstance();
 			HttpResponse serverresponse = null;
-			try {
-				serverresponse = httpClient.execute(httpget);
-				HttpEntity entity = serverresponse.getEntity();
-				StringWriter writer = new StringWriter();
-				IOUtils.copy(entity.getContent(), writer);
-				response = writer.toString();
-			} catch (ClientProtocolException e) {
-				Log.e(TAG, "Error: Client Protocol Exception on " + httpget.getURI());
-			} catch (IOException e) {
-				Log.e(TAG, "Error: IO Exception on " + httpget.getURI());
-			}
+			serverresponse = httpClient.execute(httpget);
+			HttpEntity entity = serverresponse.getEntity();
+			StringWriter writer = new StringWriter();
+			IOUtils.copy(entity.getContent(), writer);
+			response = writer.toString();
 		}
 		return response;
 	}

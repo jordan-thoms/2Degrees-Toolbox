@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, PhoneBalanceConfigure!</string>
+    
     <string name="app_name">PhoneBalanceWidget</string>
 <string name="widget_name">Phone Balance Widget</string>
-<string name="widget_text_placeholder">Loading, Please wait...</string>
+<string name="widget_text_placeholder">Loading...</string>
+<string name="configure">Click here to configure</string>
+<string name="refresh">Refresh Data</string>
 </resources>
