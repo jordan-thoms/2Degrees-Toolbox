@@ -7,9 +7,11 @@ import java.text.SimpleDateFormat;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,7 +32,8 @@ import android.widget.LinearLayout.LayoutParams;
 public class PhoneBalanceMain extends Activity {
 	private static String TAG = "PhoneBalanceMain";
 	private static final int MSG_FINISHED = 1;
-	ProgressDialog progressDialog;
+	private UpdateReciever reciever;
+	ProgressDialog progressDialog = null;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,15 @@ public class PhoneBalanceMain extends Activity {
     public void onResume() {
     	super.onResume();
     	refreshData();
+    	reciever = new UpdateReciever(this);
+    	registerReceiver(reciever, new IntentFilter(UpdateWidgetService.NEWDATA));
     }
-    private void refreshData() {
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	unregisterReceiver(reciever);
+    }
+    public void refreshData() {
         // Load, display data.
 		PhoneBalanceDBOpenHelper dbhelper = new PhoneBalanceDBOpenHelper(this);
 		SQLiteDatabase db = dbhelper.getReadableDatabase();
@@ -120,42 +130,31 @@ public class PhoneBalanceMain extends Activity {
     	public void onClick(View v) {
     		progressDialog = ProgressDialog.show( v.getContext(), " " , " Loading. Please wait ... ", true);
     		progressDialog.show();
-    		UpdateThread thread = new UpdateThread(v.getContext());
-    		thread.start();
+    		v.getContext().startService(new Intent( v.getContext(), UpdateWidgetService.class));
     	}
     };
-    private class UpdateThread extends Thread {
-    	private Context context;
-    	public UpdateThread(Context c) {
-    		context = c;
-    	}
-    	public void run() {
-    		Log.d(TAG, "Refreshing content");
-        	Log.d(TAG, "Building updates");
-            RemoteViews updateViews = PhoneBalanceWidget.buildUpdate(context);
-            Log.d(TAG, updateViews.toString());
-            //Push update to home screen
-        	Log.d(TAG, "Pushing updates");
-            ComponentName thisWidget = new ComponentName(context, PhoneBalanceWidget.class);
-            AppWidgetManager manager = AppWidgetManager.getInstance(context);
-            manager.updateAppWidget(thisWidget, updateViews);
-        	Log.d(TAG, "Sent updates");
-        	handler.sendEmptyMessage(MSG_FINISHED);
-    	}
-    }
+    
+    
+    public class UpdateReciever extends BroadcastReceiver {
 
+        private PhoneBalanceMain activity;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_FINISHED:
-            		progressDialog.dismiss();
-                    // What to do when ready, example:
-                    refreshData();
-                    break;
-                }
+        public UpdateReciever(PhoneBalanceMain activity) {
+            this.activity = activity;
+            Log.i("dbg","UpdateReciever created");
+        }
+
+        public void onReceive(Context context, Intent intent) {
+            Log.i("dbg","onRecieve() called!");
+            if(activity != null) {
+            	if(activity.progressDialog != null) {
+            		activity.progressDialog.dismiss();
+            		activity.progressDialog = null;
+            	}
+            	activity.refreshData();
             }
-        };
+
+        }
+    }
 
 }

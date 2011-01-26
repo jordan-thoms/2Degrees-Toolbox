@@ -28,6 +28,7 @@ import org.jsoup.nodes.Element;
 
 public class UpdateWidgetService extends Service implements Runnable {
 	private static String TAG = "UpdateWidgetService";
+	public static String NEWDATA = "BalanceWidgetNewDataAvailable12";
     /**
      * Flag if there is an update thread already running. We only launch a new
      * thread if one isn't already running.
@@ -68,6 +69,9 @@ public class UpdateWidgetService extends Service implements Runnable {
         manager.updateAppWidget(thisWidget, updateViews);
     	Log.d(TAG, "Sent updates");
     	isThreadRunning = false;
+    	Intent myIntent = new Intent(NEWDATA);
+    	sendBroadcast(myIntent);
+
     	stopSelf();
 	}
 
