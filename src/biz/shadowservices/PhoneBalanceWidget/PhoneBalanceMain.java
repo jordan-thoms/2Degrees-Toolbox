@@ -5,11 +5,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -17,7 +20,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.gsm.SmsManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,20 +38,51 @@ import android.widget.LinearLayout.LayoutParams;
 
 public class PhoneBalanceMain extends Activity {
 	private static String TAG = "PhoneBalanceMain";
-	private static final int MSG_FINISHED = 1;
 	private UpdateReciever reciever;
+	private final int NATDATA = 0;
+	private final int BBZDATA = 1;
+	private final int TALKPACK = 2;	
+	private final CharSequence[] SMSCategory = {"National Data", "BB Zone Data", "Talk Packs"};
+	private final CharSequence[] SMSNATNames = {"$6 50MB National Data"};
+	private final String[] SMSNATContent = {"BUY 50MB"};
+	private final CharSequence[] SMSBBNames = {"$20 1GB BB Data", "$50 3GB BB Data", "$150 12GB BB Data"};
+	private final String[] SMSBBContent = {"BUY 1GB", "BUY 3GB", "BUY 12GB"};
+	private final CharSequence[] SMSTalkNames = {"$30 Everyone100", "$10 China120", "$10 India120"};
+	private final String[] SMSTalkContent = {"buy every100", "buy china120", "buy india120"};
+
 	ProgressDialog progressDialog = null;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Button configureButton = (Button) findViewById(R.id.configurebutton);
-        configureButton.setOnClickListener(configureButtonListener);
-        Button refreshButton = (Button) findViewById(R.id.refreshbutton);
-        refreshButton.setOnClickListener(refreshButtonListener);
+        Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
+        buyPackButton.setOnClickListener(buyPackListener);
 	}
     
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.mainmenu, menu);
+    	return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+    	case R.id.forceUpdate:
+    		progressDialog = ProgressDialog.show(this, " " , " Loading. Please wait ... ", true);
+    		progressDialog.show();
+    		startService(new Intent(this, UpdateWidgetService.class));
+    		return true;
+    	case R.id.openPreferences:
+    		Intent openPreferences = new Intent(this, BalancePreferencesActivity.class);
+    		startActivity(openPreferences);
+    		return true;
+    	default:
+    		return super.onOptionsItemSelected(item);
+    	}
+    }
     @Override
     public void onResume() {
     	super.onResume();
@@ -56,6 +94,55 @@ public class PhoneBalanceMain extends Activity {
     public void onPause() {
     	super.onPause();
     	unregisterReceiver(reciever);
+    }
+    private OnClickListener buyPackListener = new OnClickListener() {
+    	public void onClick(View v) {
+    		AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+    		builder.setTitle("Choose a value pack to buy:");
+    		builder.setItems(SMSCategory, new DialogInterface.OnClickListener() {
+    		    public void onClick(DialogInterface dialog, int item) {
+    		    	switch(item) {
+    		    	case NATDATA:
+    		    		chooseSMSToSend(SMSNATNames, SMSNATContent);
+    		    		break;
+    		    	case BBZDATA:
+    		    		chooseSMSToSend(SMSBBNames, SMSBBContent);
+    		    		break;
+    		    	case TALKPACK:
+    		    		chooseSMSToSend(SMSTalkNames, SMSTalkContent);
+    		    	}
+    		    }
+    		});
+    		AlertDialog alert = builder.create();
+    		alert.show();
+    	}
+    };
+    private void chooseSMSToSend(final CharSequence[] names, final String[] content) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Choose a value pack to buy:");
+		builder.setItems(names, new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, final int item) {
+		    	AlertDialog.Builder confirmDialog = new AlertDialog.Builder(PhoneBalanceMain.this);
+		    	confirmDialog.setMessage("Are you sure you wish to purchase " + names[item] + " by sending '" + content[item] + "' to 233?")
+		    		.setCancelable(false)
+		    		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							send233SMS(content[item]);
+						}
+					})
+					.setNegativeButton("No", new DialogInterface.OnClickListener() {						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+		    	AlertDialog confirm = confirmDialog.create();
+		    	confirm.show();
+		    }
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
     }
     public void refreshData() {
         // Load, display data.
@@ -120,21 +207,7 @@ public class PhoneBalanceMain extends Activity {
 		cursor.close();
 		db.close();
     }
-    private OnClickListener configureButtonListener = new OnClickListener() {
-    	public void onClick(View v) {
-    		Intent openPreferences = new Intent(v.getContext(), BalancePreferencesActivity.class);
-    		startActivity(openPreferences);
-    	}
-    };
-    private OnClickListener refreshButtonListener = new OnClickListener() {
-    	public void onClick(View v) {
-    		progressDialog = ProgressDialog.show( v.getContext(), " " , " Loading. Please wait ... ", true);
-    		progressDialog.show();
-    		v.getContext().startService(new Intent( v.getContext(), UpdateWidgetService.class));
-    	}
-    };
-    
-    
+       
     public class UpdateReciever extends BroadcastReceiver {
 
         private PhoneBalanceMain activity;
@@ -156,5 +229,13 @@ public class PhoneBalanceMain extends Activity {
 
         }
     }
+    private void send233SMS(String message)
+    {        
+        PendingIntent pi = PendingIntent.getActivity(this, 0,
+            new Intent(this, PhoneBalanceMain.class), 0);                
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage("233", null, message, pi, null);
+    	Log.d(TAG, "sent message: " + message);
+    }    
 
 }

@@ -9,16 +9,24 @@
     android:layout_height="wrap_content"
     android:stretchColumns="1"
     android:id="@+id/lineslayout"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="10dip">
     
     </LinearLayout>
-    <Button android:id="@+id/configurebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/configure" />
-     <Button android:id="@+id/refreshbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/refresh" />
+    <Button
+    android:id="@+id/buyPackButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/buypack"
+    />
+     <TextView
+        android:includeFontPadding="true"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+       
+        android:gravity="left"
+        android:text="@string/seemenu"
+        android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+     
             
 </LinearLayout>

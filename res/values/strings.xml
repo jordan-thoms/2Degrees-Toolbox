@@ -6,4 +6,7 @@
 <string name="widget_text_placeholder">Loading...</string>
 <string name="configure">Click here to configure</string>
 <string name="refresh">Refresh Data</string>
+<string name="seemenu">Press menu for options.</string>
+<string name="buypack">Buy Value Pack</string>
+
 </resources>

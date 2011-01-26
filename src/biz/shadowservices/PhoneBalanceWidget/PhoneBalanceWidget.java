@@ -75,7 +75,7 @@ public class PhoneBalanceWidget extends AppWidgetProvider {
 		} catch (IOException e) {
 			 Log.d(TAG, e.getMessage());
 	         updateViews.setTextViewText(R.id.line4, "Network Error"); 
-		}
+		} 
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context); 
 		String updateDateString = sp.getString("updateDate", "");
 		try {
