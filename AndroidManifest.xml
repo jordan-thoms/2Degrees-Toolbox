@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="biz.shadowservices.PhoneBalanceWidget"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+      package="biz.shadowservices.DegreesToolbox" android:versionName="1.0.2" android:versionCode="3">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false">
         <activity android:label="@string/app_name" android:name=".PhoneBalanceMain"
         android:launchMode="singleTop"
         >
@@ -13,7 +11,7 @@
 		</intent-filter>
         </activity>
         <!-- Broadcast Receiver that will process AppWidget updates -->
-        <receiver android:name=".PhoneBalanceWidget" android:label="@string/widget_name">
+        <receiver android:name="biz.shadowservices.DegreesToolbox.PhoneBalanceWidget" android:label="@string/widget_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -22,14 +20,17 @@
         </receiver>
 
         <!-- Service to perform web API queries -->
-        <service android:name=".UpdateWidgetService" />
+        <service android:name="biz.shadowservices.DegreesToolbox.UpdateWidgetService" />
 
     <activity android:name="BalancePreferencesActivity"></activity>
+<activity android:name="biz.shadowservices.DegreesToolbox.SetupWizard"></activity>
+
+
 </application>
 
 
 
-
+<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
