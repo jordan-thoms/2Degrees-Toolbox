@@ -1,0 +1,10 @@
+org.jsoup.Connection$Method: org.jsoup.Connection$Method[] values()
+org.jsoup.Connection$Method: org.jsoup.Connection$Method valueOf(java.lang.String)
+org.jsoup.nodes.Entities$EscapeMode: org.jsoup.nodes.Entities$EscapeMode[] values()
+org.jsoup.nodes.Entities$EscapeMode: org.jsoup.nodes.Entities$EscapeMode valueOf(java.lang.String)
+biz.shadowservices.DegreesToolbox.SetupWizard
+biz.shadowservices.DegreesToolbox.PhoneBalanceMain
+biz.shadowservices.DegreesToolbox.BalancePreferencesActivity
+biz.shadowservices.DegreesToolbox.UpdateWidgetService
+biz.shadowservices.DegreesToolbox.PhoneBalanceMain$UpdateReciever
+biz.shadowservices.DegreesToolbox.PhoneBalanceWidget
