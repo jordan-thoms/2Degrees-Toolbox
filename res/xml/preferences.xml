@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
-<PreferenceCategory android:title="Login Details"><EditTextPreference android:title="Username" android:key="username" android:summary="Username (or phone number)"></EditTextPreference>
+<PreferenceCategory android:title="Login Details"><EditTextPreference android:title="Phone Number" android:key="username" android:summary="Phone number/username"></EditTextPreference>
 <EditTextPreference android:title="Password" android:key="password" android:summary="Your Password"></EditTextPreference>
+</PreferenceCategory>
+<PreferenceCategory android:title="Updating">
+<CheckBoxPreference android:title="Automatic Updates" android:key="autoupdates" android:summaryOn="Automatic updates will occur every 4 hours."
+android:summaryOff="Automatic updates will not occur." android:defaultValue="true"></CheckBoxPreference>
+<CheckBoxPreference android:title="2Degrees Data updates" android:key="2DData" android:summaryOn="Automatic updates will occur when on the 2Degrees network"
+android:summaryOff="Automatic updates will occur only on wifi" android:defaultValue="true" android:dependency="autoupdates"></CheckBoxPreference>
+<CheckBoxPreference android:title="Roaming Data updates" android:key="roamingData" android:summaryOn="Automatic updates will occur when roaming (eg national data)"
+android:summaryOff="Automatic updates will not occur while roaming (eg national data)" android:defaultValue="false" android:dependency="2DData"></CheckBoxPreference>
+
 </PreferenceCategory>
 </PreferenceScreen>

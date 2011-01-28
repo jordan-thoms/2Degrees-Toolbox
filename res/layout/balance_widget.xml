@@ -24,19 +24,41 @@
         android:id="@+id/lastupdate"
         android:includeFontPadding="true"
         style="@style/WidgetText"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
        
         android:gravity="right"
         
         android:layout_height="fill_parent" android:layout_width="fill_parent"/>
+            <TextView
+        android:id="@+id/right1"
+        android:includeFontPadding="true"
+        style="@style/WidgetText"
+        android:paddingTop="25dp"
+        android:paddingRight="6dp"
+       
+        android:gravity="right"
+        
+        android:layout_height="fill_parent" android:layout_width="fill_parent"/>
+        />
+                <TextView
+        android:id="@+id/right2"
+        android:includeFontPadding="true"
+        style="@style/WidgetText"
+        android:paddingTop="44dp"
+        android:paddingRight="6dp"
+       
+        android:gravity="right"
+        
+        android:layout_height="fill_parent" android:layout_width="fill_parent"/>
+        />
     
     <LinearLayout
         android:id="@+id/widget"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingLeft="20dp"
+    android:paddingTop="5dp"
+    android:paddingLeft="6dp"
     android:orientation="vertical"
     style="@style/WidgetText">
     >
@@ -61,14 +83,7 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="true"
         style="@style/WidgetText"
-        />
-        <TextView
-        android:id="@+id/line4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="true"
-        style="@style/WidgetText"
-        />
-    
+        />    
 </LinearLayout>
+
 </RelativeLayout>

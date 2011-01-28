@@ -1,0 +1,1 @@
+ <nine-patch xmlns:android="http://schemas.android.com/apk/res/android"  android:src="@drawable/widget_frame" android:dither="true" />

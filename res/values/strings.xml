@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">PhoneBalanceWidget</string>
-<string name="widget_name">Phone Balance Widget</string>
+    <string name="app_name">2Degrees Toolbox</string>
+<string name="widget_name">2Degrees Toolbox Widget</string>
 <string name="widget_text_placeholder">Loading...</string>
 <string name="configure">Click here to configure</string>
 <string name="refresh">Refresh Data</string>
-<string name="seemenu">Press menu for options.</string>
+<string name="seemenu">Press menu for options. You may add the widget to a homescreen to see the details easily.
+ Updates happen automatically every 4 hours if enabled and you have the widget added, or can be requested manually through menu.</string>
 <string name="buypack">Buy Value Pack</string>
-
+<string name="setup_wizard_top">Welcome to 2Degrees Toolbox. To begin using this application, enter your Phone number and password below. (These are what
+you use on the 2degrees website)</string>
+<string name="setup_wizard_username">Phone Number / Username</string>
+<string name="setup_wizard_password">Password</string>
+<string name="setup_wizard_go_button">Go</string>
 </resources>
