@@ -40,7 +40,6 @@ public class PhoneBalanceWidget extends AppWidgetProvider {
     	RemoteViews updateViews = new RemoteViews(context.getPackageName(), R.layout.balance_widget);
     	DataFetcher dataFetcher = new DataFetcher();
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context); 
-
 		String updateDateString = sp.getString("updateDate", "");
 		boolean update = true;
 		if (!force) {
