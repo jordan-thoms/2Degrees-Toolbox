@@ -26,7 +26,7 @@ import android.util.Log;
 
 public class DataFetcher {
 	public double result;
-	private static String TAG = "DataFetchThread";
+	private static String TAG = "DataFetcher";
 	public boolean isOnline(Context context) {
 		 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		 NetworkInfo info = cm.getActiveNetworkInfo();
