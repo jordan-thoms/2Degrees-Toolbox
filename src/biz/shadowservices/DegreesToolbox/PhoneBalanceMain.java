@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -87,6 +88,9 @@ public class PhoneBalanceMain extends Activity {
     	case R.id.openPreferences:
     		Intent openPreferences = new Intent(this, BalancePreferencesActivity.class);
     		startActivity(openPreferences);
+    		return true;
+    	case R.id.callCustomerService:
+    		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0800022022")));
     		return true;
     	default:
     		return super.onOptionsItemSelected(item);
