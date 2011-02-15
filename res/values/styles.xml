@@ -8,6 +8,7 @@
     </style>
     <style name="WidgetTextBold">
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
 </resources>
