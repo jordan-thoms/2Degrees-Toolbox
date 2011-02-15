@@ -226,7 +226,7 @@ public class MainActivity extends Activity {
 				}
 
 			} else {
-				col1.setText("Last Update -- Login failed, set the correct details in menu->preferences and then go menu->force update.");				
+				col1.setText("Last Update -- Login failed, set the correct details in menu->preferences and then press back.");				
 			}
 				
 			firstLine.addView(col1,  col1LayoutParams);
