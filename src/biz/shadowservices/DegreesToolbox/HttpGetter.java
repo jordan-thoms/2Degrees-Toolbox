@@ -11,10 +11,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 
-import android.util.Log;
-
 public class HttpGetter {
-	private static String TAG = "HttpGetter";
+	private static String TAG = "2DegreesHttpGetter";
 	private String response = null;
 	private HttpGet httpget = null;
 	public HttpGetter(URI uri) {

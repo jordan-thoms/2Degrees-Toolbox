@@ -1,9 +1,6 @@
 package biz.shadowservices.DegreesToolbox;
 
-import biz.shadowservices.DegreesToolbox.R;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
