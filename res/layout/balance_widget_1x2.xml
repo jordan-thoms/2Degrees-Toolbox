@@ -23,7 +23,7 @@
       <TextView
         android:id="@+id/widget1x2_lastupdate"
         android:includeFontPadding="true"
-        style="@style/WidgetText"
+        style="@style/WidgetTextBold"
         android:paddingTop="5dp"
         android:paddingRight="10dp"
        
