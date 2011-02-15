@@ -289,8 +289,10 @@ public class MainActivity extends Activity {
 			} catch (ParseException e) {
 				Log.e(TAG, "Could not parse date from DB.");
 			}
-			col2.setText(expiresInfo);
-			layout.addView(col2);
+			if (expiresInfo.length() > 0) {
+				col2.setText(expiresInfo);
+				layout.addView(col2);
+			}
 			cursor.moveToNext(); 
 		}
 		cursor.close();
