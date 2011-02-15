@@ -34,7 +34,6 @@
         </receiver>
 
 
-        <!-- Service to perform web API queries -->
         <service android:name="biz.shadowservices.DegreesToolbox.UpdateWidgetService" />
 
     <activity android:name="BalancePreferencesActivity"></activity>
@@ -45,7 +44,7 @@
 
 
 
-<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
+<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="4" />
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
