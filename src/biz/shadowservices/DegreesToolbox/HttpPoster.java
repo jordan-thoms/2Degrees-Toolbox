@@ -19,7 +19,7 @@ import org.apache.http.protocol.HTTP;
 import android.util.Log;
 
 public class HttpPoster {
-	private static String TAG = "HttpGetter";
+	private static String TAG = "2DegreesHttpGetter";
 	private String response = null;
 	private HttpPost httppost = null;
 	public HttpPoster(URI uri, List<? extends NameValuePair> values)  {

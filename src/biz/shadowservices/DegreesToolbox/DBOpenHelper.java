@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class PhoneBalanceDBOpenHelper extends SQLiteOpenHelper {
+public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "PhoneBalance";
     private static final int DATABASE_VERSION = 1;
    /*  private static final String PREFS_TABLE_NAME = "preferences";
@@ -19,7 +19,7 @@ public class PhoneBalanceDBOpenHelper extends SQLiteOpenHelper {
     		" \"expires_date\" DATETIME)";
                 
 
-    PhoneBalanceDBOpenHelper(Context context) {
+    DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

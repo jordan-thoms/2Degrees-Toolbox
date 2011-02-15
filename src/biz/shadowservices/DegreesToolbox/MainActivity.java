@@ -1,18 +1,13 @@
 package biz.shadowservices.DegreesToolbox;
 
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import biz.shadowservices.DegreesToolbox.R;
+import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,10 +18,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
-import android.telephony.gsm.SmsManager;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,28 +28,28 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class PhoneBalanceMain extends Activity {
-	private static String TAG = "PhoneBalanceMain";
+public class MainActivity extends Activity {
+	private static String TAG = "2DegreesPhoneBalanceMain";
 	private UpdateReciever reciever;
 	private final int TXTPACK = 0;
 	private final int NATDATA = 1;
 	private final int BBZDATA = 2;
 	private final int TALKPACK = 3;	
-	private final CharSequence[] SMSCategory = {"$10 2000 Texts", "National Data", "Zone Data", "Talk Packs"};
-	private final CharSequence[] SMSNATNames = {"$6 50MB National Data"};
-	private final String[] SMSNATContent = {"BUY 50MB"};
-	private final CharSequence[] SMSBBNames = {"$20 1GB BB Data", "$50 3GB BB Data", "$150 12GB BB Data"};
+	private final int DATARENEW = 4;	
+	private final CharSequence[] SMSCategory = {"$10 2000 Texts", "National Data", "BB Zone Data", "Talk Packs", "Cancel Data auto-renew"};
+	private final CharSequence[] SMSNATNames = {"$6 50MB National Data", "$10 100MB National Data"};
+	private final String[] SMSNATContent = {"BUY 50MB", "BUY 100MB"};
+	private final CharSequence[] SMSBBNames = {"$20 1GB Zone Data", "$50 3GB Zone Data", "$150 12GB Zone Data"};
 	private final String[] SMSBBContent = {"BUY 1GB", "BUY 3GB", "BUY 12GB"};
 	private final CharSequence[] SMSTalkNames = {"$30 Everyone100", "$10 China120", "$10 India120"};
 	private final String[] SMSTalkContent = {"buy every100", "buy china120", "buy india120"};
+	private final CharSequence[] SMSDataCancelNames = {"National data", "1GB Pack", "3GB Pack", "12GB Pack"};
+	private final String[] SMSDataCancelContent = {"Stop Nat", "Stop 1GB", "Stop 3GB", "Stop 12GB"};
 
 	ProgressDialog progressDialog = null;
     /** Called when the activity is first created. */
@@ -140,16 +133,20 @@ public class PhoneBalanceMain extends Activity {
     		    public void onClick(DialogInterface dialog, int item) {
     		    	switch(item) {
     		    	case TXTPACK:
-    		    		askToSend(SMSCategory[TXTPACK], "buy 10txt");
+    		    		askToSend(SMSCategory[TXTPACK], "buy 10txt", "Are you sure you wish to buy ");
     		    		break;
     		    	case NATDATA:
-    		    		chooseSMSToSend(SMSNATNames, SMSNATContent);
+    		    		chooseSMSToSend(SMSNATNames, SMSNATContent, "Choose national data pack to buy: ", "Are you sure you wish to purchase the data pack ");
     		    		break;
     		    	case BBZDATA:
-    		    		chooseSMSToSend(SMSBBNames, SMSBBContent);
+    		    		chooseSMSToSend(SMSBBNames, SMSBBContent, "Choose BB Zone data pack to buy: ", "Are you sure you wish to purchase the data pack ");
     		    		break;
     		    	case TALKPACK:
-    		    		chooseSMSToSend(SMSTalkNames, SMSTalkContent);
+    		    		chooseSMSToSend(SMSTalkNames, SMSTalkContent, "Choose talk pack to buy: ", "Are you sure you wish to purchase the talk pack ");
+    		    		break;
+    		    	case DATARENEW:
+    		    		chooseSMSToSend(SMSDataCancelNames, SMSDataCancelContent, "Choose data pack to cancel auto-renew: ", "Are you sure you wish to cancel the auto-renew for  ");
+    		    		break;
     		    	}
     		    }
     		});
@@ -157,20 +154,20 @@ public class PhoneBalanceMain extends Activity {
     		alert.show();
     	}
     };
-    private void chooseSMSToSend(final CharSequence[] names, final String[] content) {
+    private void chooseSMSToSend(final CharSequence[] names, final String[] content, String title, final String confirmMessage) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Choose a value pack to buy:");
+		builder.setTitle(title);
 		builder.setItems(names, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, final int item) {
-		    	askToSend(names[item], content[item]);
+		    	askToSend(names[item], content[item], confirmMessage);
 		    }
 		});
 		AlertDialog alert = builder.create();
 		alert.show();
     }
-    public void askToSend(final CharSequence name, final String content) {
-    	AlertDialog.Builder confirmDialog = new AlertDialog.Builder(PhoneBalanceMain.this);
-    	confirmDialog.setMessage("Are you sure you wish to purchase " + name + " by sending '" + content + "' to 233?")
+    public void askToSend(final CharSequence name, final String content, String confirmMessage) {
+    	AlertDialog.Builder confirmDialog = new AlertDialog.Builder(MainActivity.this);
+    	confirmDialog.setMessage(confirmMessage + name + " by sending '" + content + "' to 233?")
     		.setCancelable(false)
     		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				@Override
@@ -190,7 +187,7 @@ public class PhoneBalanceMain extends Activity {
     }
     public void refreshData() {
         // Load, display data.
-		PhoneBalanceDBOpenHelper dbhelper = new PhoneBalanceDBOpenHelper(this);
+		DBOpenHelper dbhelper = new DBOpenHelper(this);
 		SQLiteDatabase db = dbhelper.getReadableDatabase();
 		Cursor cursor = db.query("cache", new String[] {"name","value", "units", "expires_value", "expires_date"} , null, null,null,null,null);
 		cursor.moveToFirst(); 
@@ -263,6 +260,10 @@ public class PhoneBalanceMain extends Activity {
 			SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd");
 			Date expiryDate;
 			String expiresInfo = "";
+			String expiresMiddle = " expiring on ";
+			if (cursor.getString(0).equals(DataFetcher.LASTMONTHCHARGES)) {
+				expiresMiddle = " payment is due ";
+			}
 			try {
 				String date = cursor.getString(4);
 				if (date != null) {
@@ -273,12 +274,12 @@ public class PhoneBalanceMain extends Activity {
 						expiresInfo = cursor.getString(3);
 						if (expiresInfo != null ) {
 							if (expiresInfo.length() > 0) {
-								expiresInfo += " " + cursor.getString(2) + " expiring on " + expiryDateString ;
+								expiresInfo += " " + cursor.getString(2) + expiresMiddle + expiryDateString ;
 							} else {
-								expiresInfo = " expiring on " + expiryDateString ;
+								expiresInfo = expiresMiddle + expiryDateString ;
 							}
 						} else {
-							expiresInfo = " expiring on " + expiryDateString ;
+							expiresInfo = expiresMiddle  + expiryDateString ;
 						}
 					}
 				}	
@@ -295,9 +296,9 @@ public class PhoneBalanceMain extends Activity {
        
     public class UpdateReciever extends BroadcastReceiver {
 
-        private PhoneBalanceMain activity;
+        private MainActivity activity;
 
-        public UpdateReciever(PhoneBalanceMain activity) {
+        public UpdateReciever(MainActivity activity) {
             this.activity = activity;
         }
 
@@ -314,10 +315,10 @@ public class PhoneBalanceMain extends Activity {
     }
     private void send233SMS(String message)
     {        
-        PendingIntent pi = PendingIntent.getActivity(this, 0,
-            new Intent(this, PhoneBalanceMain.class), 0);                
+        /* PendingIntent pi = PendingIntent.getActivity(this, 0,
+            new Intent(this, MainActivity.class), 0); */                
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage("233", null, message, pi, null);
+        sms.sendTextMessage("233", null, message, null, null);
     	Log.d(TAG, "sent message: " + message);
     }    
 
