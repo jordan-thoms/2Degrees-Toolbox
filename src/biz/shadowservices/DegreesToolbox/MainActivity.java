@@ -72,15 +72,11 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.forceUpdate:
-    		progressDialog = ProgressDialog.show(this, " " , " Loading. Please wait ... ", true);
-    		progressDialog.show();
-    		Intent update = new Intent(this, UpdateWidgetService.class);
-    		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
-    		startService(update);
+    		forceUpdate();
     		return true;
     	case R.id.openPreferences:
     		Intent openPreferences = new Intent(this, BalancePreferencesActivity.class);
-    		startActivity(openPreferences);
+    		startActivityForResult(openPreferences, 2);
     		return true;
     	case R.id.callCustomerService:
     		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0800022022")));
@@ -109,12 +105,19 @@ public class MainActivity extends Activity {
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	if (requestCode == 1) {
-    		progressDialog = ProgressDialog.show(this, " " , " Loading. Please wait ... ", true);
-    		progressDialog.show();
-    		Intent update = new Intent(this, UpdateWidgetService.class);
-    		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
-    		startService(update);
+    		forceUpdate();
+    	} else if (requestCode == 2) {
+    		if (resultCode == BalancePreferencesActivity.RESULT_FORCE_UPDATE) {
+    			forceUpdate();
+    		}
     	}
+    }
+    private void forceUpdate() {
+		progressDialog = ProgressDialog.show(this, " " , " Loading. Please wait ... ", true);
+		progressDialog.show();
+		Intent update = new Intent(this, UpdateWidgetService.class);
+		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
+		startService(update);
     }
     @Override
     public void onPause() {
