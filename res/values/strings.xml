@@ -2,7 +2,8 @@
 <resources>
     
     <string name="app_name">2Degrees Toolbox</string>
-<string name="widget_name">2Degrees Toolbox Widget</string>
+<string name="widget_name_1x2">2Degrees Toolbox Widget 1x2</string>
+<string name="widget_name_2x2">2Degrees Toolbox Widget 2x2</string>
 <string name="widget_text_placeholder">Loading...</string>
 <string name="configure">Click here to configure</string>
 <string name="refresh">Refresh Data</string>

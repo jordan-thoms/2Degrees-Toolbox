@@ -6,4 +6,8 @@
     <style name="WidgetText">
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="WidgetTextBold">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    
 </resources>
