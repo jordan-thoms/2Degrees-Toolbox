@@ -7,10 +7,17 @@
 <PreferenceCategory android:title="Updating">
 <CheckBoxPreference android:title="Automatic Updates" android:key="autoupdates" android:summaryOn="Automatic updates will occur every 4 hours."
 android:summaryOff="Automatic updates will not occur." android:defaultValue="true"></CheckBoxPreference>
-<CheckBoxPreference android:title="2Degrees Data updates" android:key="2DData" android:summaryOn="Automatic updates will occur when on the 2Degrees network"
-android:summaryOff="Automatic updates will occur only on wifi" android:defaultValue="true" android:dependency="autoupdates"></CheckBoxPreference>
+<PreferenceScreen
+            android:key="network_settings"
+            android:title="Network settings"
+            android:summary="Change the criteria for when a automatic update will be allowed"
+            android:dependency="autoupdates">
+<CheckBoxPreference android:title="Wifi Updates" android:key="wifiUpdates" android:summaryOn="Automatic updates will occur when connected to wifi"
+android:summaryOff="Automatic updates will not occur when connected to wifi" android:defaultValue="true"></CheckBoxPreference>
+<CheckBoxPreference android:title="2Degrees Data updates" android:key="2DData" android:summaryOn="Automatic updates will occur when on the 2Degrees data network"
+android:summaryOff="Automatic updates will not occur when on the 2Degrees data network" android:defaultValue="true"></CheckBoxPreference>
 <CheckBoxPreference android:title="Roaming Data updates" android:key="roamingData" android:summaryOn="Automatic updates will occur when roaming (eg national data)"
-android:summaryOff="Automatic updates will not occur while roaming (eg national data)" android:defaultValue="false" android:dependency="2DData"></CheckBoxPreference>
-
+android:summaryOff="Automatic updates will not occur while roaming (eg national data)" android:defaultValue="false"></CheckBoxPreference>
+</PreferenceScreen>
 </PreferenceCategory>
 </PreferenceScreen>
