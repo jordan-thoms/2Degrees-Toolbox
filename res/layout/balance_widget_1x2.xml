@@ -15,13 +15,13 @@
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget"
+    android:id="@+id/widget1x2_widget"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:focusable="true"
     style="@style/WidgetBackground">
       <TextView
-        android:id="@+id/lastupdate"
+        android:id="@+id/widget1x2_lastupdate"
         android:includeFontPadding="true"
         style="@style/WidgetText"
         android:paddingTop="5dp"
@@ -31,18 +31,18 @@
         
         android:layout_height="fill_parent" android:layout_width="fill_parent"/>
             <TextView
-        android:id="@+id/right1"
+        android:id="@+id/widget1x2_right1"
         android:includeFontPadding="true"
         style="@style/WidgetText"
         android:paddingTop="25dp"
         android:paddingRight="6dp"
-       
+ 
         android:gravity="right"
         
         android:layout_height="fill_parent" android:layout_width="fill_parent"/>
         />
                 <TextView
-        android:id="@+id/right2"
+        android:id="@+id/widget1x2_right2"
         android:includeFontPadding="true"
         style="@style/WidgetText"
         android:paddingTop="44dp"
@@ -54,7 +54,7 @@
         />
     
     <LinearLayout
-        android:id="@+id/widget"
+        android:id="@+id/widget1x2_widgetLeftLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
@@ -63,22 +63,22 @@
     style="@style/WidgetText">
     >
     <TextView
-        android:id="@+id/line1"
+        android:id="@+id/widget1x2_line1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="true"
         android:text="@string/widget_text_placeholder"
-        style="@style/WidgetText"
+        style="@style/WidgetTextBold"
         />     
      <TextView
-        android:id="@+id/line2"
+        android:id="@+id/widget1x2_line2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="true"
         style="@style/WidgetText"
         />
     <TextView
-        android:id="@+id/line3"
+        android:id="@+id/widget1x2_line3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="true"
