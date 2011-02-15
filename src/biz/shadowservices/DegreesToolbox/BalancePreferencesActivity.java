@@ -4,21 +4,33 @@ import biz.shadowservices.DegreesToolbox.R;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class BalancePreferencesActivity extends PreferenceActivity implements OnPreferenceClickListener {
+public class BalancePreferencesActivity extends PreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
+	public static int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
+	private static String TAG = "2DegreesPreferencesActivity";
+	private boolean updateOnExit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
         // from http://christophersaunders.ca/blog/2011/01/11/preventing-screen-keyboard-saving-passwords-entered-user/
+        Preference usernamePref = findPreference("username");
+        usernamePref.setOnPreferenceChangeListener(this);
         Preference passwordPref = findPreference("password");
         passwordPref.setOnPreferenceClickListener(this);
+        passwordPref.setOnPreferenceChangeListener(this);
+        
+        Preference freshTimePref = findPreference("freshTime");
+        freshTimePref.setOnPreferenceChangeListener(numberCheckListener);
     }
     public boolean onPreferenceClick(Preference preference){
         if(preference.getKey().equals("password")){
@@ -36,5 +48,39 @@ public class BalancePreferencesActivity extends PreferenceActivity implements On
         // that it's properly protected from prying eyes.
         return false;
     }
+    protected void onPause() {
+    	super.onPause();
+    	AbstractWidgetProvider.setAlarm(this);
+    }
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		String key = preference.getKey();
+		if (key.equals("username") || key.equals("password")) {
+			Log.d(TAG, "Will force update on exit");
+    		setResult(RESULT_FORCE_UPDATE);
+		}
+		return true;
+	}
+    /**
+	 * Checks that a preference is a valid numerical value
+	 */
+	Preference.OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
+
+	    @Override
+	    public boolean onPreferenceChange(Preference preference, Object newValue) {
+	        //Check that the string is an integer.
+	        return numberCheck(newValue);
+	    }
+	};
+
+	private boolean numberCheck(Object newValue) {
+	    if( !newValue.toString().equals("")  &&  newValue.toString().matches("\\d*") ) {
+	        return true;
+	    }
+	    else {
+	        Toast.makeText(BalancePreferencesActivity.this, newValue+" "+getResources().getString(R.string.is_an_invalid_number), Toast.LENGTH_SHORT).show();
+	        return false;
+	    }
+	}
 
 }
