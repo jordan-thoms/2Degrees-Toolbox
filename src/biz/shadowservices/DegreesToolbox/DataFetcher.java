@@ -137,7 +137,9 @@ public class DataFetcher {
 					throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.LOGINFAILED, "Login failed");
 				}
 				db.delete("cache", "", null);
-				if (postPaid) {
+				/*
+				 * if (postPaid) {
+				 
 					Element accountBalanceSummaryTable = accountSummary.getElementsByClass("tableBillSummary").first();
 					Elements rows = accountBalanceSummaryTable.getElementsByTag("tr");
 					int rowno = 0;
@@ -175,7 +177,7 @@ public class DataFetcher {
 								/*Log.d(TAG, "matched expires");
 								Log.d(TAG, "group 0:" + matcher.group(0));
 								Log.d(TAG, "group 1:" + matcher.group(1));
-								Log.d(TAG, "group 2:" + matcher.group(2)); */
+								Log.d(TAG, "group 2:" + matcher.group(2)); *
 								String expiresDateString = matcher.group(1);
 								Date expiresDateObj;
 								if (expiresDateString != null) {
@@ -202,7 +204,7 @@ public class DataFetcher {
 						db.insert("cache", "value", values );
 						rowno++;
 					}
-				}
+				} */
 				Element accountSummaryTable = accountSummary.getElementsByClass("tableAccountSummary").first();
 				Elements rows = accountSummaryTable.getElementsByTag("tr");
 				for (Element row : rows) {
