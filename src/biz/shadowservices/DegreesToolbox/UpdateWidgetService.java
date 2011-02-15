@@ -67,7 +67,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 				Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
 			    long diff = now.getTime() - lastUpdate.getTime();
 			    long mins = diff / (1000 * 60);
-			    if (mins < 60) {
+			    if (mins < Integer.parseInt(sp.getString("freshTime", "30"))) {
 			    	update = false;
 			    }
 			} catch (Exception e) {
