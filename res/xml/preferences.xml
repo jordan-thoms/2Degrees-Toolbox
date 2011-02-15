@@ -21,9 +21,9 @@ android:summaryOff="Automatic updates will not occur." android:defaultValue="tru
 		android:defaultValue="half_day"
 		/>
 	<EditTextPreference
-		android:title="Max data age (mins)"
+		android:title="Data fresh time (mins)"
 		android:key="freshTime"
-		android:summary="If the data is newer than this, the automatic update will be skipped."
+		android:summary="If you add a new widget or restart the phone, and the data is newer than this, the scheduled update will be skipped. "
 		android:defaultValue="30"
 		/>	
 </PreferenceScreen>
