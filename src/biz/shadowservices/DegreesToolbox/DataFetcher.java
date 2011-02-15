@@ -157,35 +157,40 @@ public class DataFetcher {
 							Log.d(TAG, "Failed to parse amount from row.");
 							value = null;
 						}
-						Element details = row.getElementsByClass("tableBilldetail").first();
-						String name = details.ownText();
-						Element expires = details.getElementsByTag("em").first();
 						String expiresDetails = "";
-						if (expires != null) {
-							 expiresDetails = expires.text();
-						} 
-						Log.d(TAG, expiresDetails);
-						Pattern pattern;
-						pattern = Pattern.compile("\\(payment is due (.*)\\)");
-						Matcher matcher = pattern.matcher(expiresDetails);
 						String expiresDate = null;
-						if (matcher.find()) {
-							/*Log.d(TAG, "matched expires");
-							Log.d(TAG, "group 0:" + matcher.group(0));
-							Log.d(TAG, "group 1:" + matcher.group(1));
-							Log.d(TAG, "group 2:" + matcher.group(2)); */
-							String expiresDateString = matcher.group(1);
-							Date expiresDateObj;
-							if (expiresDateString != null) {
-								if (expiresDateString.length() > 0) {
-									try {
-										expiresDateObj = DateFormatters.EXPIRESDATE.parse(expiresDateString);
-										expiresDate = DateFormatters.ISO8601DATEONLYFORMAT.format(expiresDateObj);
-									} catch (java.text.ParseException e) {
-										Log.d(TAG, "Could not parse date: " + expiresDateString);
-									}
-								}	
+						String name = null;
+						try {
+							Element details = row.getElementsByClass("tableBilldetail").first();
+							name = details.ownText();
+							Element expires = details.getElementsByTag("em").first();
+							if (expires != null) {
+								 expiresDetails = expires.text();
+							} 
+							Log.d(TAG, expiresDetails);
+							Pattern pattern;
+							pattern = Pattern.compile("\\(payment is due (.*)\\)");
+							Matcher matcher = pattern.matcher(expiresDetails);
+							if (matcher.find()) {
+								/*Log.d(TAG, "matched expires");
+								Log.d(TAG, "group 0:" + matcher.group(0));
+								Log.d(TAG, "group 1:" + matcher.group(1));
+								Log.d(TAG, "group 2:" + matcher.group(2)); */
+								String expiresDateString = matcher.group(1);
+								Date expiresDateObj;
+								if (expiresDateString != null) {
+									if (expiresDateString.length() > 0) {
+										try {
+											expiresDateObj = DateFormatters.EXPIRESDATE.parse(expiresDateString);
+											expiresDate = DateFormatters.ISO8601DATEONLYFORMAT.format(expiresDateObj);
+										} catch (java.text.ParseException e) {
+											Log.d(TAG, "Could not parse date: " + expiresDateString);
+										}
+									}	
+								}
 							}
+						} catch (Exception e) {
+							Log.d(TAG, "Failed to parse details from row.");
 						}
 						String expirev = null;
 						ContentValues values = new ContentValues();
