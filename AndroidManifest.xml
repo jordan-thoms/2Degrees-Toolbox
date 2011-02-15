@@ -11,7 +11,7 @@
 		</intent-filter>
         </activity>
         <!-- Broadcast Receiver that will process AppWidget updates -->
-        <receiver android:name="WidgetProvider1x2" android:label="@string/widget_name_1x2">
+        <receiver android:name="PhoneBalanceWidget" android:label="@string/widget_name_1x2">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

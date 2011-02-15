@@ -55,7 +55,7 @@ public abstract class AbstractWidgetProvider extends AppWidgetProvider {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         boolean cancelAlarm = true;
         // 1x2
-        ComponentName provider = new ComponentName(context, WidgetProvider1x2.class);
+        ComponentName provider = new ComponentName(context, PhoneBalanceWidget.class);
 	    if(manager.getAppWidgetIds(provider).length > 0) {
 	    	cancelAlarm = false;
 	    }

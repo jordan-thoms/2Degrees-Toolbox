@@ -112,7 +112,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 		}
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         // 1x2
-        ComponentName provider = new ComponentName(this, WidgetProvider1x2.class);
+        ComponentName provider = new ComponentName(this, PhoneBalanceWidget.class);
 	    int [] widgetIds = manager.getAppWidgetIds(provider);
 	    for (int widget : widgetIds) {
 	    	AbstractWidgetUpdater widgetUpdater = new WidgetUpdater1x2(); 
