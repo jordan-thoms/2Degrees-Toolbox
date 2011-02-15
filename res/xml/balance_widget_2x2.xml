@@ -16,5 +16,5 @@
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="146dip"
-    android:minHeight="72dip"
-    android:initialLayout="@layout/balance_widget" android:updatePeriodMillis="14400000"/>
+    android:minHeight="146dip"
+    android:initialLayout="@layout/balance_widget_2x2" android:updatePeriodMillis="0"/>

@@ -2,33 +2,30 @@ package biz.shadowservices.DegreesToolbox;
 
 
 
+import java.io.IOException;
+import java.util.Date;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
 public class UpdateWidgetService extends Service implements Runnable {
-	private static String TAG = "UpdateWidgetService";
+	private static String TAG = "2DegreesUpdateWidgetService";
 	public static String NEWDATA = "BalanceWidgetNewDataAvailable12";
+	public static final int NONE = 0;
+	public static final int USERNAMEPASSWORD = 1;
+	public static final int LOGINFAILED = 2;
+	public static final int NETWORK = 3;
     /**
      * Flag if there is an update thread already running. We only launch a new
      * thread if one isn't already running.
@@ -61,13 +58,80 @@ public class UpdateWidgetService extends Service implements Runnable {
 	public void run() {
 		//Build update
     	Log.d(TAG, "Building updates");
-    	
-        RemoteViews updateViews = PhoneBalanceWidget.buildUpdate(this, force);
-        //Push update to home screen
-    	Log.d(TAG, "Pushing updates");
-        ComponentName thisWidget = new ComponentName(this, PhoneBalanceWidget.class);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this); 
+		String updateDateString = sp.getString("updateDate", "");
+		boolean update = true;
+		if (!force) {
+			try {
+				Date now = new Date();
+				Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
+			    long diff = now.getTime() - lastUpdate.getTime();
+			    long mins = diff / (1000 * 60);
+			    if (mins < 60) {
+			    	update = false;
+			    }
+			} catch (Exception e) {
+				Log.d(TAG, "Failed when deciding whether to update");
+			}
+		}
+		int error =  NONE;
+    	DataFetcher dataFetcher = new DataFetcher();
+		if(update) {
+	    	try {
+				dataFetcher.updateData(this, force);
+			} catch (DataFetcherLoginDetailsException e) {
+				 Log.d(TAG, e.getMessage());
+				 switch (e.getErrorType()) {
+				 case DataFetcherLoginDetailsException.LOGINFAILED:
+					 error = LOGINFAILED;
+					 break;
+				 case DataFetcherLoginDetailsException.USERNAMEPASSWORDNOTSET:
+					 error = USERNAMEPASSWORD;
+					 break;
+				 }
+		         // Login failed - set the error text for the activity
+		         Editor edit = sp.edit();
+		         edit.putBoolean("loginFailed", true);
+		         edit.commit();
+			} catch (ClientProtocolException e) {
+				 Log.d(TAG, e.getMessage());
+				 error = NETWORK;
+		         Editor edit = sp.edit();
+		         edit.putBoolean("networkError", true);
+		         edit.commit();
+			} catch (IOException e) {
+				 Log.d(TAG, e.getMessage());
+				 error = NETWORK;
+		         Editor edit = sp.edit();
+		         edit.putBoolean("networkError", true);
+		         edit.commit();
+			}
+		    Log.d(TAG, "Building updates -- data updated");
+		} else {
+		    Log.d(TAG, "Building updates -- data fresh, not updated");
+		}
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
-        manager.updateAppWidget(thisWidget, updateViews);
+        // 1x2
+        ComponentName provider = new ComponentName(this, WidgetProvider1x2.class);
+	    int [] widgetIds = manager.getAppWidgetIds(provider);
+	    for (int widget : widgetIds) {
+	    	AbstractWidgetUpdater widgetUpdater = new WidgetUpdater1x2(); 
+	        RemoteViews updateViews = widgetUpdater.buildUpdate(this, widget, force, error);
+		     // Push update to home screen
+		    Log.d(TAG, "Pushing updates for 2x1 widget");
+		    manager.updateAppWidget(widget, updateViews);
+		}
+	    // 2x2
+        provider = new ComponentName(this, WidgetProvider2x2.class);
+	    widgetIds = manager.getAppWidgetIds(provider);
+	    for (int widget : widgetIds) {
+	    	AbstractWidgetUpdater widgetUpdater = new WidgetUpdater2x2(); 
+	        RemoteViews updateViews = widgetUpdater.buildUpdate(this, widget, force, error);
+		     // Push update to home screen
+		    Log.d(TAG, "Pushing updates for 2x2 widget");
+		    manager.updateAppWidget(widget, updateViews);
+		}
+
     	Log.d(TAG, "Sent updates");
     	isThreadRunning = false;
     	Intent myIntent = new Intent(NEWDATA);
