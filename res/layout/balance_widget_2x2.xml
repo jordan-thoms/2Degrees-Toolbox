@@ -72,7 +72,6 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="true"
         style="@style/WidgetText"
-        android:text="Test"
         />    
                     <TextView
         android:id="@+id/widget2x2_line7"
