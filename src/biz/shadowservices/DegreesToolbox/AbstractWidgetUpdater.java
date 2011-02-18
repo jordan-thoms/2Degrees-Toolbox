@@ -13,11 +13,11 @@ public abstract class AbstractWidgetUpdater {
     RemoteViews buildUpdate(Context context, int widgetId, boolean force, int error) {
     	Log.d(TAG, "Building updates");
     	RemoteViews updateViews = new RemoteViews(context.getPackageName(), getLayoutId());
-    	fillRemoteViews(updateViews, context, widgetId);
+    	fillRemoteViews(updateViews, context, widgetId, error);
 
         return updateViews;
     }
-    protected abstract void  fillRemoteViews(RemoteViews updateViews, Context context, int widgetId);
+    protected abstract void  fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error);
     protected abstract int getLayoutId();
     public String getUpdateDateString(Context context) {
     	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
