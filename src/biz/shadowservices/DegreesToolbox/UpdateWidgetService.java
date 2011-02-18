@@ -110,6 +110,8 @@ public class UpdateWidgetService extends Service implements Runnable {
 		} else {
 		    Log.d(TAG, "Building updates -- data fresh, not updated");
 		}
+		Log.d(TAG, Integer.toString(error));
+
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         // 1x2
         ComponentName provider = new ComponentName(this, PhoneBalanceWidget.class);

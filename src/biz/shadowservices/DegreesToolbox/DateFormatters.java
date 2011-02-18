@@ -11,6 +11,7 @@ public class DateFormatters {
 	public static SimpleDateFormat LASTUPDATETIME = new SimpleDateFormat("h:mm a");
 	public static SimpleDateFormat LASTUPDATEDATE = new SimpleDateFormat("dd MMM");
 	public static SimpleDateFormat DATETIME = new SimpleDateFormat("dd MMM h:mm a");
+	public static SimpleDateFormat SHORTDATE = new SimpleDateFormat("dd/MM");
 	public static boolean isSameDay(Calendar cal1, Calendar cal2) {
 	        if (cal1 == null || cal2 == null) {
 	            throw new IllegalArgumentException("The date must not be null");

@@ -1,6 +1,8 @@
 package biz.shadowservices.DegreesToolbox;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,6 +25,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 
 public class DataFetcher {
@@ -55,7 +59,27 @@ public class DataFetcher {
 			 return info.isRoaming();
 		 }
 	}
-
+	public boolean isBackgroundDataEnabled(Context context) {
+		ConnectivityManager mgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		return(mgr.getBackgroundDataSetting());
+	}
+	public boolean isAutoSyncEnabled() {
+		if (android.os.Build.VERSION.SDK_INT >= 5) {
+			Class<ContentResolver> contentResolverClass = ContentResolver.class;
+			try {
+				Method m = contentResolverClass.getMethod("getMasterSyncAutomatically", null);
+				Log.d(TAG, m.toString());
+				Log.d(TAG, m.invoke(null, null).toString());
+				boolean bool = ((Boolean)m.invoke(null, null)).booleanValue();
+				return bool;
+			} catch (Exception e) {
+				Log.d(TAG, "could not determine if autosync is enabled, assuming yes");
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
 	public void updateData(Context context, boolean force) throws DataFetcherLoginDetailsException, ClientProtocolException, IOException {
 		// check for internet connectivity
 		if (!isOnline(context)) {
@@ -66,10 +90,18 @@ public class DataFetcher {
 		if (!force) {
 			if (sp.getBoolean("loginFailed", false) == true) {
 				Log.d(TAG, "Previous login failed. Not updating.");
-				return;
+				throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.LOGINFAILED, "Previous login failed, click to correct");
 			}
 			if(sp.getBoolean("autoupdates", true) == false) {
 				Log.d(TAG, "Automatic updates not enabled. Not updating.");
+				return;
+			}
+			if (!isBackgroundDataEnabled(context) && sp.getBoolean("obeyBackgroundData", true)) {
+				Log.d(TAG, "Background data not enabled. Not updating.");
+				return;
+			}
+			if (!isAutoSyncEnabled() && sp.getBoolean("obeyAutoSync", true) && sp.getBoolean("obeyBackgroundData", true)) {
+				Log.d(TAG, "Auto sync not enabled. Not updating.");
 				return;
 			}
 			if (isWifi(context) && !sp.getBoolean("wifiUpdates", true)) {

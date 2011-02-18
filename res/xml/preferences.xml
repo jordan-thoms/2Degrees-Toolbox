@@ -30,7 +30,7 @@ android:summaryOff="Automatic updates will not occur." android:defaultValue="tru
 <PreferenceScreen
             android:key="network_settings"
             android:title="Network settings"
-            android:summary="Change the criteria for when a automatic update will be allowed"
+            android:summary="Change the criteria for when an automatic update will be allowed"
             android:dependency="autoupdates">
 	<CheckBoxPreference android:title="Wifi Updates" android:key="wifiUpdates" android:summaryOn="Automatic updates will occur when connected to wifi"
 	android:summaryOff="Automatic updates will not occur when connected to wifi" android:defaultValue="true"></CheckBoxPreference>
@@ -38,6 +38,11 @@ android:summaryOff="Automatic updates will not occur." android:defaultValue="tru
 	android:summaryOff="Automatic updates will not occur when on the 2Degrees data network" android:defaultValue="true"></CheckBoxPreference>
 	<CheckBoxPreference android:title="Roaming Data updates" android:key="roamingData" android:summaryOn="Automatic updates will occur when roaming (eg national data)"
 	android:summaryOff="Automatic updates will not occur while roaming (eg national data)" android:defaultValue="false"></CheckBoxPreference>
+	<CheckBoxPreference android:title="Obey Background Data Setting" android:key="obeyBackgroundData" android:summaryOn="Automatic updates will occur only when background data is enabled."
+	android:summaryOff="Automatic updates will occur even if background data is disabled." android:defaultValue="true"></CheckBoxPreference>
+	<CheckBoxPreference android:title="Obey Auto Sync Setting" android:key="obeyAutoSync" android:summaryOn="Automatic updates will occur only when auto syncing is enabled."
+	android:summaryOff="Automatic updates will occur even if auto sync is disabled" android:dependency="obeyBackgroundData" android:defaultValue="true"></CheckBoxPreference>
+	
 </PreferenceScreen>
 </PreferenceCategory>
 </PreferenceScreen>
