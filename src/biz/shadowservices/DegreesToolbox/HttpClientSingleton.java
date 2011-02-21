@@ -8,7 +8,7 @@ import org.apache.http.params.HttpParams;
 public class HttpClientSingleton {
 	private static HttpClient instance = null;
 	private HttpClientSingleton() { }
-	private static int TIMEOUT = 5002;
+	private static int TIMEOUT = 10000;
 	public static HttpClient getInstance() {
 		if (instance == null) {
 			instance = new DefaultHttpClient();
