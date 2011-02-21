@@ -9,12 +9,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 	private static int LINELIMIT = 16;
 	private static String TAG = "2DegreesPhoneBalanceWidget2x2";
+	private static int NORMALSIZE = 13;
+	private static int EXPSIZE = 7;
 	@Override
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
 
@@ -28,17 +32,18 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
     			if(n >= lines.size()) {
     				break;
     			}
-    			updateViews.setTextViewText(lineViews[n], lines.get(n).getLineContent());
+    			SpannableString formattedLine = new SpannableString(lines.get(n).getLineContent());
     			if(lines.get(n).getSize() != -1) {
-    				updateViews.setFloat(lineViews[n], "setTextSize", lines.get(n).getSize());
+        			formattedLine.setSpan(new AbsoluteSizeSpan(Util.dpToPx(context, lines.get(n).getSize())), 0, formattedLine.length(), 0);
     			} else {
-    				updateViews.setFloat(lineViews[n], "setTextSize", Util.dpToPx(context, 9));
+        			formattedLine.setSpan(new AbsoluteSizeSpan(Util.dpToPx(context, NORMALSIZE)), 0, formattedLine.length(), 0);
     			}
+    			updateViews.setTextViewText(lineViews[n], formattedLine);
     		}
     		updateViews.setTextViewText(R.id.widget2x2_line1, getUpdateDateString(context));
     		break;
     	case UpdateWidgetService.LOGINFAILED:
-			updateViews.setTextViewText(R.id.widget2x2_line1, "Login failed");
+			updateViews.setTextViewText(R.id.widget2x2_line1, "Login failed.");
 			break;
     	case UpdateWidgetService.USERNAMEPASSWORD:
 			updateViews.setTextViewText(R.id.widget2x2_line1, "Username or password not set");
@@ -53,7 +58,6 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 		return R.layout.balance_widget_2x2;
 	}
     private List<Line> buildLines(Context context) {
-    	int expSize = Util.dpToPx(context, 7);
 		DBOpenHelper dbhelper = new DBOpenHelper(context);
 		SQLiteDatabase db = dbhelper.getWritableDatabase();
 		Cursor result = db.query("cache", new String[] {"name", "value", "units", "expires_date"} , null, null,null,null,null);
@@ -87,7 +91,7 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 						Date expiryDate = DateFormatters.ISO8601DATEONLYFORMAT.parse(result.getString(3));
 						String output = DateFormatters.SHORTDATE.format(expiryDate);
 						Line expLine = new Line("  exp:" + output);
-						expLine.setSize(expSize);
+						expLine.setSize(EXPSIZE);
 						lines.add(expLine);
 					}
 				} catch (Exception e) {
