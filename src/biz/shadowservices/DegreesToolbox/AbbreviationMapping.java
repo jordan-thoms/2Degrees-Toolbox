@@ -16,6 +16,7 @@ public class AbbreviationMapping  {
 		stringMapping.put("NZ minutes", "NZ");
 		stringMapping.put("Bonus minutes", "Bonus");
 		stringMapping.put("Your 'top up and get' special rates", "Special Rates");
+		stringMapping.put("Postpay Plan Data", "Plan Data");
 	}
 	public String getAbbr(String input) {
 		String result = stringMapping.get(input);
