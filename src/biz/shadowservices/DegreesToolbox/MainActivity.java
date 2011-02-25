@@ -81,6 +81,23 @@ public class MainActivity extends Activity {
     	case R.id.callCustomerService:
     		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0800022022")));
     		return true;
+    	case R.id.topup:
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle("Choose a topup method:");
+    		builder.setItems(new CharSequence[] {
+    				"Voucher topup"
+    		}, new DialogInterface.OnClickListener() {
+    		    public void onClick(DialogInterface dialog, int item) {
+    		    	switch(item) {
+    		    	case 0:
+    		    		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:*#100#2#")));
+    		    		break;
+    		    	}
+    		    }
+    		});
+    		AlertDialog alert = builder.create();
+    		alert.show();
+    		return true;
     	default:
     		return super.onOptionsItemSelected(item);
     	}
