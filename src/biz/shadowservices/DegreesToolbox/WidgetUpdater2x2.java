@@ -18,7 +18,7 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 	private static int LINELIMIT = 16;
 	private static String TAG = "2DegreesPhoneBalanceWidget2x2";
 	private static int NORMALSIZE = 13;
-	private static int EXPSIZE = 7;
+	private static int EXPSIZE = 9;
 	@Override
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
 
