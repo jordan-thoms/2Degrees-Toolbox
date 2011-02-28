@@ -53,6 +53,9 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 		Intent viewIntent = new Intent(context, MainActivity.class);
         PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, 0);
         updateViews.setOnClickPendingIntent(R.id.widget1x2_widget, pending);
+        Intent updateIntent = new Intent(context, UpdateWidgetService.class);
+        updateIntent.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
+        updateViews.setOnClickPendingIntent(R.id.widget1x2_refreshButton, PendingIntent.getService(context, 0, updateIntent, 0));
 
 	}
 	@Override
