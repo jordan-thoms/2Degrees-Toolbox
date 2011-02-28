@@ -21,7 +21,13 @@ public class AbbreviationMapping  {
 	public String getAbbr(String input) {
 		String result = stringMapping.get(input);
 		if (result == null) {
-			result = input.substring(0, 12);
+			int cutLength;
+			if (input.length() < 12) {
+				cutLength = input.length();
+			} else {
+				cutLength = 12;
+			}
+			result = input.substring(0, cutLength);
 		}
 		return result;
 	}
