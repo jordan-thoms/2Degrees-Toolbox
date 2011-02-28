@@ -84,7 +84,7 @@ public class DataFetcher {
 		// check for internet connectivity
 		if (!isOnline(context)) {
 			Log.d(TAG, "We do not seem to be online. Not updating.");
-			return;
+			throw new IOException("We do not seem to be online. Not updating.");
 		}
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		if (!force) {
