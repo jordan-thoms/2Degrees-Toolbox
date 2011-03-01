@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
     		    	switch(item) {
     		    	case 0:
     		    		String encodedHash = Uri.encode("#");
-    		    		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:*100" + encodedHash + "2" + encodedHash + "#")));
+    		    		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:*100*2" + encodedHash)));
     		    		break;
     		    	}
     		    }
