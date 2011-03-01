@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,6 +17,7 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 	private static String TAG = "2DegreesPhoneBalanceWidget2x1";
 	@Override
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
+		Log.d(TAG, "FillRemoteViews, error code: " + error);
     	switch (error) {
     	case UpdateWidgetService.NONE:
     	case UpdateWidgetService.NETWORK:
@@ -94,5 +96,17 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 		}
 		return lines;
     }
+	@Override
+	protected ComponentName getComponentName(Context context) {
+		return new ComponentName(context, PhoneBalanceWidget.class);
+	}
+	@Override
+	protected void fillRemoteViewsLoading(RemoteViews updateViews,
+			Context context) {
+		updateViews.setTextViewText(R.id.widget1x2_lastupdate, "Loading");
+		Intent viewIntent = new Intent(context, MainActivity.class);
+        PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, 0);
+        updateViews.setOnClickPendingIntent(R.id.widget1x2_widget, pending);
+	}
 
 }

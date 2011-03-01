@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -105,4 +106,17 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 		}
 		return lines;
     }
+	@Override
+	protected ComponentName getComponentName(Context context) {
+		return new ComponentName(context, WidgetProvider2x2.class);
+	}
+	@Override
+	protected void fillRemoteViewsLoading(RemoteViews updateViews,
+			Context context) {
+		updateViews.setTextViewText(R.id.widget2x2_line1, "Loading");
+		Intent viewIntent = new Intent(context, MainActivity.class);
+        PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, 0);
+        updateViews.setOnClickPendingIntent(R.id.widget2x2_widget, pending);
+	}
+
 }

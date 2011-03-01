@@ -3,7 +3,9 @@ package biz.shadowservices.DegreesToolbox;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -26,6 +28,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 	public static final int USERNAMEPASSWORD = 1;
 	public static final int LOGINFAILED = 2;
 	public static final int NETWORK = 3;
+	public static List<AbstractWidgetUpdater> widgetUpdaters = new ArrayList<AbstractWidgetUpdater>();
     /**
      * Flag if there is an update thread already running. We only launch a new
      * thread if one isn't already running.
@@ -39,7 +42,10 @@ public class UpdateWidgetService extends Service implements Runnable {
         }
     }
     private final IBinder mBinder = new LocalBinder();
-
+    static {
+    	widgetUpdaters.add(new WidgetUpdater1x2());
+    	widgetUpdaters.add(new WidgetUpdater2x2());    	
+    }
     public void onStart(Intent intent, int startId) {
     	Log.d(TAG, "Starting service");
     	force = intent.getBooleanExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", false);
@@ -58,6 +64,9 @@ public class UpdateWidgetService extends Service implements Runnable {
 	public void run() {
 		//Build update
     	Log.d(TAG, "Building updates");
+		for (AbstractWidgetUpdater updater : widgetUpdaters) {
+			updater.widgetLoading(this);
+		}
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this); 
 		String updateDateString = sp.getString("updateDate", "");
 		boolean update = true;
@@ -112,7 +121,10 @@ public class UpdateWidgetService extends Service implements Runnable {
 		}
 		Log.d(TAG, Integer.toString(error));
 
-        AppWidgetManager manager = AppWidgetManager.getInstance(this);
+		for (AbstractWidgetUpdater updater : widgetUpdaters) {
+			updater.updateWidgets(this, force, error);
+		}
+       /* AppWidgetManager manager = AppWidgetManager.getInstance(this);
         // 1x2
         ComponentName provider = new ComponentName(this, PhoneBalanceWidget.class);
 	    int [] widgetIds = manager.getAppWidgetIds(provider);
@@ -132,7 +144,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 		     // Push update to home screen
 		    Log.d(TAG, "Pushing updates for 2x2 widget");
 		    manager.updateAppWidget(widget, updateViews);
-		}
+		} */
 
     	Log.d(TAG, "Sent updates");
     	isThreadRunning = false;
