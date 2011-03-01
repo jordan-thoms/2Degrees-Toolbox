@@ -90,7 +90,8 @@ public class MainActivity extends Activity {
     		    public void onClick(DialogInterface dialog, int item) {
     		    	switch(item) {
     		    	case 0:
-    		    		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:*#100#2#")));
+    		    		String encodedHash = Uri.encode("#");
+    		    		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:*100" + encodedHash + "2" + encodedHash + "#")));
     		    		break;
     		    	}
     		    }
