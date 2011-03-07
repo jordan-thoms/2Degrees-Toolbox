@@ -16,7 +16,6 @@
  ******************************************************************************/
 package biz.shadowservices.DegreesToolbox;
 
-import biz.shadowservices.DegreesToolbox.R;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;

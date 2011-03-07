@@ -26,8 +26,6 @@ import java.util.List;
 import org.apache.http.client.ClientProtocolException;
 
 import android.app.Service;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -35,7 +33,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 public class UpdateWidgetService extends Service implements Runnable {
 	// This is the service which handles updating the widgets.

@@ -17,7 +17,6 @@
 package biz.shadowservices.DegreesToolbox;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +40,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
 
 public class DataFetcher {
