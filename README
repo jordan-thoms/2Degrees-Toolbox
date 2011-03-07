@@ -1,0 +1,33 @@
+
+This is the source of:  https://market.android.com/details?id=biz.shadowservices.DegreesToolbox
+
+
+Easily manage and see the details of your 2 Degrees account on your android phone.
+- Compatible with both prepay accounts and pay monthly accounts.
+- Widget showing main details – 1×2 and 2×2 sizes available
+- Full details viewable in application
+- Configurable update intervals
+- Easily purchase value packs through the application. You must confirm before any purchase is made.
+Data is retrieved over the internet from the 2degrees website, so a internet connection is required to update. Automatic updates may be turned off, or restricted to wifi, in the settings.
+Explanation of permissions:
+- Internet: To retrieve data
+- Phone state: For restricting updates to wifi only etc.
+- SMS Messages: For the buying of data packs – this application only sends messages to 233 to buy these packs.
+- SD card permissions are not used, but you may see a request for them. If so, it is only there because this application is backward compatible to Android 1.5.
+If you have any problems or suggestions feel free to email me!
+
+(C) Copyright 2011 Jordan Thoms
+
+2Degrees Toolbox is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+2Degrees Toolbox is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with 2Degrees Toolbox.  If not, see <http://www.gnu.org/licenses/>.
+
