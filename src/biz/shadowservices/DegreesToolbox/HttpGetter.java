@@ -12,6 +12,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 
 public class HttpGetter {
+	// This class handles the simple getting of a url resource and returning the result
+	// Since it's a pain to write out all the IOUtils stuff all the time.
 	private static String TAG = "2DegreesHttpGetter";
 	private String response = null;
 	private HttpGet httpget = null;
@@ -22,7 +24,7 @@ public class HttpGetter {
 		httpget = new HttpGet(uri);
 	}
 	public String execute() throws ClientProtocolException, IOException  {
-		//TODO: Better exception handling/retries here
+		//TODO: Better exception handling/retries here, although just bumping it up seems to work
 		if (response == null) {
 			HttpClient httpClient = HttpClientSingleton.getInstance();
 			HttpResponse serverresponse = null;

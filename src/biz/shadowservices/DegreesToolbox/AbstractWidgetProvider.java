@@ -14,6 +14,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public abstract class AbstractWidgetProvider extends AppWidgetProvider {
+	// This is an abstraction of the widget providers - the concrete subclasses don't actually do anything, but android likes
+	// different widgets to have different providers.
 	private static String TAG = "2DegreesAppWidgetProvider";
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,

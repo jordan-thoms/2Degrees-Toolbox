@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
+	// This handles the opening, creation, and upgrading of the DB.
     private static final String DATABASE_NAME = "PhoneBalance";
     private static final int DATABASE_VERSION = 1;
    /*  private static final String PREFS_TABLE_NAME = "preferences";

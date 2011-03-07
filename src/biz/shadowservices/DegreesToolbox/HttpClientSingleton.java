@@ -6,6 +6,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 public class HttpClientSingleton {
+	// This allows us to keep track of a single instance of HttpClient, so the cookies get collected in it.
 	private static HttpClient instance = null;
 	private HttpClientSingleton() { }
 	private static int TIMEOUT = 10000;

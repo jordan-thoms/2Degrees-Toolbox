@@ -1,6 +1,7 @@
 package biz.shadowservices.DegreesToolbox;
 
 public class Line {
+	// Used when constructing the lines for the widgets.
 	private String lineContent;
 	private float size = -1;
 	Line(String lineContent) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 public class Util {
+	// Couple of utility functions
 	public static int dpToPx(Context context, float dp) {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		Log.d("2DegreesSCALE", Float.toString(scale));

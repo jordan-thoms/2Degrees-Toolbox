@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 public abstract class AbstractWidgetUpdater {
+	// This contains the common code for updating all of the different widget sizes.
 	private static String TAG = "2DegreesAbstractWidgetUpdater";
     RemoteViews buildUpdate(Context context, int widgetId, boolean force, int error) {
     	Log.d(TAG, "Building updates");

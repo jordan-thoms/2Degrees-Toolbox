@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AbbreviationMapping  {
+	// This is used by some of the widgets to get short versions of the labels for balance items
 	private static final long serialVersionUID = 1L;
 	Map<String, String> stringMapping;
 	public AbbreviationMapping() {

@@ -19,6 +19,8 @@ import org.apache.http.protocol.HTTP;
 import android.util.Log;
 
 public class HttpPoster {
+	// This class handles the simple posting of a url resource and returning the result
+	// Since it's a pain to write out all the IOUtils stuff all the time.
 	private static String TAG = "2DegreesHttpGetter";
 	private String response = null;
 	private HttpPost httppost = null;

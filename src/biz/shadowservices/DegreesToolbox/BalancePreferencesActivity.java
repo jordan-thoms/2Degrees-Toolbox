@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class BalancePreferencesActivity extends PreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
+	// Generate the constant for the result code which indicates that an update should be requested.  
+	public static final int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
 	public static int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
 	private static String TAG = "2DegreesPreferencesActivity";
 	private boolean updateOnExit = false;
@@ -56,6 +58,8 @@ public class BalancePreferencesActivity extends PreferenceActivity implements On
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
 		String key = preference.getKey();
 		if (key.equals("username") || key.equals("password")) {
+			// If the changed preference is the username or password, set the result so that when we exit,
+			// an update will automatically happen.
 			Log.d(TAG, "Will force update on exit");
     		setResult(RESULT_FORCE_UPDATE);
 		}

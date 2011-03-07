@@ -29,6 +29,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 public class DataFetcher {
+	// This class handles the actual fetching of the data from 2Degrees.
 	public double result;
 	public static final String LASTMONTHCHARGES = "Your last month's charges";
 	private static String TAG = "2DegreesDataFetcher";
@@ -64,6 +65,9 @@ public class DataFetcher {
 		return(mgr.getBackgroundDataSetting());
 	}
 	public boolean isAutoSyncEnabled() {
+		// Get the autosync setting, if on a phone which has one.
+		// There are better ways of doing this than reflection, but it's easy in this case
+		// since then we can keep linking against the 1.6 SDK.
 		if (android.os.Build.VERSION.SDK_INT >= 5) {
 			Class<ContentResolver> contentResolverClass = ContentResolver.class;
 			try {
@@ -169,8 +173,10 @@ public class DataFetcher {
 					throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.LOGINFAILED, "Login failed");
 				}
 				db.delete("cache", "", null);
-				/*
-				 * if (postPaid) {
+				/* This code fetched some extra details for postpaid users, but on reflection they aren't that useful.
+				 * Might reconsider this.
+				 *
+				 if (postPaid) {
 				 
 					Element accountBalanceSummaryTable = accountSummary.getElementsByClass("tableBillSummary").first();
 					Elements rows = accountBalanceSummaryTable.getElementsByTag("tr");
@@ -240,7 +246,7 @@ public class DataFetcher {
 				Element accountSummaryTable = accountSummary.getElementsByClass("tableAccountSummary").first();
 				Elements rows = accountSummaryTable.getElementsByTag("tr");
 				for (Element row : rows) {
-					
+					// We are now looking at each of the rows in the data table.
 					//Log.d(TAG, "Starting row");
 					//Log.d(TAG, row.html());
 					Double value;

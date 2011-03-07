@@ -22,12 +22,14 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 public class UpdateWidgetService extends Service implements Runnable {
+	// This is the service which handles updating the widgets.
 	private static String TAG = "2DegreesUpdateWidgetService";
 	public static String NEWDATA = "BalanceWidgetNewDataAvailable12";
 	public static final int NONE = 0;
 	public static final int USERNAMEPASSWORD = 1;
 	public static final int LOGINFAILED = 2;
 	public static final int NETWORK = 3;
+	// List of widget updaters to call.
 	public static List<AbstractWidgetUpdater> widgetUpdaters = new ArrayList<AbstractWidgetUpdater>();
     /**
      * Flag if there is an update thread already running. We only launch a new
@@ -43,12 +45,15 @@ public class UpdateWidgetService extends Service implements Runnable {
     }
     private final IBinder mBinder = new LocalBinder();
     static {
+    	// Populate the list of widget updaters - in a static initaliser block since it only needs
+    	// to happen once.
     	widgetUpdaters.add(new WidgetUpdater1x2());
     	widgetUpdaters.add(new WidgetUpdater2x2());    	
     }
     public void onStart(Intent intent, int startId) {
     	Log.d(TAG, "Starting service");
     	force = intent.getBooleanExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", false);
+    	// Locking to make sure we only run one thread at a time.
     	synchronized (lock) {
     		if(!isThreadRunning) {
     	    	Log.d(TAG, "Thread not running, starting.");
@@ -124,33 +129,12 @@ public class UpdateWidgetService extends Service implements Runnable {
 		for (AbstractWidgetUpdater updater : widgetUpdaters) {
 			updater.updateWidgets(this, force, error);
 		}
-       /* AppWidgetManager manager = AppWidgetManager.getInstance(this);
-        // 1x2
-        ComponentName provider = new ComponentName(this, PhoneBalanceWidget.class);
-	    int [] widgetIds = manager.getAppWidgetIds(provider);
-	    for (int widget : widgetIds) {
-	    	AbstractWidgetUpdater widgetUpdater = new WidgetUpdater1x2(); 
-	        RemoteViews updateViews = widgetUpdater.buildUpdate(this, widget, force, error);
-		     // Push update to home screen
-		    Log.d(TAG, "Pushing updates for 2x1 widget");
-		    manager.updateAppWidget(widget, updateViews);
-		}
-	    // 2x2
-        provider = new ComponentName(this, WidgetProvider2x2.class);
-	    widgetIds = manager.getAppWidgetIds(provider);
-	    for (int widget : widgetIds) {
-	    	AbstractWidgetUpdater widgetUpdater = new WidgetUpdater2x2(); 
-	        RemoteViews updateViews = widgetUpdater.buildUpdate(this, widget, force, error);
-		     // Push update to home screen
-		    Log.d(TAG, "Pushing updates for 2x2 widget");
-		    manager.updateAppWidget(widget, updateViews);
-		} */
 
     	Log.d(TAG, "Sent updates");
-    	isThreadRunning = false;
     	Intent myIntent = new Intent(NEWDATA);
     	sendBroadcast(myIntent);
-
+    	isThreadRunning = false;
+    	// Stop the service. A lot of apps leave their widget update services running, which is completely unnecessary!
     	stopSelf();
 	}
 

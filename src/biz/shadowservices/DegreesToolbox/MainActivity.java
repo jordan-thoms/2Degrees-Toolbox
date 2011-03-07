@@ -117,6 +117,8 @@ public class MainActivity extends Activity {
 		}
     	refreshData();
     	reciever = new UpdateReciever(this);
+    	// Register the reciever, so if an update happens while we are in the activity
+    	// it will be updated
     	registerReceiver(reciever, new IntentFilter(UpdateWidgetService.NEWDATA));
     }
     @Override
@@ -140,6 +142,7 @@ public class MainActivity extends Activity {
     @Override
     public void onPause() {
     	super.onPause();
+    	// Unregister the broadcast reciever, since we are now no longer interested in updates happening.
     	unregisterReceiver(reciever);
     	if(progressDialog != null) {
     		progressDialog.dismiss();

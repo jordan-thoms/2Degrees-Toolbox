@@ -16,7 +16,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
-	private static int LINELIMIT = 16;
+	// Handle updates for the 2x2 widget
 	private static String TAG = "2DegreesPhoneBalanceWidget2x2";
 	private static int NORMALSIZE = 13;
 	private static int EXPSIZE = 9;
