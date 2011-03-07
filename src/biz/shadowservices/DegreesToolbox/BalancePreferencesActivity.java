@@ -16,9 +16,7 @@ import android.widget.Toast;
 public class BalancePreferencesActivity extends PreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
 	// Generate the constant for the result code which indicates that an update should be requested.  
 	public static final int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
-	public static int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
 	private static String TAG = "2DegreesPreferencesActivity";
-	private boolean updateOnExit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
