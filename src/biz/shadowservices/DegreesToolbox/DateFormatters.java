@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateFormatters {
+	// A common class which contains a whole lot of standard date formatters, since java's date handling sucks balls and
+	// adding a 3rd-party library might grow the apk too much.
 	public static SimpleDateFormat ISO8601FORMAT    = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	public static SimpleDateFormat ISO8601DATEONLYFORMAT    = new SimpleDateFormat("yyyy-MM-dd");
 	public static SimpleDateFormat EXPIRESDATE = new SimpleDateFormat("dd MMM yyyy");
