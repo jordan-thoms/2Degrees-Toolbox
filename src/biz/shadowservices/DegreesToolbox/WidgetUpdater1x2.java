@@ -35,6 +35,8 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 	@Override
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
 		Log.d(TAG, "FillRemoteViews, error code: " + error);
+		//updateViews.setInt(R.id.widget1x2_background, "setAlpha", 200);
+
     	switch (error) {
     	case UpdateWidgetService.NONE:
     	case UpdateWidgetService.NETWORK:

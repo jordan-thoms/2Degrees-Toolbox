@@ -20,7 +20,25 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:focusable="true"
-    style="@style/WidgetBackground">
+        style="@style/WidgetBackground"
+    
+    >
+        <ImageView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/widget1x2_background"
+    style="@style/WidgetImage"
+    />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget1x2_innerwidget"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:paddingTop="10dp"
+    android:paddingLeft="11dp"
+    android:paddingRight="9dp"
+    android:paddingBottom="10dp"
+    >
       <TextView
         android:id="@+id/widget1x2_lastupdate"
         android:includeFontPadding="true"
@@ -55,11 +73,11 @@
         />
             <ImageButton
             android:gravity="right"
-            android:layout_marginTop="50dp"
-        	android:layout_marginLeft="110dp"
+            android:layout_marginTop="45dp"
+        	android:layout_marginLeft="105dp"
         	android:id="@+id/widget1x2_refreshButton"
-        	android:layout_width="25dp"
-        	android:layout_height="25dp"
+        	android:layout_width="30dp"
+        	android:layout_height="30dp"
         	android:background="@null"
         	android:src="@drawable/widget_refresh"
         	android:scaleType="fitXY"
@@ -97,5 +115,5 @@
         style="@style/WidgetText"
         />    
 </LinearLayout>
-
+</RelativeLayout>
 </RelativeLayout>

@@ -38,7 +38,7 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 	private static int EXPSIZE = 9;
 	@Override
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
-
+		
     	switch (error) {
     	case UpdateWidgetService.NONE:
     	case UpdateWidgetService.NETWORK:
@@ -60,18 +60,22 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
     			}
     			updateViews.setTextViewText(lineViews[n], formattedLine);
     		}
-    		updateViews.setTextViewText(R.id.widget2x2_line1, getUpdateDateString(context));
+    		updateViews.setTextViewText(R.id.widget2x2_right1, getUpdateDateString(context));
     		break;
     	case UpdateWidgetService.LOGINFAILED:
-			updateViews.setTextViewText(R.id.widget2x2_line1, "Login failed.");
+			updateViews.setTextViewText(R.id.widget2x2_right1, "Login failed.");
 			break;
     	case UpdateWidgetService.USERNAMEPASSWORD:
-			updateViews.setTextViewText(R.id.widget2x2_line1, "Username or password not set");
+			updateViews.setTextViewText(R.id.widget2x2_right1, "Username or password not set");
 			break;
     	}
 		Intent viewIntent = new Intent(context, MainActivity.class);
         PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, 0);
         updateViews.setOnClickPendingIntent(R.id.widget2x2_widget, pending);
+        Intent updateIntent = new Intent(context, UpdateWidgetService.class);
+        updateIntent.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
+        updateViews.setOnClickPendingIntent(R.id.widget2x2_refreshButton, PendingIntent.getService(context, 0, updateIntent, 0));
+
 	}
 	@Override
 	protected int getLayoutId() {
@@ -132,7 +136,7 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 	@Override
 	protected void fillRemoteViewsLoading(RemoteViews updateViews,
 			Context context) {
-		updateViews.setTextViewText(R.id.widget2x2_line1, "Loading");
+		updateViews.setTextViewText(R.id.widget2x2_right1, "Loading");
 		Intent viewIntent = new Intent(context, MainActivity.class);
         PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, 0);
         updateViews.setOnClickPendingIntent(R.id.widget2x2_widget, pending);
