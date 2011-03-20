@@ -53,9 +53,18 @@
 
         <service android:name="biz.shadowservices.DegreesToolbox.UpdateWidgetService" />
 
-    <activity android:name="BalancePreferencesActivity"></activity>
+    <activity android:name=".Preferences.BalancePreferencesActivity"></activity>
 <activity android:name="biz.shadowservices.DegreesToolbox.SetupWizard"></activity>
+<activity android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetPreferencesActivity"></activity>
 
+<activity android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity">
+        <intent-filter>
+            <category android:name="android.intent.category.DEFAULT" />
+
+            <action android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity" />
+        </intent-filter>
+
+</activity>
 
 </application>
 

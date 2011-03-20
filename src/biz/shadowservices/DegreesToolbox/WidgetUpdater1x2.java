@@ -36,7 +36,7 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
 		Log.d(TAG, "FillRemoteViews, error code: " + error);
 		//updateViews.setInt(R.id.widget1x2_background, "setAlpha", 200);
-
+		updateViews.setImageViewResource(R.id.widget1x2_background, R.drawable.widget_frame_green);
     	switch (error) {
     	case UpdateWidgetService.NONE:
     	case UpdateWidgetService.NETWORK:
@@ -123,6 +123,11 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 	@Override
 	protected ComponentName getComponentName(Context context) {
 		return new ComponentName(context, PhoneBalanceWidget.class);
+	}
+	
+	@Override
+	protected String getFriendlyName() {
+		return "1x2 Widget";
 	}
 	@Override
 	protected void fillRemoteViewsLoading(RemoteViews updateViews,

@@ -129,6 +129,12 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 		}
 		return lines;
     }
+    
+	@Override
+	protected String getFriendlyName() {
+		return "2x2 Widget";
+	}
+
 	@Override
 	protected ComponentName getComponentName(Context context) {
 		return new ComponentName(context, WidgetProvider2x2.class);

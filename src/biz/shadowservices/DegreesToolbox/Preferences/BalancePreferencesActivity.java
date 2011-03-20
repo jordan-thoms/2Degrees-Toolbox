@@ -14,8 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.Preferences;
 
+import biz.shadowservices.DegreesToolbox.AbstractWidgetProvider;
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.R.string;
+import biz.shadowservices.DegreesToolbox.R.xml;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;

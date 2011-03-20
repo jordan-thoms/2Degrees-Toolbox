@@ -19,7 +19,7 @@
     <style name="WidgetBackground">
     </style>
     <style name="WidgetImage">
-            <item name="android:src">@drawable/widget_bg</item>
+            <item name="android:src">@drawable/proxy_nine_patch</item>
             <item name="android:scaleType">fitXY</item>
     </style>
     <style name="WidgetText">

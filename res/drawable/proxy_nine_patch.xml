@@ -14,4 +14,4 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
- <nine-patch xmlns:android="http://schemas.android.com/apk/res/android"  android:src="@drawable/widget_frame" android:dither="true" />
+ <nine-patch xmlns:android="http://schemas.android.com/apk/res/android"  android:src="@drawable/widget_frame_wood" android:dither="true" />

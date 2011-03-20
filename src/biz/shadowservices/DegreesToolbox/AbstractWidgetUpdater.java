@@ -16,7 +16,9 @@
  ******************************************************************************/
 package biz.shadowservices.DegreesToolbox;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -36,6 +38,7 @@ public abstract class AbstractWidgetUpdater {
 
         return updateViews;
     }
+    protected abstract String getFriendlyName();
     protected abstract void  fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error);
     protected abstract int getLayoutId();
     public String getUpdateDateString(Context context) {
@@ -54,7 +57,18 @@ public abstract class AbstractWidgetUpdater {
 			 return "";
 		}
     }
+    public List<WidgetInstance> getWidgets(Context context) {
+    	ArrayList<WidgetInstance> widgets = new ArrayList<WidgetInstance>();
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        ComponentName provider = getComponentName(context);
+	    int [] widgetIds = manager.getAppWidgetIds(provider);
+	    for (int widget : widgetIds) {
+	    	widgets.add(new WidgetInstance(widget, getFriendlyName()));
+		}
+	    return widgets;
+    }
     protected abstract ComponentName getComponentName(Context context);
+    
     public void updateWidgets(Context context, boolean force, int error) {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         ComponentName provider = getComponentName(context);
