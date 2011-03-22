@@ -23,8 +23,10 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -35,8 +37,15 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 	@Override
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
 		Log.d(TAG, "FillRemoteViews, error code: " + error);
-		//updateViews.setInt(R.id.widget1x2_background, "setAlpha", 200);
-		updateViews.setImageViewResource(R.id.widget1x2_background, R.drawable.widget_frame_green);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		int backgroundId = sp.getInt("widgetSettings[" + widgetId + "][backgroundId]", 0);
+		updateViews.setImageViewResource(R.id.widget1x2_background, Values.backgroundIds[backgroundId]);
+		Log.d(TAG, "id: " + Values.backgroundIds[backgroundId]);
+
+		int transparencyPercentage =  sp.getInt("widgetSettings[" + widgetId + "][transparency]", 0);
+		float transparencyMultiplier = (100 - transparencyPercentage) / (float) 100;
+		updateViews.setInt(R.id.widget1x2_background, "setAlpha", (int) (255 * transparencyMultiplier));
+
     	switch (error) {
     	case UpdateWidgetService.NONE:
     	case UpdateWidgetService.NETWORK:

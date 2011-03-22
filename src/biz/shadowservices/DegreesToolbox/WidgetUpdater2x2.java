@@ -24,8 +24,10 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
@@ -38,7 +40,15 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 	private static int EXPSIZE = 9;
 	@Override
 	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
-		
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		int backgroundId = sp.getInt("widgetSettings[" + widgetId + "][backgroundId]", 0);
+		updateViews.setImageViewResource(R.id.widget2x2_background, Values.backgroundIds[backgroundId]);
+		Log.d(TAG, "id: " + Values.backgroundIds[backgroundId]);
+
+		int transparencyPercentage =  sp.getInt("widgetSettings[" + widgetId + "][transparency]", 0);
+		float transparencyMultiplier = (100 - transparencyPercentage) / (float) 100;
+		updateViews.setInt(R.id.widget2x2_background, "setAlpha", (int) (255 * transparencyMultiplier));
+
     	switch (error) {
     	case UpdateWidgetService.NONE:
     	case UpdateWidgetService.NETWORK:
