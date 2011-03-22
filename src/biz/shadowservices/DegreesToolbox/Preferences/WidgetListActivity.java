@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import biz.shadowservices.DegreesToolbox.AbstractWidgetUpdater;
 import biz.shadowservices.DegreesToolbox.R;
-import biz.shadowservices.DegreesToolbox.UpdateWidgetService;
+import biz.shadowservices.DegreesToolbox.Values;
 import biz.shadowservices.DegreesToolbox.WidgetInstance;
 
 public class WidgetListActivity extends ListActivity {
@@ -41,7 +41,7 @@ public class WidgetListActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         List<WidgetInstance> widgets = new ArrayList<WidgetInstance>();
-		for (AbstractWidgetUpdater updater : UpdateWidgetService.widgetUpdaters) {
+		for (AbstractWidgetUpdater updater : Values.widgetUpdaters) {
 			widgets.addAll(updater.getWidgets(this));
 		}
 		arrayAdapter = new ArrayAdapter<WidgetInstance>(this, R.layout.list_item, widgets);

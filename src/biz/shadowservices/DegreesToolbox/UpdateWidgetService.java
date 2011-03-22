@@ -19,9 +19,7 @@ package biz.shadowservices.DegreesToolbox;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -42,9 +40,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 	public static final int USERNAMEPASSWORD = 1;
 	public static final int LOGINFAILED = 2;
 	public static final int NETWORK = 3;
-	// List of widget updaters to call.
-	public static List<AbstractWidgetUpdater> widgetUpdaters = new ArrayList<AbstractWidgetUpdater>();
-    /**
+	/**
      * Flag if there is an update thread already running. We only launch a new
      * thread if one isn't already running.
      */
@@ -60,8 +56,8 @@ public class UpdateWidgetService extends Service implements Runnable {
     static {
     	// Populate the list of widget updaters - in a static initaliser block since it only needs
     	// to happen once.
-    	widgetUpdaters.add(new WidgetUpdater1x2());
-    	widgetUpdaters.add(new WidgetUpdater2x2());    	
+    	Values.widgetUpdaters.add(new WidgetUpdater1x2());
+    	Values.widgetUpdaters.add(new WidgetUpdater2x2());    	
     }
     public void onStart(Intent intent, int startId) {
     	Log.d(TAG, "Starting service");
@@ -82,7 +78,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 	public void run() {
 		//Build update
     	Log.d(TAG, "Building updates");
-		for (AbstractWidgetUpdater updater : widgetUpdaters) {
+		for (AbstractWidgetUpdater updater : Values.widgetUpdaters) {
 			updater.widgetLoading(this);
 		}
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this); 
@@ -139,7 +135,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 		}
 		Log.d(TAG, Integer.toString(error));
 
-		for (AbstractWidgetUpdater updater : widgetUpdaters) {
+		for (AbstractWidgetUpdater updater : Values.widgetUpdaters) {
 			updater.updateWidgets(this, force, error);
 		}
 
