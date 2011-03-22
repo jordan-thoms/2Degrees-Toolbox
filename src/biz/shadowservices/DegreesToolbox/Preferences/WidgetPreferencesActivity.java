@@ -4,9 +4,15 @@ import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.Values;
 import biz.shadowservices.DegreesToolbox.WidgetInstance;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,11 +26,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WidgetPreferencesActivity extends Activity {
+	private static String TAG = "2DegreesPreferencesActivity";
+	private WidgetInstance widget;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.widget_preferences);
+
+        Button save = (Button) findViewById(R.id.widgetPrefsSave);
+        save.setOnClickListener(saveListener);
         
+        Button cancel = (Button) findViewById(R.id.widgetPrefsCancel);
+        cancel.setOnClickListener(cancelListener);
+
         SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
         s.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
         	@Override
@@ -59,10 +73,36 @@ public class WidgetPreferencesActivity extends Activity {
     @Override
 	public void onResume() {
     	super.onResume();
-		WidgetInstance widget = (WidgetInstance) getIntent().getSerializableExtra("widget");
+		widget = (WidgetInstance) getIntent().getSerializableExtra("widget");
 		TextView widgetName = (TextView) findViewById(R.id.WidgetName);
 		widgetName.setText(widget.toString());
+		
+        Gallery g = (Gallery) findViewById(R.id.gallery);
+        Log.d(TAG, "background:" + widget.getSelectedBackgroundId(this));
+        int background = widget.getSelectedBackgroundId(this);
+        g.setSelection(background);
+    	ImageView preview = (ImageView) findViewById(R.id.previewImage);
+   		preview.setImageResource(Values.backgroundIds[background]);
+        
+        SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
+        s.setProgress(widget.getTransparency(this));
 	}
+    private OnClickListener saveListener = new OnClickListener() {
+    	public void onClick(View v) {
+            Gallery g = (Gallery) findViewById(R.id.gallery);
+    		widget.setSelectedBackgroundId(v.getContext(), g.getSelectedItemPosition());
+    		
+            SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
+            widget.setTransparency(v.getContext(), s.getProgress());
+            finish();
+    	}
+    };
+    private OnClickListener cancelListener = new OnClickListener() {
+    	public void onClick(View v) {
+    		finish();
+    	}
+    };
+
 }
 class ImageAdapter extends BaseAdapter {
     int mGalleryItemBackground;

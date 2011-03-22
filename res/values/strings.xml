@@ -35,4 +35,5 @@ you use on the 2degrees website)</string>
 <string name="save">Save</string>
 <string name="cancel">Cancel</string>
 <string name="transparency">Transparency:</string>
+<string name="selectedBackground">Selected Background</string>
 </resources>
