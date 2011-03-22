@@ -20,9 +20,11 @@
 <PreferenceCategory android:title="Login Details"><EditTextPreference android:title="Phone Number" android:key="username" android:summary="Phone number/username"></EditTextPreference>
 <EditTextPreference android:title="Password" android:key="password" android:summary="Your Password"></EditTextPreference>
 </PreferenceCategory>
+<PreferenceCategory android:title="Widgets">
 <Preference android:title="Widget Preferences" android:summary="Change widget backgrounds">
    <intent android:action="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity" />
 </Preference>
+</PreferenceCategory>
 <PreferenceCategory android:title="Updating">
 <CheckBoxPreference android:title="Automatic Updates" android:key="autoupdates" android:summaryOn="Automatic updates will occur as specified."
 android:summaryOff="Automatic updates will not occur." android:defaultValue="true"></CheckBoxPreference>
