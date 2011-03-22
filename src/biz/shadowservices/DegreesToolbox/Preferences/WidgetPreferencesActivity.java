@@ -1,12 +1,14 @@
 package biz.shadowservices.DegreesToolbox.Preferences;
 
 import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.UpdateWidgetService;
 import biz.shadowservices.DegreesToolbox.Values;
 import biz.shadowservices.DegreesToolbox.WidgetInstance;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -94,6 +96,10 @@ public class WidgetPreferencesActivity extends Activity {
     		
             SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
             widget.setTransparency(v.getContext(), s.getProgress());
+            
+    		Log.d(TAG, "Started from preferences activity.");
+            v.getContext().startService(new Intent(v.getContext(), UpdateWidgetService.class));
+
             finish();
     	}
     };
