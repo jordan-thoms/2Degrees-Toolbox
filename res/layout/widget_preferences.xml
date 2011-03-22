@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent" 
+              android:layout_height="fill_parent" 
+>
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:id="@+id/linearLayout1">
-        <TextView android:layout_height="wrap_content" android:text="TextView" android:layout_width="wrap_content" android:id="@+id/WidgetName"></TextView>
+  android:layout_height="fill_parent" android:orientation="vertical">
+  <TextView android:layout_height="wrap_content" android:text="Widget Name" android:layout_width="wrap_content" android:id="@+id/WidgetName"></TextView>
+  <Gallery
+    android:id="@+id/gallery"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+	/>
+  <ImageView android:layout_width="wrap_content" 
+  android:id="@+id/previewImage" android:layout_height="wrap_content" android:src="@drawable/icon"></ImageView>
+<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/WidgetName" android:text="@string/transparency"></TextView>
+<LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:weightSum="5">
+   <SeekBar
+   	android:layout_width="0dp"
+   	android:layout_height="wrap_content"
+   	android:layout_weight="5"
+   	android:id="@+id/transparencySeekBar"
+   />
+   <TextView android:text="" 
+   android:id="@+id/transparencyPercentageText"
+    android:layout_width="wrap_content" android:layout_height="wrap_content" 
+       	android:layout_weight="0"
+    android:paddingLeft="5dp"
+    android:paddingTop="2dp"
+    />
+</LinearLayout>
+	
+   <LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:id="@+id/linearLayout1" android:orientation="horizontal">        
+     <Button android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/save"></Button>
+  <Button android:id="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cancel"></Button>
+   
     </LinearLayout>
 </LinearLayout>
+</ScrollView>
