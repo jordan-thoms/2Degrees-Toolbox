@@ -32,6 +32,11 @@ public class WidgetInstance implements Serializable {
 		return sp.getInt("widgetSettings[" + widgetId + "][transparency]", 0);
 	}
 	
+	public int getTextColor(Context c) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+		return sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff);
+	}
+
 	public void setSelectedBackgroundId(Context c, int id) {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
 		Editor e = sp.edit();
@@ -43,6 +48,13 @@ public class WidgetInstance implements Serializable {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
 		Editor e = sp.edit();
 		e.putInt("widgetSettings[" + widgetId + "][transparency]", transparency);
+		e.commit();
+	}
+	
+	public void setTextColor(Context c, int color) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+		Editor e = sp.edit();
+		e.putInt("widgetSettings[" + widgetId + "][textColor]", color);
 		e.commit();
 	}
 

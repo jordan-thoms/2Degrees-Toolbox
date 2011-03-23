@@ -1,5 +1,7 @@
 package biz.shadowservices.DegreesToolbox.Preferences;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.UpdateWidgetService;
 import biz.shadowservices.DegreesToolbox.Values;
@@ -70,7 +72,17 @@ public class WidgetPreferencesActivity extends Activity {
                 }
             }
         });
-
+        
+        Button editTextColour = (Button) findViewById(R.id.widgetPreferencesSetTextColor);
+       
+        editTextColour.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				AmbilWarnaDialog dialog = new AmbilWarnaDialog(v.getContext(), widget.getTextColor(v.getContext()), onColorSelected );
+				dialog.show();				
+			}
+        });
 	}
     @Override
 	public void onResume() {
@@ -89,6 +101,7 @@ public class WidgetPreferencesActivity extends Activity {
         SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
         s.setProgress(widget.getTransparency(this));
 	}
+    
     @Override
     public void onPause() {
     	super.onPause();
@@ -105,6 +118,17 @@ public class WidgetPreferencesActivity extends Activity {
 		Log.d(TAG, "Started from preferences activity.");
 		startService(new Intent(this, UpdateWidgetService.class));
     }
+    private OnAmbilWarnaListener onColorSelected = new  OnAmbilWarnaListener() {
+        @Override
+        public void onOk(AmbilWarnaDialog dialog, int color) {
+        	widget.setTextColor(WidgetPreferencesActivity.this, color);
+        }
+        
+        @Override
+        public void onCancel(AmbilWarnaDialog dialog) {
+                // cancel was selected by the user
+        }
+    };
     private OnClickListener saveListener = new OnClickListener() {
     	public void onClick(View v) {
     		saveChanges();
