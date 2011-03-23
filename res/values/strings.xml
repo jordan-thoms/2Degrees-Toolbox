@@ -34,6 +34,7 @@ you use on the 2degrees website)</string>
 <string name="is_an_invalid_number"> is an invalid number </string>
 <string name="save">Save</string>
 <string name="cancel">Cancel</string>
-<string name="transparency">Transparency:</string>
+<string name="transparency">Transparency: (Android 2.2+ only)</string>
 <string name="selectedBackground">Selected Background</string>
+<string name="set_text_colour">Set Text Colour</string>
 </resources>
