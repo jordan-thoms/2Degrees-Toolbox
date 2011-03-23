@@ -29,6 +29,7 @@
     android:id="@+id/widget1x2_background"
     style="@style/WidgetImage"
     />
+    
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget1x2_innerwidget"
     android:layout_width="fill_parent"
@@ -71,17 +72,6 @@
         
         android:layout_height="fill_parent" android:layout_width="fill_parent"/>
         />
-            <ImageButton
-            android:gravity="right"
-            android:layout_marginTop="45dp"
-        	android:layout_marginLeft="105dp"
-        	android:id="@+id/widget1x2_refreshButton"
-        	android:layout_width="30dp"
-        	android:layout_height="30dp"
-        	android:background="@null"
-        	android:src="@drawable/widget_refresh"
-        	android:scaleType="fitXY"
-        />
     
     <LinearLayout
         android:id="@+id/widget1x2_widgetLeftLayout"
@@ -115,5 +105,21 @@
         style="@style/WidgetText"
         />    
 </LinearLayout>
+             <ImageButton
+            android:gravity="right"
+        	android:id="@+id/widget1x2_refreshButton"
+        	android:layout_width="30dp"
+        	android:layout_height="30dp"
+        	android:background="@null"
+        	android:src="@drawable/widget_refresh"
+        	android:scaleType="fitXY"
+        	android:layout_alignParentBottom="true"
+        	android:layout_alignParentRight="true"
+        	android:paddingRight="2dp"
+        	android:paddingBottom="3dp"
+        	
+        	
+        />
+
 </RelativeLayout>
 </RelativeLayout>
