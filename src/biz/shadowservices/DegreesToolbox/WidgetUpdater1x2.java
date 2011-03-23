@@ -53,7 +53,9 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
     		int[] lineIds = {R.id.widget1x2_line1, R.id.widget1x2_line2, R.id.widget1x2_line3, R.id.widget1x2_right1, R.id.widget1x2_right2 };
     		for (int line : lineIds) {
     			updateViews.setTextViewText(line, "");
+    			updateViews.setInt(line, "setTextColor", sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff));
     		}
+			updateViews.setInt(R.id.widget1x2_lastupdate, "setTextColor", sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff));
     		List<Line> lines = buildLines(context);
     		if (lines.size() > 0) {
     			updateViews.setTextViewText(R.id.widget1x2_line1, lines.get(0).getLineContent());

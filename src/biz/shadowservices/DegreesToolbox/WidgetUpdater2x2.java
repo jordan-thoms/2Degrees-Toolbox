@@ -56,7 +56,9 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
     		int[] lineViews = { R.id.widget2x2_line2, R.id.widget2x2_line3, R.id.widget2x2_line4, R.id.widget2x2_line5, R.id.widget2x2_line6,  R.id.widget2x2_line7,  R.id.widget2x2_line8,  R.id.widget2x2_line9 };
     		for (int line : lineViews) {
     			updateViews.setTextViewText(line, "");
+    			updateViews.setInt(line, "setTextColor", sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff));
     		}
+			updateViews.setInt(R.id.widget2x2_right1, "setTextColor", sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff));
     		Log.d(TAG, Integer.toString(lines.size()));
     		for (int n = 0; n < lineViews.length; n++) {
     			if(n >= lines.size()) {
