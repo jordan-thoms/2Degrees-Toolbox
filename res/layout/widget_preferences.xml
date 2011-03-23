@@ -33,6 +33,7 @@
     android:paddingTop="2dp"
     />
 </LinearLayout>
+	    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/widgetPreferencesSetTextColor" android:text="@string/set_text_colour"></Button>
 	
    <LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:id="@+id/linearLayout1" android:orientation="horizontal">        
      <Button android:id="@+id/widgetPrefsSave" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/save"></Button>
