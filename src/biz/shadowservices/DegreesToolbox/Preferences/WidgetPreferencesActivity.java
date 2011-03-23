@@ -62,7 +62,7 @@ public class WidgetPreferencesActivity extends Activity {
 
         g.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(WidgetPreferencesActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(WidgetPreferencesActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                 View parentObj = (View) parent.getParent();
                 if (parent != null) {
                 	ImageView preview = (ImageView) parentObj.findViewById(R.id.previewImage);
