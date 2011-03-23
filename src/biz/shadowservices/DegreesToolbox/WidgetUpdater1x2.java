@@ -42,9 +42,11 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 		updateViews.setImageViewResource(R.id.widget1x2_background, Values.backgroundIds[backgroundId]);
 		Log.d(TAG, "id: " + Values.backgroundIds[backgroundId]);
 
-		int transparencyPercentage =  sp.getInt("widgetSettings[" + widgetId + "][transparency]", 0);
-		float transparencyMultiplier = (100 - transparencyPercentage) / (float) 100;
-		updateViews.setInt(R.id.widget1x2_background, "setAlpha", (int) (255 * transparencyMultiplier));
+		if (android.os.Build.VERSION.SDK_INT >= 8) {
+			int transparencyPercentage =  sp.getInt("widgetSettings[" + widgetId + "][transparency]", 0);
+			float transparencyMultiplier = (100 - transparencyPercentage) / (float) 100;
+			updateViews.setInt(R.id.widget1x2_background, "setAlpha", (int) (255 * transparencyMultiplier));
+		}
 
     	switch (error) {
     	case UpdateWidgetService.NONE:
@@ -57,6 +59,7 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
     		}
 			updateViews.setInt(R.id.widget1x2_lastupdate, "setTextColor", sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff));
     		List<Line> lines = buildLines(context);
+    		
     		if (lines.size() > 0) {
     			updateViews.setTextViewText(R.id.widget1x2_line1, lines.get(0).getLineContent());
     			if (lines.size() > 1) {
