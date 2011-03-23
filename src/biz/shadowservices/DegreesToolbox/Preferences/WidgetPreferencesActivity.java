@@ -89,17 +89,25 @@ public class WidgetPreferencesActivity extends Activity {
         SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
         s.setProgress(widget.getTransparency(this));
 	}
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	saveChanges();
+    }
+    
+    private void saveChanges() {
+        Gallery g = (Gallery) findViewById(R.id.gallery);
+		widget.setSelectedBackgroundId(this, g.getSelectedItemPosition());
+		
+        SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
+        widget.setTransparency(this, s.getProgress());
+        
+		Log.d(TAG, "Started from preferences activity.");
+		startService(new Intent(this, UpdateWidgetService.class));
+    }
     private OnClickListener saveListener = new OnClickListener() {
     	public void onClick(View v) {
-            Gallery g = (Gallery) findViewById(R.id.gallery);
-    		widget.setSelectedBackgroundId(v.getContext(), g.getSelectedItemPosition());
-    		
-            SeekBar s = (SeekBar) findViewById(R.id.transparencySeekBar);
-            widget.setTransparency(v.getContext(), s.getProgress());
-            
-    		Log.d(TAG, "Started from preferences activity.");
-            v.getContext().startService(new Intent(v.getContext(), UpdateWidgetService.class));
-
+    		saveChanges();
             finish();
     	}
     };
