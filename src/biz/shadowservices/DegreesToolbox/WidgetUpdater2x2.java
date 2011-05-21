@@ -115,7 +115,7 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 						if (!result.getString(2).equals("$NZ")) {
 							lineBuilder.append(Math.round(result.getDouble(1)) + " " + result.getString(2));
 						} else {
-							lineBuilder.append("$" + result.getString(1));
+							lineBuilder.append(Util.money.format(result.getDouble(1)));
 						}
 						Log.d(TAG, result.getString(1) + " " + result.getString(2));
 					} else {

@@ -18,8 +18,10 @@ package biz.shadowservices.DegreesToolbox;
 
 import android.content.Context;
 import android.util.Log;
+import java.text.DecimalFormat;
 
 public class Util {
+	public static DecimalFormat money = new DecimalFormat("$0.00");
 	// Couple of utility functions
 	public static int dpToPx(Context context, float dp) {
 		final float scale = context.getResources().getDisplayMetrics().density;

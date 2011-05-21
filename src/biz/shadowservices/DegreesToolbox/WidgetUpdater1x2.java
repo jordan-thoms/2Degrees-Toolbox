@@ -118,7 +118,7 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 							if(result.getDouble(0) > 100) {
 								lines.add(new Line("$" + Math.round(result.getDouble(0))));
 							} else {
-								lines.add(new Line("$" + result.getString(0)));
+								lines.add(new Line(Util.money.format(result.getDouble(0))));
 							}
 						}
 						Log.d(TAG, result.getString(0) + " " + result.getString(1));
