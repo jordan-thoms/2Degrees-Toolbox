@@ -40,6 +40,7 @@
         android:layout_height="25dp"
         android:scaleType="fitXY"
         android:background="@null"
+        android:id="@+id/refreshDataButton"
         ></ImageButton>
    		
     </LinearLayout>

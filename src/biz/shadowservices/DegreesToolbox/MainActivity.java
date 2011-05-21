@@ -45,6 +45,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
@@ -77,6 +78,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
         Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
         buyPackButton.setOnClickListener(buyPackListener);
+        ImageButton refreshButton = (ImageButton) findViewById(R.id.refreshDataButton);
+        refreshButton.setOnClickListener(refreshListener);
 	}
     
     @Override
@@ -196,6 +199,12 @@ public class MainActivity extends Activity {
     		alert.show();
     	}
     };
+    private OnClickListener refreshListener = new OnClickListener() {
+    	public void onClick(View v) {
+    		MainActivity.this.forceUpdate();
+    	}
+    };
+
     private void chooseSMSToSend(final CharSequence[] names, final String[] content, String title, final String confirmMessage) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(title);
