@@ -15,39 +15,43 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent" 
+              android:layout_height="fill_parent" 
+              android:orientation="vertical" 
+             >
+    <ScrollView 
               android:layout_width="fill_parent" 
               android:layout_height="fill_parent" 
 >
-<LinearLayout 
-              android:layout_width="fill_parent" 
-              android:layout_height="fill_parent" 
-              android:orientation="vertical" >
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:stretchColumns="1"
     android:id="@+id/lineslayout"
     android:orientation="vertical"
-    android:paddingLeft="10dip">
+    android:paddingLeft="5dip"
+    >
     
     </LinearLayout>
-    <Button
+    </ScrollView>
+    
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="bottom"
+    android:layout_alignParentBottom="true"
+    >
+        <Button
     android:id="@+id/buyPackButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/buypack"
     />
-     <TextView
-        android:includeFontPadding="true"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-       
-        android:gravity="left"
-        android:text="@string/seemenu"
-        android:layout_height="wrap_content" android:layout_width="fill_parent"/>
      
+    
+    </LinearLayout>
             
-</LinearLayout>
-</ScrollView>
+</RelativeLayout>
