@@ -21,6 +21,7 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false">
         <activity android:label="@string/app_name" android:name="MainActivity"
         android:launchMode="singleTop"
+        android:theme="@android:style/Theme.NoTitleBar"
         >
 		<intent-filter>
   		  <action android:name="android.intent.action.MAIN" />
