@@ -32,6 +32,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import de.quist.app.errorreporter.ExceptionReporter;
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -47,6 +49,10 @@ public class DataFetcher {
 	public double result;
 	public static final String LASTMONTHCHARGES = "Your last month's charges";
 	private static String TAG = "2DegreesDataFetcher";
+	private ExceptionReporter exceptionReporter;
+	public DataFetcher(ExceptionReporter e) {
+		exceptionReporter = e;
+	}
 	public boolean isOnline(Context context) {
 		 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		 NetworkInfo info = cm.getActiveNetworkInfo();
@@ -100,42 +106,51 @@ public class DataFetcher {
 	}
 	public void updateData(Context context, boolean force) throws DataFetcherLoginDetailsException, ClientProtocolException, IOException {
 		// check for internet connectivity
-		if (!isOnline(context)) {
-			Log.d(TAG, "We do not seem to be online. Not updating.");
-			throw new IOException("We do not seem to be online. Not updating.");
+		try {
+			if (!isOnline(context)) {
+				Log.d(TAG, "We do not seem to be online. Not updating.");
+				throw new IOException("We do not seem to be online. Not updating.");
+			}
+		} catch (Exception e) {
+			exceptionReporter.reportException(Thread.currentThread(), e, "Exception during isOnline()");
 		}
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		if (!force) {
-			if (sp.getBoolean("loginFailed", false) == true) {
-				Log.d(TAG, "Previous login failed. Not updating.");
-				throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.LOGINFAILED, "Previous login failed, click to correct");
-			}
-			if(sp.getBoolean("autoupdates", true) == false) {
-				Log.d(TAG, "Automatic updates not enabled. Not updating.");
-				return;
-			}
-			if (!isBackgroundDataEnabled(context) && sp.getBoolean("obeyBackgroundData", true)) {
-				Log.d(TAG, "Background data not enabled. Not updating.");
-				return;
-			}
-			if (!isAutoSyncEnabled() && sp.getBoolean("obeyAutoSync", true) && sp.getBoolean("obeyBackgroundData", true)) {
-				Log.d(TAG, "Auto sync not enabled. Not updating.");
-				return;
-			}
-			if (isWifi(context) && !sp.getBoolean("wifiUpdates", true)) {
-				Log.d(TAG, "On wifi, and wifi auto updates not allowed. Not updating");
-				return;
-			} else if (!isWifi(context)){
-				Log.d(TAG, "We are not on wifi.");
-				if (!isRoaming(context) && !sp.getBoolean("2DData", true)) {
-					Log.d(TAG, "Automatic updates on 2Degrees data not enabled. Not updating.");
+			try {
+				if (sp.getBoolean("loginFailed", false) == true) {
+					Log.d(TAG, "Previous login failed. Not updating.");
+					throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.LOGINFAILED, "Previous login failed, click to correct");
+				}
+				if(sp.getBoolean("autoupdates", true) == false) {
+					Log.d(TAG, "Automatic updates not enabled. Not updating.");
 					return;
-				} else if (isRoaming(context) && !sp.getBoolean("roamingData", false)) {
+				}
+				if (!isBackgroundDataEnabled(context) && sp.getBoolean("obeyBackgroundData", true)) {
+					Log.d(TAG, "Background data not enabled. Not updating.");
+					return;
+				}
+				if (!isAutoSyncEnabled() && sp.getBoolean("obeyAutoSync", true) && sp.getBoolean("obeyBackgroundData", true)) {
+					Log.d(TAG, "Auto sync not enabled. Not updating.");
+					return;
+				}
+				if (isWifi(context) && !sp.getBoolean("wifiUpdates", true)) {
+					Log.d(TAG, "On wifi, and wifi auto updates not allowed. Not updating");
+					return;
+				} else if (!isWifi(context)){
+					Log.d(TAG, "We are not on wifi.");
+					if (!isRoaming(context) && !sp.getBoolean("2DData", true)) {
+						Log.d(TAG, "Automatic updates on 2Degrees data not enabled. Not updating.");
+						return;
+					} else if (isRoaming(context) && !sp.getBoolean("roamingData", false)) {
 						Log.d(TAG, "Automatic updates on roaming mobile data not enabled. Not updating.");
 						return;
+					}
+
 				}
-				
+			} catch (Exception e) {
+				exceptionReporter.reportException(Thread.currentThread(), e, "Exception while finding if to update.");
 			}
+
 		} else {
 			Log.d(TAG, "Update Forced");
 		}

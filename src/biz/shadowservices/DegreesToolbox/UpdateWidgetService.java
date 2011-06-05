@@ -23,7 +23,8 @@ import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
-import android.app.Service;
+import de.quist.app.errorreporter.ReportingService;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -32,7 +33,7 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class UpdateWidgetService extends Service implements Runnable {
+public class UpdateWidgetService extends ReportingService implements Runnable {
 	// This is the service which handles updating the widgets.
 	private static String TAG = "2DegreesUpdateWidgetService";
 	public static String NEWDATA = "BalanceWidgetNewDataAvailable12";
@@ -98,7 +99,7 @@ public class UpdateWidgetService extends Service implements Runnable {
 			}
 		}
 		int error =  NONE;
-    	DataFetcher dataFetcher = new DataFetcher();
+    	DataFetcher dataFetcher = new DataFetcher(getExceptionReporter());
 		if(update) {
 	    	try {
 				dataFetcher.updateData(this, force);
