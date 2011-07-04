@@ -154,6 +154,7 @@ public class DataFetcher {
 		} else {
 			Log.d(TAG, "Update Forced");
 		}
+		
 		//Open database
 		DBOpenHelper dbhelper = new DBOpenHelper(context);
 		SQLiteDatabase db = dbhelper.getWritableDatabase();

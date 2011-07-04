@@ -143,6 +143,8 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
     	Log.d(TAG, "Sent updates");
     	Intent myIntent = new Intent(NEWDATA);
     	sendBroadcast(myIntent);
+    	// We now dispatch to GA.
+    	Values.tracker.dispatch();
     	isThreadRunning = false;
     	// Stop the service. A lot of apps leave their widget update services running, which is completely unnecessary!
     	stopSelf();
