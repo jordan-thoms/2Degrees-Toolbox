@@ -16,9 +16,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="biz.shadowservices.DegreesToolbox" android:versionCode="21" android:versionName="1.4.3">
+      package="biz.shadowservices.DegreesToolbox" android:versionCode="24" android:versionName="1.4.6">
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"></uses-permission>
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false"   android:theme="@style/Theme.DegreesToolbox">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false"  >
         <activity android:label="@string/app_name" android:name="MainActivity"
         android:launchMode="singleTop"
         android:theme="@style/Theme.DegreesToolbox.Home"
@@ -79,9 +79,10 @@
 	android:smallScreens="true"
 	android:normalScreens="true"
 	android:largeScreens="true"
+	android:xlargeScreens="true"
 	android:anyDensity="true"
 />
-<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="11" />
+<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="10" />
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
