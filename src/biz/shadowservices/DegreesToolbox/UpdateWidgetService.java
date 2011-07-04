@@ -75,7 +75,9 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
     }
     private void handleCommand(Intent intent) {
     	Log.d(TAG, "Starting service");
-    	force = intent.getBooleanExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", false);
+    	if (intent != null) {
+    		force = intent.getBooleanExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", false);
+    	}
     	// Locking to make sure we only run one thread at a time.
     	synchronized (lock) {
     		if(!isThreadRunning) {
