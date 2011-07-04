@@ -30,6 +30,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
@@ -108,6 +109,13 @@ public class MainActivity extends BaseActivity {
     		AlertDialog alert = builder.create();
     		alert.show();
     		return true;
+    	case R.id.openAbout:
+    		//Open the about dialog
+    		try {
+				AboutDialog.create(this).show();
+			} catch (NameNotFoundException e) {
+				getExceptionReporter().reportException(Thread.currentThread(), e, "Exception creating about dialog");
+			}
     	default:
     		return super.onOptionsItemSelected(item);
     	}
