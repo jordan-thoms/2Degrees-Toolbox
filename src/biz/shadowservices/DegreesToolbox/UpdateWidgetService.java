@@ -23,6 +23,8 @@ import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+
 import de.quist.app.errorreporter.ReportingService;
 
 import android.content.Intent;
@@ -144,6 +146,9 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
     	Intent myIntent = new Intent(NEWDATA);
     	sendBroadcast(myIntent);
     	// We now dispatch to GA.
+        if(Values.tracker == null) {
+        	Values.tracker = GoogleAnalyticsTracker.getInstance();
+        }
     	Values.tracker.dispatch();
     	isThreadRunning = false;
     	// Stop the service. A lot of apps leave their widget update services running, which is completely unnecessary!
