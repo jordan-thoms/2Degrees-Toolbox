@@ -20,6 +20,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -52,20 +54,6 @@ import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
 public class MainActivity extends BaseActivity {
 	private static String TAG = "2DegreesPhoneBalanceMain";
 	private UpdateReciever reciever;
-	private final int TXTPACK = 0;
-	private final int NATDATA = 1;
-	private final int BBZDATA = 2;
-	private final int TALKPACK = 3;	
-	private final int DATARENEW = 4;	
-	private final CharSequence[] SMSCategory = {"$10 2000 Texts", "National Data", "BB Zone Data", "Talk Packs", "Cancel Data auto-renew"};
-	private final CharSequence[] SMSNATNames = {"$6 50MB National Data", "$10 100MB National Data"};
-	private final String[] SMSNATContent = {"BUY 50MB", "BUY 100MB"};
-	private final CharSequence[] SMSBBNames = {"$20 1GB Zone Data", "$50 3GB Zone Data", "$150 12GB Zone Data"};
-	private final String[] SMSBBContent = {"BUY 1GB", "BUY 3GB", "BUY 12GB"};
-	private final CharSequence[] SMSTalkNames = {"$30 Everyone100", "$10 China120", "$10 India120"};
-	private final String[] SMSTalkContent = {"buy every100", "buy china120", "buy india120"};
-	private final CharSequence[] SMSDataCancelNames = {"National data", "1GB Pack", "3GB Pack", "12GB Pack"};
-	private final String[] SMSDataCancelContent = {"Stop Nat", "Stop 1GB", "Stop 3GB", "Stop 12GB"};
 
 	ProgressDialog progressDialog = null;
     /** Called when the activity is first created. */
@@ -77,6 +65,10 @@ public class MainActivity extends BaseActivity {
         Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
         buyPackButton.setOnClickListener(buyPackListener);
         getActivityHelper().setupActionBar("2Degrees Toolbox", 0);
+        if(Values.tracker == null) {
+        	Values.tracker = GoogleAnalyticsTracker.getInstance();
+        }
+        Values.tracker.start("UA-24340103-1", this);
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,6 +129,8 @@ public class MainActivity extends BaseActivity {
     	// Register the reciever, so if an update happens while we are in the activity
     	// it will be updated
     	registerReceiver(reciever, new IntentFilter(UpdateWidgetService.NEWDATA));
+    	// Track the view
+    	Values.tracker.trackPageView("/homeScreen");
     }
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
@@ -155,6 +149,8 @@ public class MainActivity extends BaseActivity {
 		Intent update = new Intent(this, UpdateWidgetService.class);
 		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
 		startService(update);
+    	Values.tracker.trackEvent("Actions", "Manual Refresh", "MainActivity", 0);
+
     }
     @Override
     public void onPause() {
@@ -168,31 +164,7 @@ public class MainActivity extends BaseActivity {
     }
     private OnClickListener buyPackListener = new OnClickListener() {
     	public void onClick(View v) {
-    		AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-    		builder.setTitle("Choose a value pack to buy:");
-    		builder.setItems(SMSCategory, new DialogInterface.OnClickListener() {
-    		    public void onClick(DialogInterface dialog, int item) {
-    		    	switch(item) {
-    		    	case TXTPACK:
-    		    		askToSend(SMSCategory[TXTPACK], "buy 10txt", "Are you sure you wish to buy ");
-    		    		break;
-    		    	case NATDATA:
-    		    		chooseSMSToSend(SMSNATNames, SMSNATContent, "Choose national data pack to buy: ", "Are you sure you wish to purchase the data pack ");
-    		    		break;
-    		    	case BBZDATA:
-    		    		chooseSMSToSend(SMSBBNames, SMSBBContent, "Choose BB Zone data pack to buy: ", "Are you sure you wish to purchase the data pack ");
-    		    		break;
-    		    	case TALKPACK:
-    		    		chooseSMSToSend(SMSTalkNames, SMSTalkContent, "Choose talk pack to buy: ", "Are you sure you wish to purchase the talk pack ");
-    		    		break;
-    		    	case DATARENEW:
-    		    		chooseSMSToSend(SMSDataCancelNames, SMSDataCancelContent, "Choose data pack to cancel auto-renew: ", "Are you sure you wish to cancel the auto-renew for  ");
-    		    		break;
-    		    	}
-    		    }
-    		});
-    		AlertDialog alert = builder.create();
-    		alert.show();
+    		valuePackMenuNodeView(Values.valuePacks);
     	}
     };
     private OnClickListener refreshListener = new OnClickListener() {
@@ -200,26 +172,34 @@ public class MainActivity extends BaseActivity {
     		MainActivity.this.forceUpdate();
     	}
     };
-
-    private void chooseSMSToSend(final CharSequence[] names, final String[] content, String title, final String confirmMessage) {
+    private void valuePackMenuNodeView(final PackTreeNode node) {
+    	if (node instanceof PackTreeLeaf) {
+    		// We have reached a leaf in the menu, ask for confirmation to send.
+    		askToSend((PackTreeLeaf) node);
+    		return;
+    	}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(title);
-		builder.setItems(names, new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, final int item) {
-		    	askToSend(names[item], content[item], confirmMessage);
+		builder.setTitle(node.getQuestionText());
+		builder.setItems(node.getChildrenCharSequence(), new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int item) {
+		    	//Get the selected item's node in the tree
+		    	PackTreeNode selectedNode = node.getAt(item);
+		    	// Recursively open the node.
+		    	valuePackMenuNodeView(selectedNode);
 		    }
 		});
 		AlertDialog alert = builder.create();
 		alert.show();
     }
-    public void askToSend(final CharSequence name, final String content, String confirmMessage) {
+    public void askToSend(final PackTreeLeaf leaf) {
     	AlertDialog.Builder confirmDialog = new AlertDialog.Builder(MainActivity.this);
-    	confirmDialog.setMessage(confirmMessage + name + " by sending '" + content + "' to 233?")
+    	confirmDialog.setMessage(leaf.getConfirmText() + leaf.getTitle() + " by sending '" + leaf.getMessage() + "' to 233?")
     		.setCancelable(false)
     		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					send233SMS(content);
+					send233SMS(leaf.getMessage());
+			    	Values.tracker.trackEvent("Purchase", leaf.getTitle(), "", leaf.getValue());
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {						
