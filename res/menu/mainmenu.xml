@@ -19,6 +19,6 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
  <item android:titleCondensed="Call Customer Service" android:id="@+id/callCustomerService" android:title="Call Customer Service"></item>
 <item android:titleCondensed="Topup" android:id="@+id/topup" android:title="Topup"></item>  
-<item android:titleCondensed="Force Update" android:id="@+id/forceUpdate" android:title="Force Update"></item>
+<item android:titleCondensed="Force Update" android:id="@+id/refresh_button" android:title="Force Update"     android:icon="@drawable/ic_title_refresh"></item>
 <item android:titleCondensed="Preferences" android:id="@+id/openPreferences" android:title="Preferences"></item>
 </menu>

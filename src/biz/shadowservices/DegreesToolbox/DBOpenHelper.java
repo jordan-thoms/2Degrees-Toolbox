@@ -28,7 +28,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String PREFS_TABLE_CREATE = "CREATE TABLE \"preferences\" " +
     		"(\"name\" TEXT PRIMARY KEY  NOT NULL  UNIQUE , " +
     		"\"value\" TEXT NOT NULL )"; */
-    private static final String CACHE_TABLE_NAME = "cache";
+    @SuppressWarnings("unused")
+	private static final String CACHE_TABLE_NAME = "cache";
     private static final String CACHE_TABLE_CREATE = "CREATE TABLE \"cache\" " +
     		"(\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , " +
     		"\"name\" TEXT NOT NULL , \"value\" NUMERIC  NULL ," +

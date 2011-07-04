@@ -48,9 +48,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
-import de.quist.app.errorreporter.ReportingActivity;
 
-public class MainActivity extends ReportingActivity {
+public class MainActivity extends BaseActivity {
 	private static String TAG = "2DegreesPhoneBalanceMain";
 	private UpdateReciever reciever;
 	private final int TXTPACK = 0;
@@ -70,16 +69,15 @@ public class MainActivity extends ReportingActivity {
 
 	ProgressDialog progressDialog = null;
     /** Called when the activity is first created. */
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
         buyPackButton.setOnClickListener(buyPackListener);
-        ImageButton refreshButton = (ImageButton) findViewById(R.id.refreshDataButton);
-        refreshButton.setOnClickListener(refreshListener);
+        getActivityHelper().setupActionBar("2Degrees Toolbox", 0);
 	}
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	MenuInflater inflater = getMenuInflater();
@@ -90,7 +88,7 @@ public class MainActivity extends ReportingActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-    	case R.id.forceUpdate:
+    	case R.id.refresh_button:
     		forceUpdate();
     		return true;
     	case R.id.openPreferences:
@@ -365,12 +363,9 @@ public class MainActivity extends ReportingActivity {
         }
     }
     private void send233SMS(String message)
-    {        
-        /* PendingIntent pi = PendingIntent.getActivity(this, 0,
-            new Intent(this, MainActivity.class), 0); */                
+    {                 
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage("233", null, message, null, null);
     	Log.d(TAG, "sent message: " + message);
     }    
-
 }
