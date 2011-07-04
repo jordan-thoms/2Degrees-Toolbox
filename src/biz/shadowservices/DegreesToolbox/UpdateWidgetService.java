@@ -62,7 +62,18 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
     	Values.widgetUpdaters.add(new WidgetUpdater1x2());
     	Values.widgetUpdaters.add(new WidgetUpdater2x2());    	
     }
-    public void onStart(Intent intent, int startId) {
+	 // This is the old onStart method that will be called on the pre-2.0
+	 // platform.  On 2.0 or later we override onStartCommand() so this
+	 // method will not be called.
+	 @Override
+	 public void onStart(Intent intent, int startId) {
+	     handleCommand(intent);
+	 }
+    public int onStartCommand(Intent intent, int startId) {
+    	handleCommand(intent);
+    	return START_NOT_STICKY;
+    }
+    private void handleCommand(Intent intent) {
     	Log.d(TAG, "Starting service");
     	force = intent.getBooleanExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", false);
     	// Locking to make sure we only run one thread at a time.
