@@ -16,7 +16,6 @@ public class Values {
 	        R.drawable.widget_frame_metal,
 	        R.drawable.widget_frame_wood,
 	};
-	public static GoogleAnalyticsTracker tracker = null;
 	public static PackTreeNode valuePacks;
 	public static String CONFIRMDATA = "Are you sure you wish to purchase the data pack ";
 	public static String CONFIRMDATACANCEL = "Are you sure you wish to cancel " ;

@@ -66,10 +66,6 @@ public class MainActivity extends BaseActivity {
         Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
         buyPackButton.setOnClickListener(buyPackListener);
         getActivityHelper().setupActionBar("2Degrees Toolbox", 0);
-        if(Values.tracker == null) {
-        	Values.tracker = GoogleAnalyticsTracker.getInstance();
-        }
-        Values.tracker.start("UA-24340103-1", this);
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,7 +134,7 @@ public class MainActivity extends BaseActivity {
     	// it will be updated
     	registerReceiver(reciever, new IntentFilter(UpdateWidgetService.NEWDATA));
     	// Track the view
-    	Values.tracker.trackPageView("/homeScreen");
+    	GATracker.getInstance().trackPageView("/homeScreen");
     }
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
@@ -157,7 +153,7 @@ public class MainActivity extends BaseActivity {
 		Intent update = new Intent(this, UpdateWidgetService.class);
 		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
 		startService(update);
-    	Values.tracker.trackEvent("Actions", "Manual Refresh", "MainActivity", 0);
+    	GATracker.getInstance().trackEvent("Actions", "Manual Refresh", "MainActivity", 0);
 
     }
     @Override
@@ -207,7 +203,7 @@ public class MainActivity extends BaseActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					send233SMS(leaf.getMessage());
-			    	Values.tracker.trackEvent("Purchase", leaf.getTitle(), "", leaf.getValue());
+			    	GATracker.getInstance().trackEvent("Purchase", leaf.getTitle(), "", leaf.getValue());
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {						

@@ -161,8 +161,9 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
     	// We now dispatch to GA.
     	// Wrap up in a catch all since this has been having problems
     	try {
-    		GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
-    		tracker.dispatch();
+    			GATracker.getInstance(getApplication()).incrementActivityCount();
+    			GATracker.getInstance().dispatch();
+    			GATracker.getInstance().decrementActivityCount();
     	} catch (Exception e) {
     		getExceptionReporter().reportException(Thread.currentThread(), e, "GA Tracking in updateWidgetService");
     	}
