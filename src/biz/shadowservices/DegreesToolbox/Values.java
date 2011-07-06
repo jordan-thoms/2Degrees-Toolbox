@@ -23,6 +23,7 @@ public class Values {
 	static {
 		valuePacks = new PackTreeNode(null, "Choose a value pack to buy:");
 		valuePacks.addChild( new PackTreeLeaf("$10 2000 Texts", "Are sure you wish to buy ", "buy 10txt", 1000));
+		valuePacks.addChild( new PackTreeLeaf("$19 Combo Pack", "Are sure you wish to buy ", "buy 19combo", 1900));
 		PackTreeNode nationalData = new PackTreeNode("National Data", "Choose national data pack:");
 		nationalData.addChild(new PackTreeLeaf("$6 50MB National Data", CONFIRMDATA, "buy 50MB", 600));
 		nationalData.addChild(new PackTreeLeaf("$10 100MB National Data", CONFIRMDATA, "buy 100MB", 1000));
