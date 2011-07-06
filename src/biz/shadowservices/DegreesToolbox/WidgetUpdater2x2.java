@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -39,7 +41,7 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 	private static int NORMALSIZE = 13;
 	private static int EXPSIZE = 9;
 	@Override
-	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
+	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, FetchResult error) {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		int backgroundId = sp.getInt("widgetSettings[" + widgetId + "][backgroundId]", 0);
 		updateViews.setImageViewResource(R.id.widget2x2_background, Values.backgroundIds[backgroundId]);
@@ -51,8 +53,13 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 			updateViews.setInt(R.id.widget2x2_background, "setAlpha", (int) (255 * transparencyMultiplier));
 		}
     	switch (error) {
-    	case UpdateWidgetService.NONE:
-    	case UpdateWidgetService.NETWORK:
+    	case LOGINFAILED:
+			updateViews.setTextViewText(R.id.widget2x2_right1, "Login failed.");
+			break;
+    	case USERNAMEPASSWORDNOTSET:
+			updateViews.setTextViewText(R.id.widget2x2_right1, "Username or password not set");
+			break;
+		default:
     		List<Line> lines = buildLines(context);
     		int[] lineViews = { R.id.widget2x2_line2, R.id.widget2x2_line3, R.id.widget2x2_line4, R.id.widget2x2_line5, R.id.widget2x2_line6,  R.id.widget2x2_line7,  R.id.widget2x2_line8,  R.id.widget2x2_line9 };
     		for (int line : lineViews) {
@@ -60,7 +67,6 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
     			updateViews.setInt(line, "setTextColor", sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff));
     		}
 			updateViews.setInt(R.id.widget2x2_right1, "setTextColor", sp.getInt("widgetSettings[" + widgetId + "][textColor]", 0xffffffff));
-    		Log.d(TAG, Integer.toString(lines.size()));
     		for (int n = 0; n < lineViews.length; n++) {
     			if(n >= lines.size()) {
     				break;
@@ -75,12 +81,6 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
     		}
     		updateViews.setTextViewText(R.id.widget2x2_right1, getUpdateDateString(context));
     		break;
-    	case UpdateWidgetService.LOGINFAILED:
-			updateViews.setTextViewText(R.id.widget2x2_right1, "Login failed.");
-			break;
-    	case UpdateWidgetService.USERNAMEPASSWORD:
-			updateViews.setTextViewText(R.id.widget2x2_right1, "Username or password not set");
-			break;
     	}
 		Intent viewIntent = new Intent(context, MainActivity.class);
         PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, 0);

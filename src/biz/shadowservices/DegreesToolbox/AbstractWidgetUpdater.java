@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -31,7 +33,7 @@ import android.widget.RemoteViews;
 public abstract class AbstractWidgetUpdater {
 	// This contains the common code for updating all of the different widget sizes.
 	private static String TAG = "2DegreesAbstractWidgetUpdater";
-    RemoteViews buildUpdate(Context context, int widgetId, boolean force, int error) {
+    RemoteViews buildUpdate(Context context, int widgetId, boolean force, FetchResult error) {
     	Log.d(TAG, "Building updates");
     	RemoteViews updateViews = new RemoteViews(context.getPackageName(), getLayoutId());
     	fillRemoteViews(updateViews, context, widgetId, error);
@@ -39,7 +41,7 @@ public abstract class AbstractWidgetUpdater {
         return updateViews;
     }
     protected abstract String getFriendlyName();
-    protected abstract void  fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error);
+    protected abstract void  fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, FetchResult error);
     protected abstract int getLayoutId();
     public String getUpdateDateString(Context context) {
     	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -69,7 +71,7 @@ public abstract class AbstractWidgetUpdater {
     }
     protected abstract ComponentName getComponentName(Context context);
     
-    public void updateWidgets(Context context, boolean force, int error) {
+    public void updateWidgets(Context context, boolean force, FetchResult error) {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         ComponentName provider = getComponentName(context);
 	    int [] widgetIds = manager.getAppWidgetIds(provider);

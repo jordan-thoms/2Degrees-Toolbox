@@ -50,6 +50,14 @@ public class DataFetcher {
 	public static final String LASTMONTHCHARGES = "Your last month's charges";
 	private static String TAG = "2DegreesDataFetcher";
 	private ExceptionReporter exceptionReporter;
+	public enum FetchResult {
+		SUCCESS,
+		NOTONLINE,
+		LOGINFAILED,
+		USERNAMEPASSWORDNOTSET,
+		NETWORKERROR,
+		NOTALLOWED
+	}
 	public DataFetcher(ExceptionReporter e) {
 		exceptionReporter = e;
 	}
@@ -104,12 +112,12 @@ public class DataFetcher {
 			return true;
 		}
 	}
-	public void updateData(Context context, boolean force) throws DataFetcherLoginDetailsException, ClientProtocolException, IOException {
+	public FetchResult updateData(Context context, boolean force) {
 		// check for internet connectivity
 		try {
 			if (!isOnline(context)) {
 				Log.d(TAG, "We do not seem to be online. Not updating.");
-				throw new IOException("We do not seem to be online. Not updating.");
+				return FetchResult.NOTONLINE;
 			}
 		} catch (Exception e) {
 			exceptionReporter.reportException(Thread.currentThread(), e, "Exception during isOnline()");
@@ -119,31 +127,31 @@ public class DataFetcher {
 			try {
 				if (sp.getBoolean("loginFailed", false) == true) {
 					Log.d(TAG, "Previous login failed. Not updating.");
-					throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.LOGINFAILED, "Previous login failed, click to correct");
+					return FetchResult.LOGINFAILED;
 				}
 				if(sp.getBoolean("autoupdates", true) == false) {
 					Log.d(TAG, "Automatic updates not enabled. Not updating.");
-					return;
+					return FetchResult.NOTALLOWED;
 				}
 				if (!isBackgroundDataEnabled(context) && sp.getBoolean("obeyBackgroundData", true)) {
 					Log.d(TAG, "Background data not enabled. Not updating.");
-					return;
+					return FetchResult.NOTALLOWED;
 				}
 				if (!isAutoSyncEnabled() && sp.getBoolean("obeyAutoSync", true) && sp.getBoolean("obeyBackgroundData", true)) {
 					Log.d(TAG, "Auto sync not enabled. Not updating.");
-					return;
+					return FetchResult.NOTALLOWED;
 				}
 				if (isWifi(context) && !sp.getBoolean("wifiUpdates", true)) {
 					Log.d(TAG, "On wifi, and wifi auto updates not allowed. Not updating");
-					return;
+					return FetchResult.NOTALLOWED;
 				} else if (!isWifi(context)){
 					Log.d(TAG, "We are not on wifi.");
 					if (!isRoaming(context) && !sp.getBoolean("2DData", true)) {
 						Log.d(TAG, "Automatic updates on 2Degrees data not enabled. Not updating.");
-						return;
+						return FetchResult.NOTALLOWED;
 					} else if (isRoaming(context) && !sp.getBoolean("roamingData", false)) {
 						Log.d(TAG, "Automatic updates on roaming mobile data not enabled. Not updating.");
-						return;
+						return FetchResult.NOTALLOWED;
 					}
 
 				}
@@ -162,7 +170,7 @@ public class DataFetcher {
 			String username = sp.getString("username", null);
 			String password = sp.getString("password", null);
 			if(username == null || password == null) {
-				throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.USERNAMEPASSWORDNOTSET, "Username/password not set");
+				return FetchResult.USERNAMEPASSWORDNOTSET;
 			}
 
 			// Find the URL of the page to send login data to.
@@ -200,7 +208,7 @@ public class DataFetcher {
 				Element accountSummary = homePage.getElementById("accountSummary");
 				if (accountSummary == null) {
 					Log.d(TAG, "Login failed.");
-					throw new DataFetcherLoginDetailsException(DataFetcherLoginDetailsException.LOGINFAILED, "Login failed");
+					return FetchResult.LOGINFAILED;
 				}
 				db.delete("cache", "", null);
 				/* This code fetched some extra details for postpaid users, but on reflection they aren't that useful.
@@ -349,22 +357,17 @@ public class DataFetcher {
 			        prefedit.putBoolean("networkError", false);
 					prefedit.commit();
 				}
+				return FetchResult.SUCCESS;
+
 			}
-		} finally {
+		} catch (ClientProtocolException e) {
+			return FetchResult.NETWORKERROR;
+		} catch (IOException e) {
+			return FetchResult.NETWORKERROR;
+		}
+		finally {
 			db.close();
 		}
-	}
-}
-class DataFetcherLoginDetailsException extends Exception {
-	private static final long serialVersionUID = 3744365132866903296L;
-	private int errorType;
-	public final static int USERNAMEPASSWORDNOTSET = 0;
-	public final static int LOGINFAILED = 1;
-	public DataFetcherLoginDetailsException(int errorType, String message) {
-		super(message);
-		this.errorType = errorType;
-	}
-	public int getErrorType() {
-		return errorType;
+		return null;
 	}
 }

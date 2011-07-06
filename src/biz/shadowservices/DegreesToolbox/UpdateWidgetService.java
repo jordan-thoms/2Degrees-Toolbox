@@ -23,6 +23,8 @@ import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
+import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 import de.quist.app.errorreporter.ReportingService;
@@ -39,10 +41,6 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
 	// This is the service which handles updating the widgets.
 	private static String TAG = "2DegreesUpdateWidgetService";
 	public static String NEWDATA = "BalanceWidgetNewDataAvailable12";
-	public static final int NONE = 0;
-	public static final int USERNAMEPASSWORD = 1;
-	public static final int LOGINFAILED = 2;
-	public static final int NETWORK = 3;
 	/**
      * Flag if there is an update thread already running. We only launch a new
      * thread if one isn't already running.
@@ -113,46 +111,22 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
 				Log.d(TAG, "Failed when deciding whether to update");
 			}
 		}
-		int error =  NONE;
     	DataFetcher dataFetcher = new DataFetcher(getExceptionReporter());
+    	FetchResult result = null;
 		if(update) {
-	    	try {
-				dataFetcher.updateData(this, force);
-			} catch (DataFetcherLoginDetailsException e) {
-				 Log.d(TAG, e.getMessage());
-				 switch (e.getErrorType()) {
-				 case DataFetcherLoginDetailsException.LOGINFAILED:
-					 error = LOGINFAILED;
-					 break;
-				 case DataFetcherLoginDetailsException.USERNAMEPASSWORDNOTSET:
-					 error = USERNAMEPASSWORD;
-					 break;
-				 }
-		         // Login failed - set the error text for the activity
-		         Editor edit = sp.edit();
-		         edit.putBoolean("loginFailed", true);
-		         edit.commit();
-			} catch (ClientProtocolException e) {
-				 Log.d(TAG, e.getMessage());
-				 error = NETWORK;
-		         Editor edit = sp.edit();
-		         edit.putBoolean("networkError", true);
-		         edit.commit();
-			} catch (IOException e) {
-				 Log.d(TAG, e.getMessage());
-				 error = NETWORK;
-		         Editor edit = sp.edit();
-		         edit.putBoolean("networkError", true);
-		         edit.commit();
-			}
-		    Log.d(TAG, "Building updates -- data updated");
+				result = dataFetcher.updateData(this, force);
+			    // Login failed - set error for the activity so it can display the information
+			    Editor edit = sp.edit();
+			    edit.putString("updateStatus", result.toString());
+			    edit.commit();
+			    Log.d(TAG, "Building updates -- data updated. Result: " +  result.toString());
 		} else {
 		    Log.d(TAG, "Building updates -- data fresh, not updated");
+		    result = FetchResult.SUCCESS;
 		}
-		Log.d(TAG, Integer.toString(error));
 
 		for (AbstractWidgetUpdater updater : Values.widgetUpdaters) {
-			updater.updateWidgets(this, force, error);
+			updater.updateWidgets(this, force, result);
 		}
 
     	Log.d(TAG, "Sent updates");

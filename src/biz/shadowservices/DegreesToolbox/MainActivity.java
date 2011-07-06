@@ -50,10 +50,11 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
 import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
 
 public class MainActivity extends BaseActivity {
-	private static String TAG = "2DegreesPhoneBalanceMain";
+	private static String TAG = "2DegreesPhoneBalanceMainActivity";
 	private UpdateReciever reciever;
 
 	ProgressDialog progressDialog = null;
@@ -237,26 +238,33 @@ public class MainActivity extends BaseActivity {
 			RelativeLayout.LayoutParams col1LayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			col1LayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 			//col1LayoutParams.addRule(RelativeLayout.LEFT_OF, col3.getId() );
-			if(!sp.getBoolean("loginFailed", false)) {
-				if (!sp.getBoolean("networkError", false)) {
-					col1.setText("Last Update");
-					String updateDateString = sp.getString("updateDate", "");
-					String updateDate = "";
-					try {
-						Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
-						updateDate = DateFormatters.DATETIME.format(lastUpdate);
-					} catch (Exception e) {
-						updateDate = "Unknown";
-					}
-					col3.setText(updateDate);
-				} else {
-					col1.setText("Last Update -- Network Error.");				
+			String updateStatusStr = sp.getString("updateStatus", "SUCCESS");
+			FetchResult updateStatus = FetchResult.valueOf(updateStatusStr);
+			Log.d(TAG, updateStatus.toString());
+			switch(updateStatus) {
+			case LOGINFAILED:
+			case USERNAMEPASSWORDNOTSET:
+				col1.setText("Last Update -- Login failed, set the correct username/password details in menu->preferences and then press back.");
+				break;
+			case NETWORKERROR:
+				col1.setText("Last Update -- Network Error.");
+				break;
+			case NOTONLINE:
+				col1.setText("Last Update -- Not Online");
+				break;
+			case SUCCESS:
+				col1.setText("Last Update");
+				String updateDateString = sp.getString("updateDate", "");
+				String updateDate = "";
+				try {
+					Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
+					updateDate = DateFormatters.DATETIME.format(lastUpdate);
+				} catch (Exception e) {
+					updateDate = "Unknown";
 				}
-
-			} else {
-				col1.setText("Last Update -- Login failed, set the correct details in menu->preferences and then press back.");				
-			}
-				
+				col3.setText(updateDate);
+				break;
+			}				
 			firstLine.addView(col1,  col1LayoutParams);
 			firstLine.addView(col3, col3LayoutParams);
 			layout.addView(firstLine);

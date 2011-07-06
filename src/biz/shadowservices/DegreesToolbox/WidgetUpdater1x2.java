@@ -19,6 +19,8 @@ package biz.shadowservices.DegreesToolbox;
 import java.util.ArrayList;
 import java.util.List;
 
+import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -35,7 +37,7 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 	private static int LINELIMIT = 17;
 	private static String TAG = "2DegreesPhoneBalanceWidget2x1";
 	@Override
-	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, int error) {
+	protected void fillRemoteViews(RemoteViews updateViews, Context context, int widgetId, FetchResult error) {
 		Log.d(TAG, "FillRemoteViews, error code: " + error);
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		int backgroundId = sp.getInt("widgetSettings[" + widgetId + "][backgroundId]", 0);
@@ -49,8 +51,13 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 		}
 
     	switch (error) {
-    	case UpdateWidgetService.NONE:
-    	case UpdateWidgetService.NETWORK:
+    	case LOGINFAILED:
+			updateViews.setTextViewText(R.id.widget1x2_line1, "Login failed");
+			break;
+    	case USERNAMEPASSWORDNOTSET:
+			updateViews.setTextViewText(R.id.widget1x2_line1, "Username or password not set");
+			break;
+    	default:
     		// Clear widget
     		int[] lineIds = {R.id.widget1x2_line1, R.id.widget1x2_line2, R.id.widget1x2_line3, R.id.widget1x2_right1, R.id.widget1x2_right2 };
     		for (int line : lineIds) {
@@ -81,12 +88,6 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
     			}
     		}
         	break;
-    	case UpdateWidgetService.LOGINFAILED:
-			updateViews.setTextViewText(R.id.widget1x2_line1, "Login failed");
-			break;
-    	case UpdateWidgetService.USERNAMEPASSWORD:
-			updateViews.setTextViewText(R.id.widget1x2_line1, "Username or password not set");
-			break;
     	}
 
 		updateViews.setTextViewText(R.id.widget1x2_lastupdate, getUpdateDateString(context));
