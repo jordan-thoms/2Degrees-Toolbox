@@ -16,6 +16,7 @@ public class Values {
 	        R.drawable.widget_frame_metal,
 	        R.drawable.widget_frame_wood,
 	};
+	public static Double INCLUDED = -100.0;
 	public static PackTreeNode valuePacks;
 	public static String CONFIRMDATA = "Are you sure you wish to purchase the data pack ";
 	public static String CONFIRMDATACANCEL = "Are you sure you wish to cancel " ;
@@ -31,7 +32,7 @@ public class Values {
 		PackTreeNode bbZone = new PackTreeNode("BB Zone Data", "Choose BB Zone data pack:");
 		bbZone.addChild(new PackTreeLeaf("$20 1GB Zone Data", CONFIRMDATA, "buy 1GB", 2000));
 		bbZone.addChild(new PackTreeLeaf("$50 3GB Zone Data", CONFIRMDATA, "buy 3GB", 5000));
-		bbZone.addChild(new PackTreeLeaf("$150 12GB Zone Data", CONFIRMDATA, "buy 3GB", 1500));
+		bbZone.addChild(new PackTreeLeaf("$150 12GB Zone Data", CONFIRMDATA, "buy 3GB", 15000));
 		valuePacks.addChild(bbZone);
 		PackTreeNode talkPacks = new PackTreeNode("Talk Packs", "Choose talk pack:");
 		talkPacks.addChild(new PackTreeLeaf("$30 Everyone100", CONFIRMTALK, "buy every100", 3000));

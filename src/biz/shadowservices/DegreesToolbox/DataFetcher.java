@@ -296,7 +296,16 @@ public class DataFetcher {
 						String[] amountParts = amountHTML.split("&nbsp;", 2);
 						//Log.d(TAG, amountParts[0]);
 						//Log.d(TAG, amountParts[1]);
-						value = Double.parseDouble(amountParts[0]);
+						if (amountParts[0].equals("Included")) {
+							value = Values.INCLUDED;
+						} else {
+							try {
+								value = Double.parseDouble(amountParts[0]);	
+							} catch (NumberFormatException e) {
+								exceptionReporter.reportException(Thread.currentThread(), e, "Decoding value.");
+								value = 0.0;
+							}
+						}
 						units = amountParts[1];
 					} catch (NullPointerException e) {
 						//Log.d(TAG, "Failed to parse amount from row.");

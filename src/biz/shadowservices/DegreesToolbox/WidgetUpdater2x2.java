@@ -113,6 +113,9 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
 				if (result.getString(1) != null) {
 					if (result.getString(2) != null) {
 						if (!result.getString(2).equals("$NZ")) {
+							if(Math.abs((result.getDouble(1) - Values.INCLUDED)) < 0.01) {
+								lineBuilder.append("Included");
+							}
 							lineBuilder.append(Math.round(result.getDouble(1)) + " " + result.getString(2));
 						} else {
 							lineBuilder.append(Util.money.format(result.getDouble(1)));

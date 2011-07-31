@@ -114,7 +114,9 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 				if (result.getString(0) != null) {
 					if (result.getString(1) != null) {
 						if (!result.getString(1).equals("$NZ")) {
-							lines.add(new Line(Math.round(result.getDouble(0)) + " " + result.getString(1)));
+							if(!(Math.abs((result.getDouble(0) - Values.INCLUDED)) < 0.01)) {
+								lines.add(new Line(Math.round(result.getDouble(0)) + " " + result.getString(1)));
+							}
 						} else {
 							if(result.getDouble(0) > 100) {
 								lines.add(new Line("$" + Math.round(result.getDouble(0))));

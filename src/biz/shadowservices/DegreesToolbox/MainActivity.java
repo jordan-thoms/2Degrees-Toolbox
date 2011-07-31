@@ -264,6 +264,9 @@ public class MainActivity extends BaseActivity {
 				}
 				col3.setText(updateDate);
 				break;
+			case NOTALLOWED:
+				col1.setText("Last Update -- Not allowed by settings.");
+				break;
 			}				
 			firstLine.addView(col1,  col1LayoutParams);
 			firstLine.addView(col3, col3LayoutParams);
@@ -285,7 +288,11 @@ public class MainActivity extends BaseActivity {
 			firstLine.addView(col1,  col1LayoutParams);
 			StringBuilder valueStringBuilder = new StringBuilder();
 			if(cursor.getString(1) != null) {
-				valueStringBuilder.append(cursor.getString(1));
+				if(Math.abs((cursor.getDouble(1) - Values.INCLUDED)) < 0.01) {
+					valueStringBuilder.append("Included");
+				} else {
+					valueStringBuilder.append(cursor.getString(1));
+				}
 				valueStringBuilder.append(" ");
 			}
 			if(cursor.getString(2) != null) {
