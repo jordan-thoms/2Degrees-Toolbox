@@ -20,8 +20,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -84,6 +82,9 @@ public class MainActivity extends BaseActivity {
     	case R.id.openPreferences:
     		Intent openPreferences = new Intent(this, BalancePreferencesActivity.class);
     		startActivityForResult(openPreferences, 2);
+    		return true;
+    	case R.id.openLog:
+    		startActivity(new Intent(this, LogViewActivity.class));
     		return true;
     	case R.id.callCustomerService:
     		startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0800022022")));
@@ -155,7 +156,7 @@ public class MainActivity extends BaseActivity {
 		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
 		startService(update);
     	GATracker.getInstance().trackEvent("Actions", "Manual Refresh", "MainActivity", 0);
-
+    
     }
     @Override
     public void onPause() {

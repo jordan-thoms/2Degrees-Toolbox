@@ -113,6 +113,10 @@ public class DataFetcher {
 		}
 	}
 	public FetchResult updateData(Context context, boolean force) {
+		//Open database
+		DBOpenHelper dbhelper = new DBOpenHelper(context);
+		SQLiteDatabase db = dbhelper.getWritableDatabase();
+
 		// check for internet connectivity
 		try {
 			if (!isOnline(context)) {
@@ -127,30 +131,37 @@ public class DataFetcher {
 			try {
 				if (sp.getBoolean("loginFailed", false) == true) {
 					Log.d(TAG, "Previous login failed. Not updating.");
+					DBLog.insertMessage(context, "i", TAG, "Previous login failed. Not updating.");
 					return FetchResult.LOGINFAILED;
 				}
 				if(sp.getBoolean("autoupdates", true) == false) {
 					Log.d(TAG, "Automatic updates not enabled. Not updating.");
+					DBLog.insertMessage(context, "i", TAG, "Automatic updates not enabled. Not updating.");
 					return FetchResult.NOTALLOWED;
 				}
 				if (!isBackgroundDataEnabled(context) && sp.getBoolean("obeyBackgroundData", true)) {
 					Log.d(TAG, "Background data not enabled. Not updating.");
+					DBLog.insertMessage(context, "i", TAG, "Background data not enabled. Not updating.");
 					return FetchResult.NOTALLOWED;
 				}
 				if (!isAutoSyncEnabled() && sp.getBoolean("obeyAutoSync", true) && sp.getBoolean("obeyBackgroundData", true)) {
 					Log.d(TAG, "Auto sync not enabled. Not updating.");
+					DBLog.insertMessage(context, "i", TAG, "Auto sync not enabled. Not updating.");
 					return FetchResult.NOTALLOWED;
 				}
 				if (isWifi(context) && !sp.getBoolean("wifiUpdates", true)) {
 					Log.d(TAG, "On wifi, and wifi auto updates not allowed. Not updating");
+					DBLog.insertMessage(context, "i", TAG, "On wifi, and wifi auto updates not allowed. Not updating");
 					return FetchResult.NOTALLOWED;
 				} else if (!isWifi(context)){
 					Log.d(TAG, "We are not on wifi.");
 					if (!isRoaming(context) && !sp.getBoolean("2DData", true)) {
 						Log.d(TAG, "Automatic updates on 2Degrees data not enabled. Not updating.");
+						DBLog.insertMessage(context, "i", TAG, "Automatic updates on 2Degrees data not enabled. Not updating.");
 						return FetchResult.NOTALLOWED;
 					} else if (isRoaming(context) && !sp.getBoolean("roamingData", false)) {
 						Log.d(TAG, "Automatic updates on roaming mobile data not enabled. Not updating.");
+						DBLog.insertMessage(context, "i", TAG, "Automatic updates on roaming mobile data not enabled. Not updating.");
 						return FetchResult.NOTALLOWED;
 					}
 
@@ -163,14 +174,12 @@ public class DataFetcher {
 			Log.d(TAG, "Update Forced");
 		}
 		
-		//Open database
-		DBOpenHelper dbhelper = new DBOpenHelper(context);
-		SQLiteDatabase db = dbhelper.getWritableDatabase();
 		try {
 			String username = sp.getString("username", null);
 			String password = sp.getString("password", null);
 			if(username == null || password == null) {
-				return FetchResult.USERNAMEPASSWORDNOTSET;
+				DBLog.insertMessage(context, "i", TAG, "Username or password not set.");
+				return FetchResult.USERNAMEPASSWORDNOTSET;				
 			}
 
 			// Find the URL of the page to send login data to.
@@ -365,13 +374,16 @@ public class DataFetcher {
 					prefedit.putBoolean("loginFailed", false);
 			        prefedit.putBoolean("networkError", false);
 					prefedit.commit();
+					DBLog.insertMessage(context, "i", TAG, "Update Sucessful");
 				}
 				return FetchResult.SUCCESS;
 
 			}
 		} catch (ClientProtocolException e) {
+			DBLog.insertMessage(context, "w", TAG, "Network error: " + e.getMessage());
 			return FetchResult.NETWORKERROR;
 		} catch (IOException e) {
+			DBLog.insertMessage(context, "w", TAG, "Network error: " + e.getMessage());
 			return FetchResult.NETWORKERROR;
 		}
 		finally {

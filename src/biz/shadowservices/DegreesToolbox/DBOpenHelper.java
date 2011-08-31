@@ -23,11 +23,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBOpenHelper extends SQLiteOpenHelper {
 	// This handles the opening, creation, and upgrading of the DB.
     private static final String DATABASE_NAME = "PhoneBalance";
-    private static final int DATABASE_VERSION = 1;
-   /*  private static final String PREFS_TABLE_NAME = "preferences";
-    private static final String PREFS_TABLE_CREATE = "CREATE TABLE \"preferences\" " +
-    		"(\"name\" TEXT PRIMARY KEY  NOT NULL  UNIQUE , " +
-    		"\"value\" TEXT NOT NULL )"; */
+    private static final int DATABASE_VERSION = 2;
     @SuppressWarnings("unused")
 	private static final String CACHE_TABLE_NAME = "cache";
     private static final String CACHE_TABLE_CREATE = "CREATE TABLE \"cache\" " +
@@ -35,7 +31,17 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     		"\"name\" TEXT NOT NULL , \"value\" NUMERIC  NULL ," +
     		" \"units\" TEXT, \"expires_value\" NUMERIC," +
     		" \"expires_date\" DATETIME)";
-                
+	private static final String LOG_TABLE_NAME = "log";
+    private static final String LOG_TABLE_CREATE = "CREATE TABLE \"log\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+    		"\"date_time\" DATETIME NOT NULL," +
+    		"\"severity\" VARCHAR(1)" + 
+    		"\"tag\" VARCHAR(40) NOT NULL," + 
+    		"\"message\" TEXT NOT NULL)";               
+	private static final String USAGE_TABLE_NAME = "usage";
+    private static final String USAGE_TABLE_CREATE = "CREATE TABLE \"usage\" (date_time DATETIME NOT NULL, " +
+    		"charge_group VARCHAR(10) NOT NULL, charge_type VARCHAR(40) NOT NULL, " +
+    		"other_number VARCHAR(15) NULL, amount DECIMAL NULL, " +
+    		"charge DECIMAL NOT NULL)";
 
     DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -43,13 +49,18 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-        //db.execSQL(PREFS_TABLE_CREATE);
         db.execSQL(CACHE_TABLE_CREATE);
+        db.execSQL(LOG_TABLE_CREATE);
+        db.execSQL(USAGE_TABLE_CREATE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stu
+		switch(oldVersion) {
+			case 1:
+				db.execSQL(LOG_TABLE_CREATE);
+				db.execSQL(USAGE_TABLE_CREATE);
+		}
 	}
 
 }
