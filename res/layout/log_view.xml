@@ -4,8 +4,10 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+                   <include layout="@layout/actionbar" />
+  
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/scrollView1">
-        <LinearLayout android:id="@+id/logLinesLayout" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+        <LinearLayout android:id="@+id/logLinesLayout" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"></LinearLayout>
     </ScrollView>
     
 </LinearLayout>

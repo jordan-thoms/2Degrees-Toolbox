@@ -19,6 +19,7 @@ package biz.shadowservices.DegreesToolbox;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 	// This handles the opening, creation, and upgrading of the DB.
@@ -34,7 +35,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	private static final String LOG_TABLE_NAME = "log";
     private static final String LOG_TABLE_CREATE = "CREATE TABLE \"log\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
     		"\"date_time\" DATETIME NOT NULL," +
-    		"\"severity\" VARCHAR(1)" + 
+    		"\"severity\" VARCHAR(1)," + 
     		"\"tag\" VARCHAR(40) NOT NULL," + 
     		"\"message\" TEXT NOT NULL)";               
 	private static final String USAGE_TABLE_NAME = "usage";
@@ -58,7 +59,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		switch(oldVersion) {
 			case 1:
+				Log.v("2DegreesDBOpenHelper", "Exec: " + LOG_TABLE_CREATE);
 				db.execSQL(LOG_TABLE_CREATE);
+				Log.v("2DegreesDBOpenHelper", "Exec: " + USAGE_TABLE_CREATE);
 				db.execSQL(USAGE_TABLE_CREATE);
 		}
 	}

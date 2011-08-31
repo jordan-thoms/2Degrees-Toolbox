@@ -3,6 +3,7 @@ package biz.shadowservices.DegreesToolbox;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,10 +26,9 @@ public class LogViewActivity extends BaseActivity {
 		DBOpenHelper dbHelper = new DBOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor logLines = db.query("log", null, null, null, null, null, "date_time DESC");
+		logLines.moveToFirst();
 		for (int i=0; i<logLines.getCount(); i++) {
-			StringBuilder text = new StringBuilder(logLines.getString(1));
-			text.append("  ");
-			text.append(logLines.getString(3));
+			StringBuilder text = new StringBuilder(logLines.getString(1).replace("T", " "));
 			text.append("  ");
 			text.append(logLines.getString(4));
 			TextView textView = new TextView(this);
@@ -36,6 +36,8 @@ public class LogViewActivity extends BaseActivity {
 			layout.addView(textView);
 			logLines.moveToNext();
 		}
+		logLines.close();
+		db.close();
     }
 
 }

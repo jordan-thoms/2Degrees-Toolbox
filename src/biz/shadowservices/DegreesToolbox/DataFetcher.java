@@ -374,8 +374,8 @@ public class DataFetcher {
 					prefedit.putBoolean("loginFailed", false);
 			        prefedit.putBoolean("networkError", false);
 					prefedit.commit();
-					DBLog.insertMessage(context, "i", TAG, "Update Sucessful");
 				}
+				DBLog.insertMessage(context, "i", TAG, "Update Successful");
 				return FetchResult.SUCCESS;
 
 			}
