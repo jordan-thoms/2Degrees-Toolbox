@@ -38,6 +38,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -368,13 +369,47 @@ public class DataFetcher {
 					values.put("expires_value", expiresValue);
 					values.put("expires_date", expiresDate);
 					db.insert("cache", "value", values );
-					SharedPreferences.Editor prefedit = sp.edit();
-					Date now = new Date();
-					prefedit.putString("updateDate", DateFormatters.ISO8601FORMAT.format(now));
-					prefedit.putBoolean("loginFailed", false);
-			        prefedit.putBoolean("networkError", false);
-					prefedit.commit();
 				}
+				
+				if(postPaid == false) {
+					// Find value packs
+					HttpGetter valuePacksPageGet = new HttpGetter("https://secure.2degreesmobile.co.nz/web/ip/login");
+					String valuePacksPageString = valuePacksPageGet.execute();
+					if(valuePacksPageString != null) {
+						Document valuePacksPage = Jsoup.parse(valuePacksPageString);
+						Elements enabledPacks = valuePacksPage.getElementsByClass("yellow");
+						for (Element enabledPack : enabledPacks) {
+							Element offerNameElemt = enabledPack.getElementsByAttributeValueStarting("name", "offername").first();
+							String offerName = offerNameElemt.val();
+							ValuePack[] packs = Values.valuePacks.get(offerName);
+							if (packs == null) {
+								DBLog.insertMessage(context, "d", "", "Offer name: " + offerName + " not matched.");
+							} else {
+								for (ValuePack pack: packs) {
+									Cursor csr = db.query("cache", null, "name = '" + pack.type.id + "'", null, null, null, null);
+									if (csr.getCount() == 1) {
+										csr.moveToFirst();
+										ContentValues values = new ContentValues();
+										values.put("plan_startamount", csr.getDouble(4) + pack.value);
+										DBLog.insertMessage(context, "d", "", "Pack " + pack.type.id + " start value set to " + csr.getDouble(4) + pack.value);
+										db.update("cache", values, "name = '" + pack.type.id + "'", null);
+									} else {
+										DBLog.insertMessage(context, "d", "", "Pack " + pack.type.id + " Couldn't find item to add to");
+									}
+									csr.close();
+								}
+							}
+						}
+					}
+				}
+
+				
+				SharedPreferences.Editor prefedit = sp.edit();
+				Date now = new Date();
+				prefedit.putString("updateDate", DateFormatters.ISO8601FORMAT.format(now));
+				prefedit.putBoolean("loginFailed", false);
+		        prefedit.putBoolean("networkError", false);
+				prefedit.commit();
 				DBLog.insertMessage(context, "i", TAG, "Update Successful");
 				return FetchResult.SUCCESS;
 

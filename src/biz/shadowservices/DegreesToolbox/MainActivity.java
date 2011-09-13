@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity {
     }
     private OnClickListener buyPackListener = new OnClickListener() {
     	public void onClick(View v) {
-    		valuePackMenuNodeView(Values.valuePacks);
+    		valuePackMenuNodeView(Values.purchaseValuePacks);
     	}
     };
     private OnClickListener refreshListener = new OnClickListener() {
