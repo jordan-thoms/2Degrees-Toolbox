@@ -25,7 +25,7 @@ public class LogViewActivity extends BaseActivity {
 		layout.removeAllViews();
 		DBOpenHelper dbHelper = new DBOpenHelper(this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor logLines = db.query("log", null, null, null, null, null, "date_time DESC");
+		Cursor logLines = db.query("log", null, null, null, null, null, "id DESC");
 		logLines.moveToFirst();
 		for (int i=0; i<logLines.getCount(); i++) {
 			StringBuilder text = new StringBuilder(logLines.getString(1).replace("T", " "));
