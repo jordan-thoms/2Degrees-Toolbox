@@ -45,6 +45,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -222,7 +223,7 @@ public class MainActivity extends BaseActivity {
         // Load, display data.
 		DBOpenHelper dbhelper = new DBOpenHelper(this);
 		SQLiteDatabase db = dbhelper.getReadableDatabase();
-		Cursor cursor = db.query("cache", new String[] {"name","value", "units", "expires_value", "expires_date"} , null, null,null,null,null);
+		Cursor cursor = db.query("cache", new String[] {"name","value", "units", "expires_value", "expires_date", "plan_startamount"} , null, null,null,null,null);
 		cursor.moveToFirst(); 
 		LinearLayout layout = (LinearLayout) this.findViewById(R.id.lineslayout);
 		layout.removeAllViews();
@@ -302,6 +303,15 @@ public class MainActivity extends BaseActivity {
 			col3.setText(valueStringBuilder.toString());
 			firstLine.addView(col3, col3LayoutParams);
 			layout.addView(firstLine);
+			if (cursor.getString(4) != null) {
+				double currentVal = cursor.getDouble(1);
+				double startVal = cursor.getDouble(4);
+				ProgressBar bar = (ProgressBar)getLayoutInflater().inflate(R.layout.pack_progress_bar, null);
+				bar.setMax((int)startVal);
+				bar.setProgress((int)(startVal - currentVal));
+				LayoutParams progressBarParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				layout.addView(bar, progressBarParams);
+			}
 			TextView col2 = new TextView(this);
 			col2.setPadding(10,0,5,5);
 			SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd");

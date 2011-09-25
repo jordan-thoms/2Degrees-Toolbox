@@ -56,9 +56,9 @@ public class Values {
 		valuePacks.put("EVERYONE100", new ValuePack[] {new ValuePack(Type.MINS, 100)});
 		valuePacks.put("50MB", new ValuePack[] {new ValuePack(Type.NATDATA, 50)});
 		valuePacks.put("100MB", new ValuePack[] {new ValuePack(Type.NATDATA, 100)});
-		valuePacks.put("1GB", new ValuePack[] {new ValuePack(Type.ZONEDATA, 1000)});
-		valuePacks.put("3GB", new ValuePack[] {new ValuePack(Type.ZONEDATA, 3000)});
-		valuePacks.put("12GB", new ValuePack[] {new ValuePack(Type.ZONEDATA, 12000)});
+		valuePacks.put("1GB", new ValuePack[] {new ValuePack(Type.ZONEDATA, 1024)});
+		valuePacks.put("3GB", new ValuePack[] {new ValuePack(Type.ZONEDATA, 3072)});
+		valuePacks.put("12GB", new ValuePack[] {new ValuePack(Type.ZONEDATA, 12288)});
 		
 		
 	}

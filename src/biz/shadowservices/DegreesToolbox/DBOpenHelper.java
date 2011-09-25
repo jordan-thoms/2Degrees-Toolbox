@@ -31,7 +31,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     		"(\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , " +
     		"\"name\" TEXT NOT NULL , \"value\" NUMERIC  NULL ," +
     		" \"units\" TEXT, \"expires_value\" NUMERIC," +
-    		" \"expires_date\" DATETIME " +
+    		" \"expires_date\" DATETIME, " +
     		"\"plan_startamount\" NUMERIC NULL)";
 	private static final String LOG_TABLE_NAME = "log";
     private static final String LOG_TABLE_CREATE = "CREATE TABLE \"log\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
