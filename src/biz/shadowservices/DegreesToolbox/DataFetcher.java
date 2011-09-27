@@ -121,7 +121,7 @@ public class DataFetcher {
 		// check for internet connectivity
 		try {
 			if (!isOnline(context)) {
-				Log.d(TAG, "We do not seem to be online. Not updating.");
+				Log.d(TAG, "We do not seem to be online. Skipping Update.");
 				return FetchResult.NOTONLINE;
 			}
 		} catch (Exception e) {
@@ -131,38 +131,38 @@ public class DataFetcher {
 		if (!force) {
 			try {
 				if (sp.getBoolean("loginFailed", false) == true) {
-					Log.d(TAG, "Previous login failed. Not updating.");
-					DBLog.insertMessage(context, "i", TAG, "Previous login failed. Not updating.");
+					Log.d(TAG, "Previous login failed. Skipping Update.");
+					DBLog.insertMessage(context, "i", TAG, "Previous login failed. Skipping Update.");
 					return FetchResult.LOGINFAILED;
 				}
 				if(sp.getBoolean("autoupdates", true) == false) {
-					Log.d(TAG, "Automatic updates not enabled. Not updating.");
-					DBLog.insertMessage(context, "i", TAG, "Automatic updates not enabled. Not updating.");
+					Log.d(TAG, "Automatic updates not enabled. Skipping Update.");
+					DBLog.insertMessage(context, "i", TAG, "Automatic updates not enabled. Skipping Update.");
 					return FetchResult.NOTALLOWED;
 				}
 				if (!isBackgroundDataEnabled(context) && sp.getBoolean("obeyBackgroundData", true)) {
-					Log.d(TAG, "Background data not enabled. Not updating.");
-					DBLog.insertMessage(context, "i", TAG, "Background data not enabled. Not updating.");
+					Log.d(TAG, "Background data not enabled. Skipping Update.");
+					DBLog.insertMessage(context, "i", TAG, "Background data not enabled. Skipping Update.");
 					return FetchResult.NOTALLOWED;
 				}
 				if (!isAutoSyncEnabled() && sp.getBoolean("obeyAutoSync", true) && sp.getBoolean("obeyBackgroundData", true)) {
-					Log.d(TAG, "Auto sync not enabled. Not updating.");
-					DBLog.insertMessage(context, "i", TAG, "Auto sync not enabled. Not updating.");
+					Log.d(TAG, "Auto sync not enabled. Skipping Update.");
+					DBLog.insertMessage(context, "i", TAG, "Auto sync not enabled. Skipping Update.");
 					return FetchResult.NOTALLOWED;
 				}
 				if (isWifi(context) && !sp.getBoolean("wifiUpdates", true)) {
-					Log.d(TAG, "On wifi, and wifi auto updates not allowed. Not updating");
-					DBLog.insertMessage(context, "i", TAG, "On wifi, and wifi auto updates not allowed. Not updating");
+					Log.d(TAG, "On wifi, and wifi auto updates not allowed. Skipping Update");
+					DBLog.insertMessage(context, "i", TAG, "On wifi, and wifi auto updates not allowed. Skipping Update");
 					return FetchResult.NOTALLOWED;
 				} else if (!isWifi(context)){
 					Log.d(TAG, "We are not on wifi.");
 					if (!isRoaming(context) && !sp.getBoolean("2DData", true)) {
-						Log.d(TAG, "Automatic updates on 2Degrees data not enabled. Not updating.");
-						DBLog.insertMessage(context, "i", TAG, "Automatic updates on 2Degrees data not enabled. Not updating.");
+						Log.d(TAG, "Automatic updates on 2Degrees data not enabled. Skipping Update.");
+						DBLog.insertMessage(context, "i", TAG, "Automatic updates on 2Degrees data not enabled. Skipping Update.");
 						return FetchResult.NOTALLOWED;
 					} else if (isRoaming(context) && !sp.getBoolean("roamingData", false)) {
-						Log.d(TAG, "Automatic updates on roaming mobile data not enabled. Not updating.");
-						DBLog.insertMessage(context, "i", TAG, "Automatic updates on roaming mobile data not enabled. Not updating.");
+						Log.d(TAG, "Automatic updates on roaming mobile data not enabled. Skipping Update.");
+						DBLog.insertMessage(context, "i", TAG, "Automatic updates on roaming mobile data not enabled. Skipping Update.");
 						return FetchResult.NOTALLOWED;
 					}
 
@@ -382,7 +382,6 @@ public class DataFetcher {
 						Elements enabledPacks = valuePacksPage.getElementsByClass("yellow");
 						for (Element enabledPack : enabledPacks) {
 							Element offerNameElemt = enabledPack.getElementsByAttributeValueStarting("name", "offername").first();
-							// Substring 1 to strip out leading quote mark...
 							String offerName = offerNameElemt.val();
 							DBLog.insertMessage(context, "d", "", "Got element: " + offerName);
 							ValuePack[] packs = Values.valuePacks.get(offerName);
