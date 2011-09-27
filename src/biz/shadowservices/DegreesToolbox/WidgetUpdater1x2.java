@@ -112,21 +112,23 @@ public class WidgetUpdater1x2 extends AbstractWidgetUpdater {
 			result.moveToFirst();
 			for (int i=0; i<result.getCount(); i++) {
 				if (result.getString(0) != null) {
-					if (result.getString(1) != null) {
-						if (!result.getString(1).equals("$NZ")) {
-							if(!(Math.abs((result.getDouble(0) - Values.INCLUDED)) < 0.01)) {
-								lines.add(new Line(Math.round(result.getDouble(0)) + " " + result.getString(1)));
-							}
-						} else {
-							if(result.getDouble(0) > 100) {
-								lines.add(new Line("$" + Math.round(result.getDouble(0))));
+					if (result.getInt(0) != 0) {
+						if (result.getString(1) != null) {
+							if (!result.getString(1).equals("$NZ")) {
+								if(!(Math.abs((result.getDouble(0) - Values.INCLUDED)) < 0.001)) {
+									lines.add(new Line(Math.round(result.getDouble(0)) + " " + result.getString(1)));
+								}
 							} else {
-								lines.add(new Line(Util.money.format(result.getDouble(0))));
+								if(result.getDouble(0) > 100) {
+									lines.add(new Line("$" + Math.round(result.getDouble(0))));
+								} else {
+									lines.add(new Line(Util.money.format(result.getDouble(0))));
+								}
 							}
+							Log.d(TAG, result.getString(0) + " " + result.getString(1));
+						} else {
+							lines.add(new Line(String.valueOf(Math.round(result.getDouble(0)))));
 						}
-						Log.d(TAG, result.getString(0) + " " + result.getString(1));
-					} else {
-						lines.add(new Line(String.valueOf(Math.round(result.getDouble(0)))));
 					}
 				}
 				result.moveToNext();
