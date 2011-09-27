@@ -223,7 +223,7 @@ public class MainActivity extends BaseActivity {
         // Load, display data.
 		DBOpenHelper dbhelper = new DBOpenHelper(this);
 		SQLiteDatabase db = dbhelper.getReadableDatabase();
-		Cursor cursor = db.query("cache", new String[] {"name","value", "units", "expires_value", "expires_date", "plan_startamount"} , null, null,null,null,null);
+		Cursor cursor = db.query("cache", new String[] {"name","value", "units", "expires_value", "expires_date", "plan_startamount", "plan_name"} , null, null,null,null,null);
 		cursor.moveToFirst(); 
 		LinearLayout layout = (LinearLayout) this.findViewById(R.id.lineslayout);
 		layout.removeAllViews();
@@ -273,10 +273,13 @@ public class MainActivity extends BaseActivity {
 			firstLine.addView(col1,  col1LayoutParams);
 			firstLine.addView(col3, col3LayoutParams);
 			layout.addView(firstLine);
+			View ruler = new View(this);
+			ruler.setBackgroundColor(0xFF9C9C9C);
+			layout.addView(ruler, new LinearLayout.LayoutParams( LinearLayout.LayoutParams.FILL_PARENT, 2));
 		}
 		for (int i=0; i<cursor.getCount(); i++) {
 			RelativeLayout firstLine = new RelativeLayout(this);
-			firstLine.setPadding(0,5,5,2);
+			firstLine.setPadding(0,5,5,0);
 			TextView col1 = new TextView(this);
 			col1.setTypeface(Typeface.DEFAULT_BOLD);
 			TextView col3 = new TextView(this);
@@ -303,17 +306,23 @@ public class MainActivity extends BaseActivity {
 			col3.setText(valueStringBuilder.toString());
 			firstLine.addView(col3, col3LayoutParams);
 			layout.addView(firstLine);
-			if (cursor.getString(4) != null) {
+			//if (!cursor.isNull(4)) {
+			String planName = "";
+			ProgressBar bar = null;
+			LayoutParams progressBarParams= null;
+			if (!cursor.isNull(5)) {
+				Log.d(TAG, cursor.getString(0) + " Not null: " + cursor.getInt(5) );
 				double currentVal = cursor.getDouble(1);
-				double startVal = cursor.getDouble(4);
-				ProgressBar bar = (ProgressBar)getLayoutInflater().inflate(R.layout.pack_progress_bar, null);
+				double startVal = cursor.getDouble(5);
+				planName = cursor.getString(6) + " Pack: ";
+				bar = (ProgressBar)getLayoutInflater().inflate(R.layout.pack_progress_bar, null);
 				bar.setMax((int)startVal);
+				Log.d(TAG, String.valueOf(startVal - currentVal));
 				bar.setProgress((int)(startVal - currentVal));
-				LayoutParams progressBarParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				layout.addView(bar, progressBarParams);
+				progressBarParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			}
-			TextView col2 = new TextView(this);
-			col2.setPadding(10,0,5,5);
+			TextView row2 = new TextView(this);
+			row2.setPadding(10,0,5,5);
 			SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd");
 			Date expiryDate;
 			String expiresInfo = "";
@@ -344,10 +353,16 @@ public class MainActivity extends BaseActivity {
 				Log.e(TAG, "Could not parse date from DB.");
 			}
 			if (expiresInfo.length() > 0) {
-				col2.setText(expiresInfo);
-				layout.addView(col2);
+				row2.setText(planName + expiresInfo);
+				layout.addView(row2);
+			}
+			if (!cursor.isNull(5)) {
+				layout.addView(bar, progressBarParams);
 			}
 			cursor.moveToNext(); 
+			View ruler = new View(this);
+			ruler.setBackgroundColor(0xFF9C9C9C);
+			layout.addView(ruler, new LinearLayout.LayoutParams( LinearLayout.LayoutParams.FILL_PARENT, 2));
 		}
 		cursor.close();
 		db.close();
