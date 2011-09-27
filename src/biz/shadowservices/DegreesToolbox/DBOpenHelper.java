@@ -24,7 +24,7 @@ import android.util.Log;
 public class DBOpenHelper extends SQLiteOpenHelper {
 	// This handles the opening, creation, and upgrading of the DB.
     private static final String DATABASE_NAME = "PhoneBalance";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     @SuppressWarnings("unused")
 	private static final String CACHE_TABLE_NAME = "cache";
     private static final String CACHE_TABLE_CREATE = "CREATE TABLE \"cache\" " +
@@ -32,7 +32,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     		"\"name\" TEXT NOT NULL , \"value\" NUMERIC  NULL ," +
     		" \"units\" TEXT, \"expires_value\" NUMERIC," +
     		" \"expires_date\" DATETIME, " +
-    		"\"plan_startamount\" NUMERIC NULL)";
+    		"\"plan_startamount\" NUMERIC NULL, \"plan_name\" VARCHAR(10) NULL)";
 	private static final String LOG_TABLE_NAME = "log";
     private static final String LOG_TABLE_CREATE = "CREATE TABLE \"log\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
     		"\"date_time\" DATETIME NOT NULL," +
@@ -66,6 +66,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 				db.execSQL(USAGE_TABLE_CREATE);
 			case 2:
 				db.execSQL("DROP TABLE cache");
+				db.execSQL(CACHE_TABLE_CREATE);
+			case 3:
+				db.execSQL("DROP TABLE cache");
+				Log.v("2DegreesDBOpenHelper", "Exec: " + CACHE_TABLE_CREATE);
 				db.execSQL(CACHE_TABLE_CREATE);
 		}
 	}

@@ -398,6 +398,7 @@ public class DataFetcher {
 										//values.put("plan_startamount", csr.getDouble(4) + pack.value);
 										//DBLog.insertMessage(context, "d", "", "Pack " + pack.type.id + " start value set to " + csr.getDouble(4) + pack.value);
 										values.put("plan_startamount", pack.value);
+										values.put("plan_name", offerName);
 										DBLog.insertMessage(context, "d", "", "Pack " + pack.type.id + " start value set to " + pack.value);
 										db.update("cache", values, "name = '" + pack.type.id + "'", null);
 							//		} else {
