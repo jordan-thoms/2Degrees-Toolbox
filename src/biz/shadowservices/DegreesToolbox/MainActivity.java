@@ -136,8 +136,6 @@ public class MainActivity extends BaseActivity {
     	// Register the reciever, so if an update happens while we are in the activity
     	// it will be updated
     	registerReceiver(reciever, new IntentFilter(UpdateWidgetService.NEWDATA));
-    	// Track the view
-    	GATracker.getInstance().trackPageView("/homeScreen");
     }
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {

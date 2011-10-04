@@ -18,8 +18,6 @@ public class LogViewActivity extends BaseActivity {
     @Override
     public void onResume() {
     	super.onResume();
-    	// Track the view
-    	GATracker.getInstance().trackPageView("/logView");
     	// Load the log
 		LinearLayout layout = (LinearLayout) this.findViewById(R.id.logLinesLayout);
 		layout.removeAllViews();
