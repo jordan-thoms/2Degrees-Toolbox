@@ -38,5 +38,7 @@ you use on the 2degrees website)</string>
 <string name="selectedBackground">Selected Background</string>
 <string name="set_text_colour">Set Text Colour</string>
 <string name="about_dialog_text">2Degrees Toolbox by Jordan Thoms.  For more information go to http://www.shadowservices.biz/blog/2degrees-toolbox/ </string>
+<string name="clear_logs">Clear the Log</string>
+<string name="send_log">Send the Log to developer</string>
 
 </resources>
