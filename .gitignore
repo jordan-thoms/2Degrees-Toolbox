@@ -1,7 +1,4 @@
 bin/
 gen/
 proguard/
-.project
-.classpath
-.settings/
 my-release-key.keystore
