@@ -28,7 +28,8 @@ public class Values {
 	static {
 		purchaseValuePacks = new PackTreeNode(null, "Choose a value pack to buy:");
 		purchaseValuePacks.addChild( new PackTreeLeaf("$10 2000 Texts", "Are sure you wish to buy ", "buy 10txt", 1000));
-		purchaseValuePacks.addChild( new PackTreeLeaf("$19 Combo Pack", "Are sure you wish to buy ", "buy 19combo", 1900));
+		purchaseValuePacks.addChild( new PackTreeLeaf("$19 Text Combo", "Are sure you wish to buy ", "buy 19text", 1900));
+		purchaseValuePacks.addChild( new PackTreeLeaf("$19 Data Combo", "Are sure you wish to buy ", "buy 19data", 1900));
 		PackTreeNode nationalData = new PackTreeNode("National Data", "Choose national data pack:");
 		nationalData.addChild(new PackTreeLeaf("$6 50MB National Data", CONFIRMDATA, "buy 50MB", 600));
 		nationalData.addChild(new PackTreeLeaf("$10 100MB National Data", CONFIRMDATA, "buy 100MB", 1000));
@@ -36,7 +37,7 @@ public class Values {
 		PackTreeNode bbZone = new PackTreeNode("BB Zone Data", "Choose BB Zone data pack:");
 		bbZone.addChild(new PackTreeLeaf("$20 1GB Zone Data", CONFIRMDATA, "buy 1GB", 2000));
 		bbZone.addChild(new PackTreeLeaf("$50 3GB Zone Data", CONFIRMDATA, "buy 3GB", 5000));
-		bbZone.addChild(new PackTreeLeaf("$150 12GB Zone Data", CONFIRMDATA, "buy 3GB", 15000));
+		bbZone.addChild(new PackTreeLeaf("$150 12GB Zone Data", CONFIRMDATA, "buy 12GB", 15000));
 		purchaseValuePacks.addChild(bbZone);
 		PackTreeNode talkPacks = new PackTreeNode("Talk Packs", "Choose talk pack:");
 		talkPacks.addChild(new PackTreeLeaf("$30 Everyone100", CONFIRMTALK, "buy every100", 3000));
