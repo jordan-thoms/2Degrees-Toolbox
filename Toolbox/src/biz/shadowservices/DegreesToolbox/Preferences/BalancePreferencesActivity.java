@@ -16,7 +16,8 @@
  ******************************************************************************/
 package biz.shadowservices.DegreesToolbox.Preferences;
 
-import de.quist.app.errorreporter.ReportingPreferenceActivity;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+
 import biz.shadowservices.DegreesToolbox.AbstractWidgetProvider;
 import biz.shadowservices.DegreesToolbox.R;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class BalancePreferencesActivity extends ReportingPreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
+public class BalancePreferencesActivity extends SherlockPreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
 	// Generate the constant for the result code which indicates that an update should be requested.  
 	public static final int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
 	private static String TAG = "2DegreesPreferencesActivity";

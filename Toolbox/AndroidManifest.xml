@@ -16,80 +16,107 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="biz.shadowservices.DegreesToolbox" android:versionCode="32" android:versionName="1.5.1">
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"></uses-permission>
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false"  >
-        <activity android:label="@string/app_name" android:name="MainActivity"
-        android:launchMode="singleTop"
-        android:theme="@style/Theme.DegreesToolbox.Home"
-        >
-			<intent-filter>
-	  		  <action android:name="android.intent.action.MAIN" />
-	  		  <category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
+    package="biz.shadowservices.DegreesToolbox"
+    android:versionCode="33"
+    android:versionName="1.5.2" >
+
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" >
+    </uses-permission>
+
+    <application
+        android:debuggable="false"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Sherlock.Light" >
+        <activity
+            android:name="MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name="LogViewActivity"
-	        android:theme="@style/Theme.DegreesToolbox.Home">
+        <activity
+            android:name="LogViewActivity"
+            android:label="@string/app_name" >
         </activity>
-        
+
         <!-- Broadcast Receiver that will process AppWidget updates -->
-        <receiver android:name="PhoneBalanceWidget" android:label="@string/widget_name_1x2">
+        <receiver
+            android:name="PhoneBalanceWidget"
+            android:label="@string/widget_name_1x2" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/balance_widget_1x2" />
         </receiver>
-        <receiver android:name="WidgetProvider2x2" android:label="@string/widget_name_2x2">
+        <receiver
+            android:name="WidgetProvider2x2"
+            android:label="@string/widget_name_2x2" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/balance_widget_2x2" />
         </receiver>
-        <receiver android:name=".UpdateReciever">
+        <receiver android:name=".UpdateReciever" >
             <intent-filter>
                 <action android:name="biz.shadowservices.DegreesToolbox.WIDGET_UPDATE" />
             </intent-filter>
         </receiver>
 
-
         <service android:name="biz.shadowservices.DegreesToolbox.UpdateWidgetService" />
 
-    <activity android:name=".Preferences.BalancePreferencesActivity"></activity>
-<activity android:name="biz.shadowservices.DegreesToolbox.SetupWizard"></activity>
-<activity android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetPreferencesActivity"></activity>
+        <activity android:name=".Preferences.BalancePreferencesActivity" >
+        </activity>
+        <activity android:name="biz.shadowservices.DegreesToolbox.SetupWizard" >
+        </activity>
+        <activity android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetPreferencesActivity" >
+        </activity>
+        <activity android:name=".Preferences.WidgetListActivity" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
 
-<activity android:name=".Preferences.WidgetListActivity">
-        <intent-filter>
-            <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity" />
+            </intent-filter>
+        </activity>
 
-            <action android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity" />
-        </intent-filter>
+        <service
+            android:name="de.quist.app.errorreporter.ExceptionReportService"
+            android:process=":exceptionReporter" />
 
-</activity>
-<service
-    android:name="de.quist.app.errorreporter.ExceptionReportService"
-    android:process=":exceptionReporter"/>
-<meta-data
-    android:name="de.quist.app.errorreporter.targetUrl"
-    android:value="http://shadowservices.biz/bugreport.php" />
-</application>
+        <meta-data
+            android:name="de.quist.app.errorreporter.targetUrl"
+            android:value="http://shadowservices.biz/bugreport.php" />
+    </application>
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
-<supports-screens
-	android:smallScreens="true"
-	android:normalScreens="true"
-	android:largeScreens="true"
-	android:xlargeScreens="true"
-	android:anyDensity="true"
-/>
-<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="10" />
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-<uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
-<uses-feature android:name="android.hardware.telephony"
-          android:required="false"/>
-</manifest> 
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="10" />
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS" >
+    </uses-permission>
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+</manifest>

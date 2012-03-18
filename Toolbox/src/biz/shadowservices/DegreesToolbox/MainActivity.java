@@ -20,6 +20,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -37,9 +41,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -51,6 +52,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
 import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
+import biz.shadowservices.DegreesToolbox.util.StackTraceUtil;
 
 public class MainActivity extends BaseActivity {
 	private static String TAG = "2DegreesPhoneBalanceMainActivity";
@@ -65,11 +67,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.main);
         Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
         buyPackButton.setOnClickListener(buyPackListener);
-        getActivityHelper().setupActionBar("2Degrees Toolbox", 0);
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	MenuInflater inflater = getMenuInflater();
+    	MenuInflater inflater = getSupportMenuInflater();
     	inflater.inflate(R.menu.mainmenu, menu);
     	return true;
     }
@@ -113,7 +114,7 @@ public class MainActivity extends BaseActivity {
     		try {
 				AboutDialog.create(this).show();
 			} catch (NameNotFoundException e) {
-				getExceptionReporter().reportException(Thread.currentThread(), e, "Exception creating about dialog");
+				GATracker.getInstance().trackEvent("Exceptions", e.getMessage() + "Creating about dialog", StackTraceUtil.getStackTrace(e), 0);
 			}
     	default:
     		return super.onOptionsItemSelected(item);
@@ -149,7 +150,7 @@ public class MainActivity extends BaseActivity {
     	}
     }
     private void forceUpdate() {
-		progressDialog = ProgressDialog.show(this, " " , " Loading. Please wait ... ", true);
+		progressDialog = ProgressDialog.show(this, null , " Loading. Please wait ... ", true);
 		progressDialog.show();
 		Intent update = new Intent(this, UpdateWidgetService.class);
 		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);

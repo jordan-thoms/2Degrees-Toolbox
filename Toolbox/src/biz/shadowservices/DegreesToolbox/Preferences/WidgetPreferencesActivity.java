@@ -1,5 +1,7 @@
 package biz.shadowservices.DegreesToolbox.Preferences;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 import yuku.ambilwarna.AmbilWarnaDialog;
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.content.Context;
@@ -22,9 +24,8 @@ import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.UpdateWidgetService;
 import biz.shadowservices.DegreesToolbox.Values;
 import biz.shadowservices.DegreesToolbox.WidgetInstance;
-import de.quist.app.errorreporter.ReportingActivity;
 
-public class WidgetPreferencesActivity extends ReportingActivity {
+public class WidgetPreferencesActivity extends SherlockActivity {
 	private static String TAG = "2DegreesPreferencesActivity";
 	private WidgetInstance widget;
     @Override

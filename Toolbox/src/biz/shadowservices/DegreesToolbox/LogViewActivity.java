@@ -1,5 +1,6 @@
 package biz.shadowservices.DegreesToolbox;
 
+import biz.shadowservices.DegreesToolbox.util.StackTraceUtil;
 import de.quist.app.errorreporter.ExceptionReporter;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -22,7 +23,6 @@ public class LogViewActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_view);
-        getActivityHelper().setupActionBar("2Degrees Toolbox", 0);
         Button clearLogButton = (Button) findViewById(R.id.clear_log_button);
         clearLogButton.setOnClickListener(clearLog);
         Button sendLogButton = (Button) findViewById(R.id.send_log_button);
@@ -82,7 +82,7 @@ public class LogViewActivity extends BaseActivity {
 				String versionInfo = pInfo.versionName;
 				messageBody.append("Log from 2degrees toolbox:" + versionInfo + "\n");
 			} catch (NameNotFoundException e) {
-				getExceptionReporter().reportException(Thread.currentThread(), e, "Name not found - onclick email log send");
+				GATracker.getInstance().trackEvent("Exceptions", e.getMessage() + "Name not found - onclick email log send", StackTraceUtil.getStackTrace(e), 0);
 			}
 			
 			for (int i=0; i<logLines.getCount(); i++) {

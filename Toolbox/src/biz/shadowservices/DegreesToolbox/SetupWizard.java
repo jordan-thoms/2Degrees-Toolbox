@@ -16,7 +16,6 @@
  ******************************************************************************/
 package biz.shadowservices.DegreesToolbox;
 
-import de.quist.app.errorreporter.ReportingActivity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -28,7 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class SetupWizard extends ReportingActivity {
+public class SetupWizard extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -20,6 +20,8 @@ package biz.shadowservices.DegreesToolbox.Preferences;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+
 import de.quist.app.errorreporter.ReportingListActivity;
 
 import android.content.Intent;
@@ -34,7 +36,7 @@ import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.Values;
 import biz.shadowservices.DegreesToolbox.WidgetInstance;
 
-public class WidgetListActivity extends ReportingListActivity {
+public class WidgetListActivity extends SherlockListActivity {
 	private ArrayAdapter<WidgetInstance> arrayAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState){
