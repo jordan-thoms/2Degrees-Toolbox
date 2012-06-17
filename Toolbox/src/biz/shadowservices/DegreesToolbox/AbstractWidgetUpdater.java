@@ -45,19 +45,23 @@ public abstract class AbstractWidgetUpdater {
     protected abstract int getLayoutId();
     public String getUpdateDateString(Context context) {
     	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-		String updateDateString = sp.getString("updateDate", "");
-    	try {
-			Date now = new Date();
-			Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
-			if (DateFormatters.isSameDay(now, lastUpdate)) {
-				return DateFormatters.LASTUPDATETIME.format(lastUpdate); 
-			} else {
-				return DateFormatters.LASTUPDATEDATE.format(lastUpdate); 				
+    	if (sp.getBoolean("last_update_shown", true)) {
+			String updateDateString = sp.getString("updateDate", "");
+	    	try {
+				Date now = new Date();
+				Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
+				if (DateFormatters.isSameDay(now, lastUpdate)) {
+					return DateFormatters.LASTUPDATETIME.format(lastUpdate); 
+				} else {
+					return DateFormatters.LASTUPDATEDATE.format(lastUpdate); 				
+				}
+			} catch (Exception e) {
+				 Log.d(TAG, e.getMessage());
+				 return "";
 			}
-		} catch (Exception e) {
-			 Log.d(TAG, e.getMessage());
-			 return "";
-		}
+    	} else {
+    		return "";
+    	}
     }
     public List<WidgetInstance> getWidgets(Context context) {
     	ArrayList<WidgetInstance> widgets = new ArrayList<WidgetInstance>();

@@ -33,6 +33,7 @@ import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
@@ -83,11 +84,21 @@ public class WidgetUpdater2x2 extends AbstractWidgetUpdater {
     		break;
     	}
 		Intent viewIntent = new Intent(context, MainActivity.class);
-        PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, 0);
-        updateViews.setOnClickPendingIntent(R.id.widget2x2_widget, pending);
+        PendingIntent openAppPending = PendingIntent.getActivity(context, 0, viewIntent, 0);
         Intent updateIntent = new Intent(context, UpdateWidgetService.class);
+        
+        if (sp.getBoolean("press_widget_open_app", true)) {
+            updateViews.setOnClickPendingIntent(R.id.widget2x2_widget, openAppPending);
+        } else {
+            updateViews.setOnClickPendingIntent(R.id.widget2x2_widget, PendingIntent.getService(context, 0, updateIntent, 0));
+        }
+
         updateIntent.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
         updateViews.setOnClickPendingIntent(R.id.widget2x2_refreshButton, PendingIntent.getService(context, 0, updateIntent, 0));
+        
+        if (!sp.getBoolean("show_refresh_button", true)) {
+        	updateViews.setViewVisibility(R.id.widget1x2_refreshButton, View.GONE);
+        }
 
 	}
 	@Override
