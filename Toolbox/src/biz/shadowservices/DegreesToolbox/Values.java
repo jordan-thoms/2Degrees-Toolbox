@@ -30,6 +30,7 @@ public class Values {
 		purchaseValuePacks.addChild( new PackTreeLeaf("$10 2000 Texts", "Are sure you wish to buy ", "buy 10txt", 1000));
 		purchaseValuePacks.addChild( new PackTreeLeaf("$19 Text Combo", "Are sure you wish to buy ", "buy 19text", 1900));
 		purchaseValuePacks.addChild( new PackTreeLeaf("$19 Data Combo", "Are sure you wish to buy ", "buy 19data", 1900));
+		purchaseValuePacks.addChild( new PackTreeLeaf("$19 Chat Combo", "Are sure you wish to buy ", "buy 19chat", 1900));
 		PackTreeNode nationalData = new PackTreeNode("National Data", "Choose national data pack:");
 		nationalData.addChild(new PackTreeLeaf("$6 50MB National Data", CONFIRMDATA, "buy 50MB", 600));
 		nationalData.addChild(new PackTreeLeaf("$10 100MB National Data", CONFIRMDATA, "buy 100MB", 1000));
