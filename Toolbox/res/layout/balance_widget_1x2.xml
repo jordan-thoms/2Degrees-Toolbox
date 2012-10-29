@@ -60,7 +60,6 @@
         android:gravity="right"
         
         android:layout_height="fill_parent" android:layout_width="fill_parent"/>
-        />
                 <TextView
         android:id="@+id/widget1x2_right2"
         android:includeFontPadding="true"
@@ -71,7 +70,6 @@
         android:gravity="right"
         
         android:layout_height="fill_parent" android:layout_width="fill_parent"/>
-        />
     
     <LinearLayout
         android:id="@+id/widget1x2_widgetLeftLayout"
@@ -81,7 +79,7 @@
     android:paddingLeft="6dp"
     android:orientation="vertical"
     style="@style/WidgetText">
-    >
+
     <TextView
         android:id="@+id/widget1x2_line1"
         android:layout_width="wrap_content"

@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity {
 		String password = sp.getString("password", "");
 		if (username.equals("") || password.equals("")) {
 			// Username/password is not set, launch setup wizard
-			Toast.makeText(this, "Username or password empty", 3);
+			Toast.makeText(this, "Username or password empty", Toast.LENGTH_SHORT).show();
 			startActivityForResult(new Intent(this, SetupWizard.class), 1);
 		}
     	refreshData();

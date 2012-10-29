@@ -21,7 +21,7 @@
 >
 <LinearLayout
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
+  android:layout_height="wrap_content"
   android:orientation="vertical">
      <TextView
         android:paddingTop="10dp"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content" android:layout_width="wrap_content"/>
         <EditText
         	android:id="@+id/usernameSetupWizard"
-        	android:layout_height="wrap_content" android:layout_width="fill_parent" />
+        	android:layout_height="wrap_content" android:layout_width="fill_parent" android:inputType="text" />
   	</LinearLayout>
 	<LinearLayout
 		android:orientation="horizontal"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content" android:layout_width="wrap_content"/>
         <EditText
         	android:id="@+id/passwordSetupWizard"
-        	android:layout_height="wrap_content" android:layout_width="fill_parent" />
+        	android:layout_height="wrap_content" android:layout_width="fill_parent" android:inputType="textPassword"/>
   	</LinearLayout>
 	<Button
 		android:id="@+id/setupWizardGoButton"

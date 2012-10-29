@@ -1,44 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent" 
-              android:layout_height="fill_parent" 
->
-<LinearLayout
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent" android:orientation="vertical">
-  <TextView android:layout_height="wrap_content" android:text="Widget Name" android:layout_width="wrap_content" android:id="@+id/WidgetName"></TextView>
-  <Gallery
-    android:id="@+id/gallery"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-	/>
-  <TextView android:layout_width="wrap_content" android:text="@string/selectedBackground" android:id="@+id/textView1" android:layout_height="wrap_content"></TextView>
-  <ImageView android:layout_width="wrap_content" 
-  android:id="@+id/previewImage" android:layout_height="wrap_content" android:src="@drawable/icon"></ImageView>
-<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/WidgetName" android:text="@string/transparency"></TextView>
-<LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:layout_height="wrap_content"
-	android:orientation="horizontal"
-	android:weightSum="5">
-   <SeekBar
-   	android:layout_width="0dp"
-   	android:layout_height="wrap_content"
-   	android:layout_weight="5"
-   	android:id="@+id/transparencySeekBar"
-   />
-   <TextView android:text="" 
-   android:id="@+id/transparencyPercentageText"
-    android:layout_width="wrap_content" android:layout_height="wrap_content" 
-       	android:layout_weight="0"
-    android:paddingLeft="5dp"
-    android:paddingTop="2dp"
-    />
-</LinearLayout>
-	    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/widgetPreferencesSetTextColor" android:text="@string/set_text_colour"></Button>
-	
-   <LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:id="@+id/linearLayout1" android:orientation="horizontal">        
-     <Button android:id="@+id/widgetPrefsSave" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/save"></Button>
-  <Button android:id="@+id/widgetPrefsCancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cancel"></Button>
-   
-    </LinearLayout>
-</LinearLayout>
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/WidgetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_name" >
+            </TextView>
+
+            <Gallery
+                android:id="@+id/gallery"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/selectedBackground" >
+            </TextView>
+
+            <ImageView
+                android:id="@+id/previewImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon" >
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/transparency" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5" >
+
+                <SeekBar
+                    android:id="@+id/transparencySeekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5" />
+
+                <TextView
+                    android:id="@+id/transparencyPercentageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:text="" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/widgetPreferencesSetTextColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_text_colour" >
+            </Button>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="4dip"
+                android:background="?android:attr/dividerVertical" />
+
+            <View
+                android:id="@+id/ViewColorPickerHelper"
+                android:layout_width="1dip"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dip"
+                android:layout_marginTop="4dip"
+                android:background="?android:attr/dividerVertical" />
+
+            <Button
+                android:id="@+id/widgetPrefsCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/ViewColorPickerHelper"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/widgetPrefsSave"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ViewColorPickerHelper"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/save" />
+        </RelativeLayout>
+    </RelativeLayout>
+
 </ScrollView>
