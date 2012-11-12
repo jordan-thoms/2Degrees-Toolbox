@@ -15,58 +15,117 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
-<PreferenceCategory android:title="Login Details"><EditTextPreference android:title="Phone Number" android:key="username" android:summary="Phone number/username"></EditTextPreference>
-<EditTextPreference android:title="Password" android:key="password" android:summary="Your Password"></EditTextPreference>
-</PreferenceCategory>
-<PreferenceCategory android:title="Widgets">
-<Preference android:title="Widget Preferences" android:summary="Change widget backgrounds">
-   <intent android:action="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity" />
-</Preference>
-<CheckBoxPreference android:defaultValue="true" android:enabled="true" android:summaryOff="Refresh button not shown" android:summaryOn="Refresh button shown" android:key="show_refresh_button" android:title="Show Refresh Button"/>
-<CheckBoxPreference android:summaryOn="Pressing widget opens app" android:summaryOff="Pressing widget refreshes information" android:title="Widget press action" android:defaultValue="true" android:key="press_widget_open_app"/>
-<CheckBoxPreference android:summaryOn="Last update time shown" android:summaryOff="Last update time not shown" android:title="Show Last updated time" android:defaultValue="true" android:key="last_update_shown"/>
-</PreferenceCategory>
-<PreferenceCategory android:title="Updating">
-<CheckBoxPreference android:title="Automatic Updates" android:key="autoupdates" android:summaryOn="Automatic updates will occur as specified."
-android:summaryOff="Automatic updates will not occur." android:defaultValue="true"></CheckBoxPreference>
-<PreferenceScreen
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Login Details" >
+        <EditTextPreference
+            android:key="username"
+            android:summary="Phone number/username"
+            android:title="Phone Number" >
+        </EditTextPreference>
+        <EditTextPreference
+            android:key="password"
+            android:summary="Your Password"
+            android:title="Password" >
+        </EditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Widgets" >
+        <Preference
+            android:summary="Change widget backgrounds"
+            android:title="Widget Preferences" >
+            <intent android:action="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity" />
+        </Preference>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="show_refresh_button"
+            android:summaryOff="Refresh button not shown"
+            android:summaryOn="Refresh button shown"
+            android:title="Show Refresh Button" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="press_widget_open_app"
+            android:summaryOff="Pressing widget refreshes information"
+            android:summaryOn="Pressing widget opens app"
+            android:title="Widget press action" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="last_update_shown"
+            android:summaryOff="Last update time not shown"
+            android:summaryOn="Last update time shown"
+            android:title="Show Last updated time" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Updating" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="autoupdates"
+            android:summaryOff="Automatic updates will not occur."
+            android:summaryOn="Automatic updates will occur as specified."
+            android:title="Automatic Updates" >
+        </CheckBoxPreference>
+
+        <PreferenceScreen
+            android:dependency="autoupdates"
             android:key="update_settings"
-            android:title="Schedule Settings"
             android:summary="Change the update schedule settings"
-            android:dependency="autoupdates">
-	<ListPreference
-		android:title="Update frequency"
-		android:summary="The approximate update frequency"
-		android:key="updateFreq"
-		android:entries="@array/updateFrequencyOptions"
-		android:entryValues="@array/updateFrequencyValues"
-		android:defaultValue="half_day"
-		/>
-	<EditTextPreference
-		android:title="Data fresh time (mins)"
-		android:key="freshTime"
-		android:summary="If you add a new widget or restart the phone, and the data is newer than this, the scheduled update will be skipped. "
-		android:defaultValue="30"
-		/>	
-</PreferenceScreen>
-<PreferenceScreen
+            android:title="Schedule Settings" >
+            <ListPreference
+                android:defaultValue="half_day"
+                android:entries="@array/updateFrequencyOptions"
+                android:entryValues="@array/updateFrequencyValues"
+                android:key="updateFreq"
+                android:summary="The approximate update frequency"
+                android:title="Update frequency" />
+
+            <EditTextPreference
+                android:defaultValue="30"
+                android:key="freshTime"
+                android:summary="If you add a new widget or restart the phone, and the data is newer than this, the scheduled update will be skipped. "
+                android:title="Data fresh time (mins)" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:dependency="autoupdates"
             android:key="network_settings"
-            android:title="Network settings"
             android:summary="Change the criteria for when an automatic update will be allowed"
-            android:dependency="autoupdates">
-	<CheckBoxPreference android:title="Wifi Updates" android:key="wifiUpdates" android:summaryOn="Automatic updates will occur when connected to wifi"
-	android:summaryOff="Automatic updates will not occur when connected to wifi" android:defaultValue="true"></CheckBoxPreference>
-	<CheckBoxPreference android:title="2Degrees Data updates" android:key="2DData" android:summaryOn="Automatic updates will occur when on the 2Degrees data network"
-	android:summaryOff="Automatic updates will not occur when on the 2Degrees data network" android:defaultValue="true"></CheckBoxPreference>
-	<CheckBoxPreference android:title="Roaming Data updates" android:key="roamingData" android:summaryOn="Automatic updates will occur when roaming (eg national data)"
-	android:summaryOff="Automatic updates will not occur while roaming (eg national data)" android:defaultValue="false"></CheckBoxPreference>
-	<CheckBoxPreference android:title="Obey Background Data Setting" android:key="obeyBackgroundData" android:summaryOn="Automatic updates will occur only when background data is enabled."
-	android:summaryOff="Automatic updates will occur even if background data is disabled." android:defaultValue="true"></CheckBoxPreference>
-	<CheckBoxPreference android:title="Obey Auto Sync Setting" android:key="obeyAutoSync" android:summaryOn="Automatic updates will occur only when auto syncing is enabled."
-	android:summaryOff="Automatic updates will occur even if auto sync is disabled" android:dependency="obeyBackgroundData" android:defaultValue="true"></CheckBoxPreference>
-	
-</PreferenceScreen>
-</PreferenceCategory>
+            android:title="Network settings" >
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="wifiUpdates"
+                android:summaryOff="Automatic updates will not occur when connected to wifi"
+                android:summaryOn="Automatic updates will occur when connected to wifi"
+                android:title="Wifi Updates" >
+            </CheckBoxPreference>
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="2DData"
+                android:summaryOff="Automatic updates will not occur when on the 2Degrees data network"
+                android:summaryOn="Automatic updates will occur when on the 2Degrees data network"
+                android:title="2Degrees Data updates" >
+            </CheckBoxPreference>
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="roamingData"
+                android:summaryOff="Automatic updates will not occur while roaming (eg national data)"
+                android:summaryOn="Automatic updates will occur when roaming (eg national data)"
+                android:title="Roaming Data updates" >
+            </CheckBoxPreference>
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="obeyBackgroundData"
+                android:summaryOff="Automatic updates will occur even if background data is disabled."
+                android:summaryOn="Automatic updates will occur only when background data is enabled."
+                android:title="Obey Background Data Setting" >
+            </CheckBoxPreference>
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:dependency="obeyBackgroundData"
+                android:key="obeyAutoSync"
+                android:summaryOff="Automatic updates will occur even if auto sync is disabled"
+                android:summaryOn="Automatic updates will occur only when auto syncing is enabled."
+                android:title="Obey Auto Sync Setting" >
+            </CheckBoxPreference>
+        </PreferenceScreen>
+    </PreferenceCategory>
+
 </PreferenceScreen>
