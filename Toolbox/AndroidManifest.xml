@@ -94,7 +94,7 @@
 
         <service android:name=".service.UpdateWidgetService" />
 
-        <activity android:name=".Preferences.BalancePreferencesActivity"  android:theme="@style/Holo.Theme.Sherlock">
+        <activity android:name=".Preferences.PreferencesActivity"  android:theme="@style/Holo.Theme.Sherlock">
         </activity>
         <activity android:name=".activities.SetupWizard" >
         </activity>
