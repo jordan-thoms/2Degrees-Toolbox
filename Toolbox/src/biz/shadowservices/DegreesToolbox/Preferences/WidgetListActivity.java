@@ -31,10 +31,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import biz.shadowservices.DegreesToolbox.AbstractWidgetUpdater;
 import biz.shadowservices.DegreesToolbox.R;
-import biz.shadowservices.DegreesToolbox.Values;
-import biz.shadowservices.DegreesToolbox.WidgetInstance;
+import biz.shadowservices.DegreesToolbox.data.Values;
+import biz.shadowservices.DegreesToolbox.widgets.AbstractWidgetUpdater;
+import biz.shadowservices.DegreesToolbox.widgets.WidgetInstance;
 
 public class WidgetListActivity extends SherlockListActivity {
 	private ArrayAdapter<WidgetInstance> arrayAdapter;

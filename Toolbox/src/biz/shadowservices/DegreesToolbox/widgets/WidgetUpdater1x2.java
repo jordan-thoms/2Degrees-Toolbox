@@ -14,12 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.widgets;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.R.id;
+import biz.shadowservices.DegreesToolbox.R.layout;
+import biz.shadowservices.DegreesToolbox.activities.MainActivity;
+import biz.shadowservices.DegreesToolbox.data.DBOpenHelper;
+import biz.shadowservices.DegreesToolbox.data.Line;
+import biz.shadowservices.DegreesToolbox.data.Values;
+import biz.shadowservices.DegreesToolbox.data.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.service.UpdateWidgetService;
+import biz.shadowservices.DegreesToolbox.util.Util;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;

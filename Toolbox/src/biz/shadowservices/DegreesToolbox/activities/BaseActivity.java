@@ -1,4 +1,6 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
+
+import biz.shadowservices.DegreesToolbox.util.GATracker;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;

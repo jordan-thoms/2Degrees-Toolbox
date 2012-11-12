@@ -1,4 +1,4 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.widgets;
 
 import java.io.Serializable;
 

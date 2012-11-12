@@ -18,8 +18,8 @@ package biz.shadowservices.DegreesToolbox.Preferences;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
-import biz.shadowservices.DegreesToolbox.AbstractWidgetProvider;
 import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.widgets.AbstractWidgetProvider;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;

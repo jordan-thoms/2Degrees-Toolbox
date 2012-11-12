@@ -14,26 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.data;
 
-import android.content.Context;
-import android.util.Log;
-import java.text.DecimalFormat;
-
-public class Util {
-	public static DecimalFormat money = new DecimalFormat("$0.00");
-	// Couple of utility functions
-	public static int dpToPx(Context context, float dp) {
-		final float scale = context.getResources().getDisplayMetrics().density;
-		int size = (int) (dp * scale + 0.5f);
+public class Line {
+	// Used when constructing the lines for the widgets.
+	private String lineContent;
+	private float size = -1;
+	public Line(String lineContent) {
+		this.lineContent = lineContent;
+	}
+	public String getLineContent() {
+		return lineContent;
+	}
+	public void setSize(float size) {
+		this.size = size;
+	}
+	public float getSize() {
 		return size;
-	}
-	public static int pxToSp(Context context, float px) {
-		final float scale = context.getResources().getDisplayMetrics().scaledDensity;
-		int size = (int) (px * scale + 0.5f);
-		return  size;
-	}
-	public static int dpToSp(Context context, int dp) {
-		return pxToSp(context, dpToPx(context,dp));
 	}
 }

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,8 +50,20 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
+import biz.shadowservices.DegreesToolbox.R.id;
+import biz.shadowservices.DegreesToolbox.R.layout;
+import biz.shadowservices.DegreesToolbox.R.menu;
+import biz.shadowservices.DegreesToolbox.data.DBOpenHelper;
+import biz.shadowservices.DegreesToolbox.data.DataFetcher;
+import biz.shadowservices.DegreesToolbox.data.PackTreeLeaf;
+import biz.shadowservices.DegreesToolbox.data.PackTreeNode;
+import biz.shadowservices.DegreesToolbox.data.Values;
+import biz.shadowservices.DegreesToolbox.data.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.service.UpdateWidgetService;
+import biz.shadowservices.DegreesToolbox.util.DateFormatters;
+import biz.shadowservices.DegreesToolbox.util.GATracker;
 import biz.shadowservices.DegreesToolbox.util.StackTraceUtil;
 
 public class MainActivity extends BaseActivity {
@@ -65,6 +77,7 @@ public class MainActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        getSupportActionBar().setHomeButtonEnabled(false);
         Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
         buyPackButton.setOnClickListener(buyPackListener);
 	}

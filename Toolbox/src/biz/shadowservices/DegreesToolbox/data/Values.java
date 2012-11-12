@@ -1,10 +1,13 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import biz.shadowservices.DegreesToolbox.ValuePack.Type;
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.R.drawable;
+import biz.shadowservices.DegreesToolbox.data.ValuePack.Type;
+import biz.shadowservices.DegreesToolbox.widgets.AbstractWidgetUpdater;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 

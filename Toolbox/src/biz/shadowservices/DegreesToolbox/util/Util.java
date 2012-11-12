@@ -14,24 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.util;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
+import android.content.Context;
+import android.util.Log;
+import java.text.DecimalFormat;
 
-public class HttpClientSingleton {
-	// This allows us to keep track of a single instance of HttpClient, so the cookies get collected in it.
-	private static HttpClient instance = null;
-	private HttpClientSingleton() { }
-	public static HttpClient getInstance() {
-		if (instance == null) {
-			instance = new DefaultHttpClient();
-			HttpParams httpParams = instance.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, Values.TIMEOUT);
-			HttpConnectionParams.setSoTimeout(httpParams, Values.TIMEOUT);
-		}
-		return instance;
+public class Util {
+	public static DecimalFormat money = new DecimalFormat("$0.00");
+	// Couple of utility functions
+	public static int dpToPx(Context context, float dp) {
+		final float scale = context.getResources().getDisplayMetrics().density;
+		int size = (int) (dp * scale + 0.5f);
+		return size;
+	}
+	public static int pxToSp(Context context, float px) {
+		final float scale = context.getResources().getDisplayMetrics().scaledDensity;
+		int size = (int) (px * scale + 0.5f);
+		return  size;
+	}
+	public static int dpToSp(Context context, int dp) {
+		return pxToSp(context, dpToPx(context,dp));
 	}
 }

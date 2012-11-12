@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.data;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -31,6 +31,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import biz.shadowservices.DegreesToolbox.util.DateFormatters;
 
 import de.quist.app.errorreporter.ExceptionReporter;
 

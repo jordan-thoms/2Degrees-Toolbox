@@ -14,9 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.data;
 
-public class PhoneBalanceWidget extends AbstractWidgetProvider {
-	//Doesn't do anything, just has to exist so we have a distinct widget provider for each widget type.
-	
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+
+public class HttpClientSingleton {
+	// This allows us to keep track of a single instance of HttpClient, so the cookies get collected in it.
+	private static HttpClient instance = null;
+	private HttpClientSingleton() { }
+	public static HttpClient getInstance() {
+		if (instance == null) {
+			instance = new DefaultHttpClient();
+			HttpParams httpParams = instance.getParams();
+			HttpConnectionParams.setConnectionTimeout(httpParams, Values.TIMEOUT);
+			HttpConnectionParams.setSoTimeout(httpParams, Values.TIMEOUT);
+		}
+		return instance;
+	}
 }

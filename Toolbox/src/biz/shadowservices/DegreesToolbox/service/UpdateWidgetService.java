@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.service;
 
 
 
@@ -23,7 +23,14 @@ import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
-import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.data.DataFetcher;
+import biz.shadowservices.DegreesToolbox.data.Values;
+import biz.shadowservices.DegreesToolbox.data.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.util.DateFormatters;
+import biz.shadowservices.DegreesToolbox.util.GATracker;
+import biz.shadowservices.DegreesToolbox.widgets.AbstractWidgetUpdater;
+import biz.shadowservices.DegreesToolbox.widgets.WidgetUpdater1x2;
+import biz.shadowservices.DegreesToolbox.widgets.WidgetUpdater2x2;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 

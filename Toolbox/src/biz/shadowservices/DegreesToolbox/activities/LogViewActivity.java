@@ -1,5 +1,10 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
 
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.R.id;
+import biz.shadowservices.DegreesToolbox.R.layout;
+import biz.shadowservices.DegreesToolbox.data.DBOpenHelper;
+import biz.shadowservices.DegreesToolbox.util.GATracker;
 import biz.shadowservices.DegreesToolbox.util.StackTraceUtil;
 import de.quist.app.errorreporter.ExceptionReporter;
 import android.content.Intent;

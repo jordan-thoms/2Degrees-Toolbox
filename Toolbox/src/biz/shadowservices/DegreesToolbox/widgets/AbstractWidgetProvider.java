@@ -14,9 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.widgets;
 
 import java.util.Calendar;
+
+import biz.shadowservices.DegreesToolbox.service.UpdateWidgetService;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

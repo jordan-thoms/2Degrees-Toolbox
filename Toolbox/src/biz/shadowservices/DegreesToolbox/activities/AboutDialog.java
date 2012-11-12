@@ -1,5 +1,8 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
 
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.R.drawable;
+import biz.shadowservices.DegreesToolbox.R.string;
 import android.R.color;
 import android.app.AlertDialog;
 import android.content.Context;

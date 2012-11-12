@@ -1,6 +1,8 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.data;
 
 import java.util.Date;
+
+import biz.shadowservices.DegreesToolbox.util.DateFormatters;
 
 import android.content.ContentValues;
 import android.content.Context;

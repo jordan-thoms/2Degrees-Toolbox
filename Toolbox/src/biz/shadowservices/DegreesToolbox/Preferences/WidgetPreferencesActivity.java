@@ -21,9 +21,9 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import biz.shadowservices.DegreesToolbox.R;
-import biz.shadowservices.DegreesToolbox.UpdateWidgetService;
-import biz.shadowservices.DegreesToolbox.Values;
-import biz.shadowservices.DegreesToolbox.WidgetInstance;
+import biz.shadowservices.DegreesToolbox.data.Values;
+import biz.shadowservices.DegreesToolbox.service.UpdateWidgetService;
+import biz.shadowservices.DegreesToolbox.widgets.WidgetInstance;
 
 public class WidgetPreferencesActivity extends SherlockActivity {
 	private static String TAG = "2DegreesPreferencesActivity";
