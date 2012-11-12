@@ -51,7 +51,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import biz.shadowservices.DegreesToolbox.R;
-import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
+import biz.shadowservices.DegreesToolbox.Preferences.PreferencesActivity;
 import biz.shadowservices.DegreesToolbox.R.id;
 import biz.shadowservices.DegreesToolbox.R.layout;
 import biz.shadowservices.DegreesToolbox.R.menu;
@@ -78,8 +78,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         getSupportActionBar().setHomeButtonEnabled(false);
-        Button buyPackButton = (Button) findViewById(R.id.buyPackButton);
-        buyPackButton.setOnClickListener(buyPackListener);
+        getSupportActionBar().setTitle(R.string.short_app_name);
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,8 +93,11 @@ public class MainActivity extends BaseActivity {
     	case R.id.refresh_button:
     		forceUpdate();
     		return true;
+    	case R.id.purchase_pack_button:
+    		valuePackMenuNodeView(Values.purchaseValuePacks);
+    		return true;
     	case R.id.openPreferences:
-    		Intent openPreferences = new Intent(this, BalancePreferencesActivity.class);
+    		Intent openPreferences = new Intent(this, PreferencesActivity.class);
     		startActivityForResult(openPreferences, 2);
     		return true;
     	case R.id.openLog:
@@ -157,7 +159,7 @@ public class MainActivity extends BaseActivity {
     	if (requestCode == 1) {
     		forceUpdate();
     	} else if (requestCode == 2) {
-    		if (resultCode == BalancePreferencesActivity.RESULT_FORCE_UPDATE) {
+    		if (resultCode == PreferencesActivity.RESULT_FORCE_UPDATE) {
     			forceUpdate();
     		}
     	}
@@ -181,16 +183,7 @@ public class MainActivity extends BaseActivity {
     		progressDialog = null;
     	}
     }
-    private OnClickListener buyPackListener = new OnClickListener() {
-    	public void onClick(View v) {
-    		valuePackMenuNodeView(Values.purchaseValuePacks);
-    	}
-    };
-    private OnClickListener refreshListener = new OnClickListener() {
-    	public void onClick(View v) {
-    		MainActivity.this.forceUpdate();
-    	}
-    };
+    
     private void valuePackMenuNodeView(final PackTreeNode node) {
     	if (node instanceof PackTreeLeaf) {
     		// We have reached a leaf in the menu, ask for confirmation to send.

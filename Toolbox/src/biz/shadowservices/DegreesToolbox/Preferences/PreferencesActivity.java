@@ -17,28 +17,34 @@
 package biz.shadowservices.DegreesToolbox.Preferences;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.MenuItem;
 
+import biz.shadowservices.DegreesToolbox.AbstractWidgetProvider;
 import biz.shadowservices.DegreesToolbox.R;
-import biz.shadowservices.DegreesToolbox.widgets.AbstractWidgetProvider;
+import biz.shadowservices.DegreesToolbox.activities.MainActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class BalancePreferencesActivity extends SherlockPreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
+public class PreferencesActivity extends SherlockPreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
 	// Generate the constant for the result code which indicates that an update should be requested.  
 	public static final int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
 	private static String TAG = "2DegreesPreferencesActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().setTitle("Settings");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addPreferencesFromResource(R.xml.preferences);
         // from http://christophersaunders.ca/blog/2011/01/11/preventing-screen-keyboard-saving-passwords-entered-user/
         Preference usernamePref = findPreference("username");
@@ -50,6 +56,29 @@ public class BalancePreferencesActivity extends SherlockPreferenceActivity imple
         Preference freshTimePref = findPreference("freshTime");
         freshTimePref.setOnPreferenceChangeListener(numberCheckListener);
     }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent upIntent = new Intent(this, MainActivity.class);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    // This activity is not part of the application's task, so create a new task
+                    // with a synthesized back stack.
+                    TaskStackBuilder.from(this)
+                            .addNextIntent(upIntent)
+                            .startActivities();
+                    finish();
+                } else {
+                    // This activity is part of the application's task, so simply
+                    // navigate up to the hierarchical parent activity.
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public boolean onPreferenceClick(Preference preference){
         if(preference.getKey().equals("password")){
             EditTextPreference pref = (EditTextPreference) preference;
@@ -98,7 +127,7 @@ public class BalancePreferencesActivity extends SherlockPreferenceActivity imple
 	        return true;
 	    }
 	    else {
-	        Toast.makeText(BalancePreferencesActivity.this, newValue+" "+getResources().getString(R.string.is_an_invalid_number), Toast.LENGTH_SHORT).show();
+	        Toast.makeText(PreferencesActivity.this, newValue+" "+getResources().getString(R.string.is_an_invalid_number), Toast.LENGTH_SHORT).show();
 	        return false;
 	    }
 	}

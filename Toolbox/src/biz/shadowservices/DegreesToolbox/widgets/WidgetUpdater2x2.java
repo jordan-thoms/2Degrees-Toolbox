@@ -23,6 +23,7 @@ import java.util.List;
 import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.R.id;
 import biz.shadowservices.DegreesToolbox.R.layout;
+import biz.shadowservices.DegreesToolbox.WidgetProvider2x2;
 import biz.shadowservices.DegreesToolbox.activities.MainActivity;
 import biz.shadowservices.DegreesToolbox.data.AbbreviationMapping;
 import biz.shadowservices.DegreesToolbox.data.DBOpenHelper;

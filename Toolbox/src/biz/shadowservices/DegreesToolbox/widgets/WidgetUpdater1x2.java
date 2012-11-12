@@ -19,6 +19,7 @@ package biz.shadowservices.DegreesToolbox.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
+import biz.shadowservices.DegreesToolbox.PhoneBalanceWidget;
 import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.R.id;
 import biz.shadowservices.DegreesToolbox.R.layout;

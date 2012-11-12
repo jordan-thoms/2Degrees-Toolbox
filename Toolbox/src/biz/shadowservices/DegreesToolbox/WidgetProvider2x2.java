@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox.widgets;
+package biz.shadowservices.DegreesToolbox;
 
 public class WidgetProvider2x2 extends AbstractWidgetProvider {
 	//Doesn't do anything, just has to exist so we have a distinct widget provider for each widget type.
