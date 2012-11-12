@@ -18,19 +18,22 @@
   
   Parts adapted from http://code.google.com/p/iosched/source/browse/android/res/values/styles.xml under apache License.
 -->
-<resources>
-	
-    <style name="WidgetBackground">
-    </style>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="WidgetBackground"></style>
+
     <style name="WidgetImage">
-            <item name="android:src">@drawable/proxy_nine_patch</item>
-            <item name="android:scaleType">fitXY</item>
+        <item name="android:src">@drawable/proxy_nine_patch</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
+
     <style name="WidgetText">
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
     <style name="WidgetTextBold">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textStyle">bold</item>
     </style>
+
 </resources>
