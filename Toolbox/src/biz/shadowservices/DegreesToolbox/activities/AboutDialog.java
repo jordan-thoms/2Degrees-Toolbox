@@ -4,7 +4,7 @@ import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.R.drawable;
 import biz.shadowservices.DegreesToolbox.R.string;
 import android.R.color;
-import android.app.AlertDialog;
+import com.WazaBe.HoloEverywhere.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -37,7 +37,6 @@ public class AboutDialog {
 		// Now linkify the text
 		Linkify.addLinks(message, Linkify.ALL);
 		
-		message.setTextColor(Color.WHITE);
 
 		return new AlertDialog.Builder(context).setTitle(aboutTitle).setCancelable(true).setIcon(R.drawable.icon).setPositiveButton(
 				context.getString(android.R.string.ok), null).setView(message).create();
