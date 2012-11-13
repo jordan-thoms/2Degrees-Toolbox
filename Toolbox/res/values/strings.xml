@@ -28,10 +28,8 @@
 <string name="seemenu">Press menu for options. You may add the widget to a homescreen to see the details easily.
  Updates happen automatically as configured, if enabled, or can be requested manually through menu.</string>
 <string name="buypack">Buy Value Pack</string>
-<string name="setup_wizard_top">Welcome to 2Degrees Toolbox. To begin using this application, enter your Phone number and password below. (These are what
-you use on the 2degrees website)</string>
-<string name="setup_wizard_username">Phone Number / Username</string>
-<string name="setup_wizard_password">Password</string>
+<string name="setup_wizard_top">To begin, enter your Phone number and password. 
+    These are what you use on the 2degrees website. If you have trouble signing in, <a href="https://secure.2degreesmobile.co.nz/web/ip/login">click here</a> and ensure your details work on the 2degrees website.</string>
 <string name="setup_wizard_go_button">Go</string>
 <string name="is_an_invalid_number"> is an invalid number </string>
 <string name="save">Save</string>
@@ -43,6 +41,8 @@ you use on the 2degrees website)</string>
 <string name="clear_logs">Clear the Log</string>
 <string name="send_log">Send the Log to developer</string>
 <string name="widget_name">Widget Name</string>
-<string name="welcome">Welcome</string>
+<string name="welcome">Sign in</string>
+<string name="phone_number">Phone Number</string>
+<string name="password">Password</string>
 
 </resources>

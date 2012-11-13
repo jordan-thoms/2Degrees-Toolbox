@@ -24,11 +24,13 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.text.method.LinkMovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SetupWizard extends BaseActivity {
     @Override
@@ -41,6 +43,8 @@ public class SetupWizard extends BaseActivity {
     	password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         // This gives us the masking that you see in your password fields
     	password.setTransformationMethod(new PasswordTransformationMethod());
+        TextView t2 = (TextView) findViewById(R.id.setupWizardText);
+        t2.setMovementMethod(LinkMovementMethod.getInstance());
 
 	}
     private OnClickListener goButtonListener = new OnClickListener() {
