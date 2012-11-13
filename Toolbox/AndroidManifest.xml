@@ -46,11 +46,10 @@
     
     <application
         android:icon="@drawable/icon"
-        android:label="@string/app_name"
+        android:label="@string/short_app_name"
         android:theme="@style/Holo.Theme.Sherlock.Light" >
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name"
             android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +59,7 @@
         </activity>
         <activity
             android:name=".activities.LogViewActivity"
-            android:label="@string/app_name" >
+            android:label="Log Viewer" >
         </activity>
 
         <!-- Broadcast Receiver that will process AppWidget updates -->
@@ -96,7 +95,7 @@
 
         <activity android:name=".Preferences.PreferencesActivity"  android:theme="@style/Holo.Theme.Sherlock">
         </activity>
-        <activity android:name=".activities.SetupWizard" >
+        <activity android:name=".activities.SetupWizard" android:label="Setup 2degrees">
         </activity>
         <activity android:name="biz.shadowservices.DegreesToolbox.Preferences.WidgetPreferencesActivity" 
            >
