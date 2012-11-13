@@ -22,10 +22,14 @@ import com.actionbarsherlock.view.MenuItem;
 import biz.shadowservices.DegreesToolbox.AbstractWidgetProvider;
 import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.activities.MainActivity;
+import biz.shadowservices.DegreesToolbox.activities.SetupWizard;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.support.v4.app.NavUtils;
@@ -55,6 +59,23 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         
         Preference freshTimePref = findPreference("freshTime");
         freshTimePref.setOnPreferenceChangeListener(numberCheckListener);
+        
+        Preference logoutButton = findPreference("logoutButton");
+        logoutButton.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(preference.getContext()); 
+				Editor e = sp.edit();
+				e.clear();
+				e.commit();
+				Intent intent = new Intent(preference.getContext(), SetupWizard.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				startActivity(intent);
+				finish();
+				return true;
+			}
+		});
     }
     
     @Override

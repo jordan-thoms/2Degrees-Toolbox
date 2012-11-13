@@ -28,6 +28,12 @@
             android:summary="Your Password"
             android:title="Password" >
         </EditTextPreference>
+        <Preference
+            android:summary=""
+            android:title="Logout"
+            android:key="logoutButton" >
+            <intent android:action="biz.shadowservices.DegreesToolbox.Preferences.WidgetListActivity" />
+        </Preference>
     </PreferenceCategory>
     <PreferenceCategory android:title="Widgets" >
         <Preference
