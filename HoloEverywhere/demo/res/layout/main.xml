@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:holo="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="0dip"
+	android:layout_weight="1"
+	android:descendantFocusability="beforeDescendants"
+	android:scrollbars="none" >
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+		<WidgetContainer
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/base_widgets" >
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal" >
+				<Button
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/button" />
+				<ToggleButton
+					android:layout_width="80dp"
+					android:layout_height="match_parent" />
+			</LinearLayout>
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/edittext" />
+			<AutoCompleteTextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:entries="@array/countries"
+				android:hint="@string/autocompletetextview" />
+			<Spinner
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:drawSelectorOnTop="true"
+				android:entries="@array/countries" />
+			<RatingBar
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:numStars="5"
+				android:rating="2.5"
+				android:stepSize="0.1" />
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:orientation="horizontal" >
+				<Switch
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="10dp" />
+				<Switch
+					style="?switchStyleOld"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp" />
+			</LinearLayout>
+		</WidgetContainer>
+		<WidgetContainer
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/progress_bars" >
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:paddingBottom="4dp"
+				android:paddingLeft="16dp"
+				android:paddingRight="4dp"
+				android:paddingTop="4dp" >
+				<ProgressBar
+					style="?android:attr/progressBarStyleLarge"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:orientation="vertical" >
+					<SeekBar
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:progress="75" />
+					<ProgressBar
+						style="?android:attr/progressBarStyleHorizontal"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:paddingLeft="16dp"
+						android:paddingRight="16dp"
+						android:progress="25" />
+					<ProgressBar
+						style="?android:attr/progressBarStyleHorizontal"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="8dp"
+						android:indeterminateOnly="true"
+						android:paddingLeft="16dp"
+						android:paddingRight="16dp" />
+				</LinearLayout>
+			</LinearLayout>
+		</WidgetContainer>
+		<WidgetContainer
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/checkable_buttons" >
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" >
+				<RadioGroup
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1" >
+					<RadioButton
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/radiobutton" />
+					<RadioButton
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/radiobutton" />
+					<RadioButton
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/radiobutton" />
+				</RadioGroup>
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="vertical" >
+					<CheckBox
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/checkbox" />
+					<CheckBox
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/checkbox" />
+					<CheckBox
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/checkbox" />
+				</LinearLayout>
+			</LinearLayout>
+		</WidgetContainer>
+	</LinearLayout>
+</ScrollView>
