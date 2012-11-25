@@ -7,8 +7,8 @@
                 <!--   <include layout="@layout/actionbar" /> --> 
   
     <LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent">
-        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/clear_logs" android:id="@+id/clear_log_button"></Button>
-        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/send_log" android:id="@+id/send_log_button"></Button>
+        <Button android:layout_height="match_parent" android:layout_width="wrap_content" android:text="@string/clear_logs" android:id="@+id/clear_log_button"></Button>
+        <Button android:layout_height="match_parent" android:layout_width="wrap_content" android:text="@string/send_log" android:id="@+id/send_log_button"></Button>
     </LinearLayout>
         
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/scrollView1">

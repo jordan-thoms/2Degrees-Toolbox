@@ -1,5 +1,7 @@
 package biz.shadowservices.DegreesToolbox.activities;
 
+import com.actionbarsherlock.view.MenuItem;
+
 import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.R.id;
 import biz.shadowservices.DegreesToolbox.R.layout;
@@ -14,6 +16,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +36,7 @@ public class LogViewActivity extends BaseActivity {
         clearLogButton.setOnClickListener(clearLog);
         Button sendLogButton = (Button) findViewById(R.id.send_log_button);
         sendLogButton.setOnClickListener(sendLog);
-        
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
     @Override
     public void onResume() {
@@ -40,6 +44,28 @@ public class LogViewActivity extends BaseActivity {
     	refreshLog();
     }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent upIntent = new Intent(this, MainActivity.class);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    // This activity is not part of the application's task, so create a new task
+                    // with a synthesized back stack.
+                    TaskStackBuilder.from(this)
+                            .addNextIntent(upIntent)
+                            .startActivities();
+                    finish();
+                } else {
+                    // This activity is part of the application's task, so simply
+                    // navigate up to the hierarchical parent activity.
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void refreshLog() {
     	// Load the log
 		LinearLayout layout = (LinearLayout) this.findViewById(R.id.logLinesLayout);
@@ -79,13 +105,13 @@ public class LogViewActivity extends BaseActivity {
 			Cursor logLines = db.query("log", null, null, null, null, null, "id DESC");
 			logLines.moveToFirst();
 			StringBuilder messageBody = new StringBuilder();
-			messageBody.append("Please write a message here describing your issue");
-			messageBody.append("-----------------------------");
+			messageBody.append("Please write a message here describing your issue\n");
+			messageBody.append("-----------------------------\n");
 			PackageInfo pInfo;
 			try {
 				pInfo = v.getContext().getPackageManager().getPackageInfo(v.getContext().getPackageName(), PackageManager.GET_META_DATA);
 				String versionInfo = pInfo.versionName;
-				messageBody.append("Log from 2degrees toolbox:" + versionInfo + "\n");
+				messageBody.append("Log from 2degrees toolbox: " + versionInfo + "\n");
 			} catch (NameNotFoundException e) {
 				GATracker.getInstance().trackEvent("Exceptions", e.getMessage() + "Name not found - onclick email log send", StackTraceUtil.getStackTrace(e), 0);
 			}

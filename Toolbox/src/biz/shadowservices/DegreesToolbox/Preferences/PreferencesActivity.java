@@ -19,10 +19,10 @@ package biz.shadowservices.DegreesToolbox.Preferences;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-import biz.shadowservices.DegreesToolbox.AbstractWidgetProvider;
 import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.activities.MainActivity;
 import biz.shadowservices.DegreesToolbox.activities.SetupWizard;
+import biz.shadowservices.DegreesToolbox.widgets.AbstractWidgetProvider;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

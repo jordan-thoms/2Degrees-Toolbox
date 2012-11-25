@@ -54,12 +54,20 @@ public class DataFetcher {
 	private static String TAG = "2DegreesDataFetcher";
 	private ExceptionReporter exceptionReporter;
 	public enum FetchResult {
-		SUCCESS,
-		NOTONLINE,
-		LOGINFAILED,
-		USERNAMEPASSWORDNOTSET,
-		NETWORKERROR,
-		NOTALLOWED
+		SUCCESS("Data fetched sucessfully"),
+		NOTONLINE("Login Failed - Check that you have internet access."),
+		LOGINFAILED("Login Failed - Invalid Username or Password. Please check and try again."),
+		USERNAMEPASSWORDNOTSET("Login Failed - Username or password missing. Please check and try again."),
+		NETWORKERROR("Login Failed - Network Error"),
+		NOTALLOWED("Login Failed - Not allowed by settings");
+		private String errorMessage;
+		
+		FetchResult(String errorMessage) {
+			this.errorMessage = errorMessage;
+		}
+		public String getMessage() {
+			return errorMessage;
+		}
 	}
 	public DataFetcher(ExceptionReporter e) {
 		exceptionReporter = e;

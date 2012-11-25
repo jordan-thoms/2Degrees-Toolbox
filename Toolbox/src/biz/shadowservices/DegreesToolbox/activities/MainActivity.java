@@ -157,11 +157,7 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	if (requestCode == 1) {
-    		forceUpdate();
-    	} else if (requestCode == 2) {
-    		if (resultCode == PreferencesActivity.RESULT_FORCE_UPDATE) {
-    			forceUpdate();
-    		}
+    		refreshData();
     	}
     }
     private void forceUpdate() {
@@ -235,7 +231,7 @@ public class MainActivity extends BaseActivity {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		{ 
 			RelativeLayout firstLine = new RelativeLayout(this);
-			firstLine.setPadding(1,5,5,2);
+			firstLine.setPadding(5,5,5,2);
 			TextView col1 = new TextView(this);
 			col1.setTypeface(Typeface.DEFAULT_BOLD);
 			TextView col3 = new TextView(this);
@@ -284,7 +280,7 @@ public class MainActivity extends BaseActivity {
 		}
 		for (int i=0; i<cursor.getCount(); i++) {
 			RelativeLayout firstLine = new RelativeLayout(this);
-			firstLine.setPadding(0,5,5,0);
+			firstLine.setPadding(5,5,5,0);
 			TextView col1 = new TextView(this);
 			col1.setTypeface(Typeface.DEFAULT_BOLD);
 			TextView col3 = new TextView(this);
@@ -327,7 +323,7 @@ public class MainActivity extends BaseActivity {
 				progressBarParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			}
 			TextView row2 = new TextView(this);
-			row2.setPadding(10,0,5,5);
+			row2.setPadding(15,0,5,5);
 			SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd");
 			Date expiryDate;
 			String expiresInfo = "";

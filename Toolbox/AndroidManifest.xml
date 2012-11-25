@@ -64,7 +64,7 @@
 
         <!-- Broadcast Receiver that will process AppWidget updates -->
         <receiver
-            android:name="PhoneBalanceWidget"
+            android:name=".widgets.PhoneBalanceWidget"
             android:label="@string/widget_name_1x2" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -75,7 +75,7 @@
                 android:resource="@xml/balance_widget_1x2" />
         </receiver>
         <receiver
-            android:name="WidgetProvider2x2"
+            android:name=".widgets.WidgetProvider2x2"
             android:label="@string/widget_name_2x2" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

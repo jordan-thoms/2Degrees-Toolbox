@@ -36,7 +36,6 @@
     android:stretchColumns="1"
     android:id="@+id/lineslayout"
     android:orientation="vertical"
-    android:paddingLeft="5dip"
     >
     
     </LinearLayout>
