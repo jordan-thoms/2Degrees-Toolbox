@@ -30,7 +30,6 @@ import biz.shadowservices.DegreesToolbox.util.DateFormatters;
 import biz.shadowservices.DegreesToolbox.util.GATracker;
 import biz.shadowservices.DegreesToolbox.widgets.AbstractWidgetUpdater;
 import biz.shadowservices.DegreesToolbox.widgets.WidgetUpdater1x2;
-import biz.shadowservices.DegreesToolbox.widgets.WidgetUpdater2x2;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
@@ -65,7 +64,6 @@ public class UpdateWidgetService extends ReportingService implements Runnable {
     	// Populate the list of widget updaters - in a static initaliser block since it only needs
     	// to happen once.
     	Values.widgetUpdaters.add(new WidgetUpdater1x2());
-    	Values.widgetUpdaters.add(new WidgetUpdater2x2());    	
     }
 	 // This is the old onStart method that will be called on the pre-2.0
 	 // platform.  On 2.0 or later we override onStartCommand() so this

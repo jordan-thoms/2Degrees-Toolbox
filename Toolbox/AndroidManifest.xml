@@ -74,17 +74,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/balance_widget_1x2" />
         </receiver>
-        <receiver
-            android:name=".widgets.WidgetProvider2x2"
-            android:label="@string/widget_name_2x2" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/balance_widget_2x2" />
-        </receiver>
         <receiver android:name=".service.UpdateReciever" >
             <intent-filter>
                 <action android:name="biz.shadowservices.DegreesToolbox.WIDGET_UPDATE" />
