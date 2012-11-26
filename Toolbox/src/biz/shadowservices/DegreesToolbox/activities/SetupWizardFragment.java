@@ -1,6 +1,7 @@
 package biz.shadowservices.DegreesToolbox.activities;
 
-import com.WazaBe.HoloEverywhere.app.AlertDialog;
+
+import org.holoeverywhere.app.AlertDialog;
 
 import de.quist.app.errorreporter.ExceptionReporter;
 import biz.shadowservices.DegreesToolbox.R;

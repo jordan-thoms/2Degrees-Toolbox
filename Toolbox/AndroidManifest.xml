@@ -47,7 +47,7 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/short_app_name"
-        android:theme="@style/Holo.Theme.Sherlock.Light" >
+        android:theme="@style/Theme.Sherlock.Light" >
         <activity
             android:name=".activities.MainActivity"
             android:launchMode="singleTop" >
@@ -82,7 +82,7 @@
 
         <service android:name=".service.UpdateWidgetService" />
 
-        <activity android:name=".Preferences.PreferencesActivity"  android:theme="@style/Holo.Theme.Sherlock">
+        <activity android:name=".Preferences.PreferencesActivity"  android:theme="@style/Theme.Sherlock">
         </activity>
         <activity android:name=".activities.SetupWizard" android:label="Setup 2degrees">
         </activity>

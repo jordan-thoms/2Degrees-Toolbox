@@ -1,10 +1,11 @@
 package biz.shadowservices.DegreesToolbox.activities;
 
+import org.holoeverywhere.app.AlertDialog;
+
 import biz.shadowservices.DegreesToolbox.R;
 import biz.shadowservices.DegreesToolbox.R.drawable;
 import biz.shadowservices.DegreesToolbox.R.string;
 import android.R.color;
-import com.WazaBe.HoloEverywhere.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
