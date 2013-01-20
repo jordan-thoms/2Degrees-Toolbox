@@ -204,7 +204,7 @@ public class DataFetcher {
 				// Send login form
 				List<NameValuePair> loginValues = new ArrayList <NameValuePair>();
 				loginValues.add(new BasicNameValuePair("externalURLRedirect", ""));
-				loginValues.add(new BasicNameValuePair("hdnAction", "login"));
+				loginValues.add(new BasicNameValuePair("hdnAction", "login_userlogin"));
 				loginValues.add(new BasicNameValuePair("hdnAuthenticationType", "M"));
 				loginValues.add(new BasicNameValuePair("hdnlocale", ""));
 	
