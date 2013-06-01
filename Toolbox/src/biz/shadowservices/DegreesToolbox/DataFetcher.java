@@ -382,28 +382,20 @@ public class DataFetcher {
 						Elements enabledPacks = valuePacksPage.getElementsByClass("yellow");
 						for (Element enabledPack : enabledPacks) {
 							Element offerNameElemt = enabledPack.getElementsByAttributeValueStarting("name", "offername").first();
-							String offerName = offerNameElemt.val();
-							DBLog.insertMessage(context, "d", "", "Got element: " + offerName);
-							ValuePack[] packs = Values.valuePacks.get(offerName);
-							if (packs == null) {
-								DBLog.insertMessage(context, "d", "", "Offer name: " + offerName + " not matched.");
-							} else {
-								for (ValuePack pack: packs) {
-								//	Cursor csr = db.query("cache", null, "name = '" + pack.type.id + "'", null, null, null, null);
-							//		if (csr.getCount() == 1) {
-						//				csr.moveToFirst();
+							if (offerNameElemt != null) {
+								String offerName = offerNameElemt.val();
+								DBLog.insertMessage(context, "d", "", "Got element: " + offerName);
+								ValuePack[] packs = Values.valuePacks.get(offerName);
+								if (packs == null) {
+									DBLog.insertMessage(context, "d", "", "Offer name: " + offerName + " not matched.");
+								} else {
+									for (ValuePack pack: packs) {
 										ContentValues values = new ContentValues();
-										// Not sure why adding on the previous value?
-										//values.put("plan_startamount", csr.getDouble(4) + pack.value);
-										//DBLog.insertMessage(context, "d", "", "Pack " + pack.type.id + " start value set to " + csr.getDouble(4) + pack.value);
 										values.put("plan_startamount", pack.value);
 										values.put("plan_name", offerName);
 										DBLog.insertMessage(context, "d", "", "Pack " + pack.type.id + " start value set to " + pack.value);
 										db.update("cache", values, "name = '" + pack.type.id + "'", null);
-							//		} else {
-							//			DBLog.insertMessage(context, "d", "", "Pack " + pack.type.id + " Couldn't find item to add to");
-							//		}
-								//	csr.close();
+									}
 								}
 							}
 						}
