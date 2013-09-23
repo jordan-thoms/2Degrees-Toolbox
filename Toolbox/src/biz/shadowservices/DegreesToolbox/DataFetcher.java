@@ -306,7 +306,7 @@ public class DataFetcher {
 						String[] amountParts = amountHTML.split("&nbsp;", 2);
 						//Log.d(TAG, amountParts[0]);
 						//Log.d(TAG, amountParts[1]);
-						if (amountParts[0].contains("Included") ||  amountParts[0].equals("All You Need")) {
+						if (amountParts[0].contains("Included") ||  amountParts[0].equals("All You Need") || amountParts[0].equals("Unlimited Text*")) {
 							value = Values.INCLUDED;
 						} else {
 							try {
