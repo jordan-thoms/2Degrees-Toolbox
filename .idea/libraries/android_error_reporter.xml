@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="android-error-reporter">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Toolbox/libs/android-error-reporter.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
