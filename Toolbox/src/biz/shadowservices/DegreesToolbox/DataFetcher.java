@@ -203,8 +203,13 @@ public class DataFetcher {
 				Log.d(TAG, "Sending Login ");
 				HttpPoster sendLoginPoster = new HttpPoster(loginAction, loginValues);
 				// Parse result
-	
-				Document homePage = Jsoup.parse(sendLoginPoster.execute());
+
+                String loginResponse = sendLoginPoster.execute();
+
+                HttpGetter homepageGetter = new HttpGetter("https://secure.2degreesmobile.co.nz/group/ip/home");
+                String homepageHTML = homepageGetter.execute();
+
+				Document homePage = Jsoup.parse(homepageHTML);
 				// Determine if this is a pre-pay or post-paid account.
 				boolean postPaid;
 				if (homePage.getElementById("p_p_id_PostPaidHomePage_WAR_Homepage_") == null) {
