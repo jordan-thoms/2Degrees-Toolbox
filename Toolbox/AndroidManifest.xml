@@ -23,8 +23,8 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" >
     </uses-permission>
         <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="15"
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -47,7 +47,7 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Sherlock.Light" >
+        android:theme="@android:style/Theme.Holo" >
         <activity
             android:name="MainActivity"
             android:label="@string/app_name"
@@ -73,18 +73,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/balance_widget_1x2" />
-        </receiver>
-        <receiver
-            android:name="WidgetProvider2x2"
-            android:label="@string/widget_name_2x2" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/balance_widget_2x2" />
+                android:resource="@xml/balance_widget" />
         </receiver>
         <receiver android:name=".UpdateReciever" >
             <intent-filter>

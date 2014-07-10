@@ -18,17 +18,13 @@ package biz.shadowservices.DegreesToolbox;
 
 
 
-import java.io.IOException;
 import java.util.Date;
-
-import org.apache.http.client.ClientProtocolException;
 
 import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-
 import de.quist.app.errorreporter.ReportingService;
 
+import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -37,120 +33,71 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class UpdateWidgetService extends ReportingService implements Runnable {
+public class UpdateWidgetService extends IntentService {
 	// This is the service which handles updating the widgets.
 	private static String TAG = "2DegreesUpdateWidgetService";
 	public static String NEWDATA = "BalanceWidgetNewDataAvailable12";
-	/**
-     * Flag if there is an update thread already running. We only launch a new
-     * thread if one isn't already running.
+
+    /**
+     * Creates an IntentService.  Invoked by your subclass's constructor.
+     *
+     * @param name Used to name the worker thread, important only for debugging.
      */
-    private static boolean isThreadRunning = false;
-    private static Object lock = new Object();
-    private boolean force = false;
-    public class LocalBinder extends Binder {
-        UpdateWidgetService getService() {
-            return UpdateWidgetService.this;
+    public UpdateWidgetService() {
+        super("UpdateWidgetService");
+    }
+
+    protected void onHandleIntent(Intent intent) {
+    	Log.d(TAG, "Starting service");
+        boolean force = intent.getBooleanExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", false);
+
+        //Build update
+        WidgetUpdater updater = new WidgetUpdater();
+        Log.d(TAG, "Building updates");
+        updater.widgetLoading(this);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String updateDateString = sp.getString("updateDate", "");
+        boolean update = true;
+        if (!force) {
+            try {
+                Date now = new Date();
+                Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
+                long diff = now.getTime() - lastUpdate.getTime();
+                long mins = diff / (1000 * 60);
+                if (mins < Integer.parseInt(sp.getString("freshTime", "30"))) {
+                    update = false;
+                }
+            } catch (Exception e) {
+                Log.d(TAG, "Failed when deciding whether to update");
+            }
+        }
+        DataFetcher dataFetcher = new DataFetcher();
+        FetchResult result = null;
+        if(update) {
+            result = dataFetcher.updateData(this, force);
+            // Login failed - set error for the activity so it can display the information
+            Editor edit = sp.edit();
+            edit.putString("updateStatus", result.toString());
+            edit.commit();
+            Log.d(TAG, "Building updates -- data updated. Result: " +  result.toString());
+        } else {
+            Log.d(TAG, "Building updates -- data fresh, not updated");
+            result = FetchResult.SUCCESS;
+        }
+
+        updater.updateWidgets(this, force, result);
+        Log.d(TAG, "Sent updates");
+        Intent myIntent = new Intent(NEWDATA);
+        sendBroadcast(myIntent);
+        // We now dispatch to GA.
+        // Wrap up in a catch all since this has been having problems
+        try {
+//    			GATracker.getInstance(getApplication()).incrementActivityCount();
+//    			GATracker.getInstance().dispatch();
+//    			GATracker.getInstance().decrementActivityCount();
+        } catch (Exception e) {
+//            getExceptionReporter().reportException(Thread.currentThread(), e, "GA Tracking in updateWidgetService");
         }
     }
-    private final IBinder mBinder = new LocalBinder();
-    static {
-    	// Populate the list of widget updaters - in a static initaliser block since it only needs
-    	// to happen once.
-    	Values.widgetUpdaters.add(new WidgetUpdater1x2());
-    	Values.widgetUpdaters.add(new WidgetUpdater2x2());    	
-    }
-	 // This is the old onStart method that will be called on the pre-2.0
-	 // platform.  On 2.0 or later we override onStartCommand() so this
-	 // method will not be called.
-	 @Override
-	 public void onStart(Intent intent, int startId) {
-	     handleCommand(intent);
-	 }
-    public int onStartCommand(Intent intent, int startId) {
-    	handleCommand(intent);
-    	return START_NOT_STICKY;
-    }
-    private void handleCommand(Intent intent) {
-    	Log.d(TAG, "Starting service");
-    	if (intent != null) {
-    		force = intent.getBooleanExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", false);
-    	}
-    	// Locking to make sure we only run one thread at a time.
-    	synchronized (lock) {
-    		if(!isThreadRunning) {
-    	    	Log.d(TAG, "Thread not running, starting.");
-    			isThreadRunning = true;
-    			new Thread(this).start();
-    		} else {
-    	    	Log.d(TAG, "Thread already running, not doing anything.");
-    		}
-
-    	}
-    }
-	@Override
-	public void run() {
-		//Build update
-    	Log.d(TAG, "Building updates");
-		for (AbstractWidgetUpdater updater : Values.widgetUpdaters) {
-			updater.widgetLoading(this);
-		}
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this); 
-		String updateDateString = sp.getString("updateDate", "");
-		boolean update = true;
-		if (!force) {
-			try {
-				Date now = new Date();
-				Date lastUpdate = DateFormatters.ISO8601FORMAT.parse(updateDateString);
-			    long diff = now.getTime() - lastUpdate.getTime();
-			    long mins = diff / (1000 * 60);
-			    if (mins < Integer.parseInt(sp.getString("freshTime", "30"))) {
-			    	update = false;
-			    }
-			} catch (Exception e) {
-				Log.d(TAG, "Failed when deciding whether to update");
-			}
-		}
-    	DataFetcher dataFetcher = new DataFetcher(getExceptionReporter());
-    	FetchResult result = null;
-		if(update) {
-				result = dataFetcher.updateData(this, force);
-			    // Login failed - set error for the activity so it can display the information
-			    Editor edit = sp.edit();
-			    edit.putString("updateStatus", result.toString());
-			    edit.commit();
-			    Log.d(TAG, "Building updates -- data updated. Result: " +  result.toString());
-		} else {
-		    Log.d(TAG, "Building updates -- data fresh, not updated");
-		    result = FetchResult.SUCCESS;
-		}
-
-		for (AbstractWidgetUpdater updater : Values.widgetUpdaters) {
-			updater.updateWidgets(this, force, result);
-		}
-
-    	Log.d(TAG, "Sent updates");
-    	Intent myIntent = new Intent(NEWDATA);
-    	sendBroadcast(myIntent);
-    	// We now dispatch to GA.
-    	// Wrap up in a catch all since this has been having problems
-    	try {
-    			GATracker.getInstance(getApplication()).incrementActivityCount();
-    			GATracker.getInstance().dispatch();
-    			GATracker.getInstance().decrementActivityCount();
-    	} catch (Exception e) {
-    		getExceptionReporter().reportException(Thread.currentThread(), e, "GA Tracking in updateWidgetService");
-    	}
-    	isThreadRunning = false;
-    	// Stop the service. A lot of apps leave their widget update services running, which is completely unnecessary!
-    	stopSelf();
-	}
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return mBinder;
-    }
-	
-	
 
 }

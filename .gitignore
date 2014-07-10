@@ -5,3 +5,5 @@ bin/
 gen/
 proguard/
 my-release-key.keystore
+
+local.properties

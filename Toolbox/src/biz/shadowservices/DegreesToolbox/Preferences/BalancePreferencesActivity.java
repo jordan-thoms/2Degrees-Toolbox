@@ -16,22 +16,20 @@
  ******************************************************************************/
 package biz.shadowservices.DegreesToolbox.Preferences;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-
-import biz.shadowservices.DegreesToolbox.AbstractWidgetProvider;
 import biz.shadowservices.DegreesToolbox.R;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class BalancePreferencesActivity extends SherlockPreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
+public class BalancePreferencesActivity extends PreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener {
 	// Generate the constant for the result code which indicates that an update should be requested.  
 	public static final int RESULT_FORCE_UPDATE = RESULT_FIRST_USER + 1;
 	private static String TAG = "2DegreesPreferencesActivity";
@@ -68,7 +66,7 @@ public class BalancePreferencesActivity extends SherlockPreferenceActivity imple
     }
     protected void onPause() {
     	super.onPause();
-    	AbstractWidgetProvider.setAlarm(this);
+//    	AbstractWidgetProvider.setAlarm(this);
     }
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {

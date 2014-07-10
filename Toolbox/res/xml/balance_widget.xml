@@ -16,6 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="146dip"
+    android:minWidth="40dp"
     android:minHeight="72dip"
-    android:initialLayout="@layout/balance_widget_1x2" android:updatePeriodMillis="0"/>
+    android:minResizeHeight="40dp"
+    android:minResizeWidth="72dp"
+    android:resizeMode="horizontal|vertical"
+    android:initialLayout="@layout/balance_widget"
+    android:updatePeriodMillis="0"/>

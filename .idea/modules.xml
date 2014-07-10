@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/2Degrees-Toolbox.iml" filepath="$PROJECT_DIR$/2Degrees-Toolbox.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ActionBarSherlock/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/ActionBarSherlock/ActionBarSherlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/Toolbox/Toolbox.iml" filepath="$PROJECT_DIR$/Toolbox/Toolbox.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-color-picker/android-color-picker.iml" filepath="$PROJECT_DIR$/android-color-picker/android-color-picker.iml" />
     </modules>
   </component>
 </project>

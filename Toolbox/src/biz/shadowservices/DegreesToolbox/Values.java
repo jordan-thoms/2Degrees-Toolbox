@@ -6,12 +6,9 @@ import java.util.List;
 
 import biz.shadowservices.DegreesToolbox.ValuePack.Type;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-
 public class Values {
 
 	// List of widget updaters to call.
-	public static List<AbstractWidgetUpdater> widgetUpdaters = new ArrayList<AbstractWidgetUpdater>();
 	static int TIMEOUT = 10000;
 	public static Integer[] backgroundIds = {
 	        R.drawable.widget_frame,

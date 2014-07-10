@@ -1,3 +1,1 @@
 include ':Toolbox'
-include ':ActionBarSherlock'
-include ':android-color-picker'

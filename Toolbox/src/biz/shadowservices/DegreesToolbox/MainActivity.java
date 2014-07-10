@@ -20,10 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -41,6 +38,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -54,7 +54,7 @@ import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
 import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
 import biz.shadowservices.DegreesToolbox.util.StackTraceUtil;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends Activity {
 	private static String TAG = "2DegreesPhoneBalanceMainActivity";
 	private UpdateReciever reciever;
 
@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity {
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	MenuInflater inflater = getSupportMenuInflater();
+    	MenuInflater inflater = getMenuInflater();
     	inflater.inflate(R.menu.mainmenu, menu);
     	return true;
     }
@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity {
     		try {
 				AboutDialog.create(this).show();
 			} catch (NameNotFoundException e) {
-				GATracker.getInstance().trackEvent("Exceptions", e.getMessage() + "Creating about dialog", StackTraceUtil.getStackTrace(e), 0);
+//				GATracker.getInstance().trackEvent("Exceptions", e.getMessage() + "Creating about dialog", StackTraceUtil.getStackTrace(e), 0);
 			}
     	default:
     		return super.onOptionsItemSelected(item);
@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity {
 		Intent update = new Intent(this, UpdateWidgetService.class);
 		update.putExtra("biz.shadowservices.PhoneBalanceWidget.forceUpdates", true);
 		startService(update);
-    	GATracker.getInstance().trackEvent("Actions", "Manual Refresh", "MainActivity", 0);
+//    	GATracker.getInstance().trackEvent("Actions", "Manual Refresh", "MainActivity", 0);
     
     }
     @Override
@@ -205,7 +205,7 @@ public class MainActivity extends BaseActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					send233SMS(leaf.getMessage());
-			    	GATracker.getInstance().trackEvent("Purchase", leaf.getTitle(), "", leaf.getValue());
+//			    	GATracker.getInstance().trackEvent("Purchase", leaf.getTitle(), "", leaf.getValue());
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {						

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) 2011 Jordan Thoms.
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/balance_widget"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true">
+    <TextView
+    	android:gravity="right"
+    	android:layout_height="fill_parent" android:layout_width="fill_parent"
+    	android:paddingTop="0dp"
+        android:paddingRight="6dp" 
+        android:id="@+id/balance_widget_status"
+        android:includeFontPadding="true"
+        android:text="@string/widget_text_placeholder"
+        style="@style/WidgetTextBold"
+        />
+    
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/WidgetText">
+     <TextView
+        android:id="@+id/balance_widget_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:includeFontPadding="true"
+        style="@style/WidgetText"
+        />
+</LinearLayout>
+        <ImageButton
+            android:gravity="right"
+        	android:layout_alignParentBottom="true"
+        	android:layout_alignParentRight="true"
+        	android:id="@+id/widget_refreshButton"
+        	android:layout_width="30dp"
+        	android:layout_height="30dp"
+        	android:background="@null"
+        	android:src="@drawable/widget_refresh"
+        	android:scaleType="fitXY"
+        	android:paddingRight="2dp"
+        	android:paddingBottom="3dp"
+        />
+
+</RelativeLayout>
