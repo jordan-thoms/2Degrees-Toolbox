@@ -14,26 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.widget;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
-import java.text.DecimalFormat;
 
-public class Util {
-	public static DecimalFormat money = new DecimalFormat("$0.00");
-	// Couple of utility functions
-	public static int dpToPx(Context context, float dp) {
-		final float scale = context.getResources().getDisplayMetrics().density;
-		int size = (int) (dp * scale + 0.5f);
-		return size;
+public class UpdateReciever extends BroadcastReceiver {
+	//Recieves intents for updates and starts the update service.
+	public static String TAG = "2DegreesUpdateReciever";
+	@Override
+	public void onReceive(Context context, Intent intent) {
+        // To prevent any ANR timeouts, we perform the update in a service
+		Log.d(TAG, "Started from alarm");
+        context.startService(new Intent(context, UpdateWidgetService.class));
 	}
-	public static int pxToSp(Context context, float px) {
-		final float scale = context.getResources().getDisplayMetrics().scaledDensity;
-		int size = (int) (px * scale + 0.5f);
-		return  size;
-	}
-	public static int dpToSp(Context context, int dp) {
-		return pxToSp(context, dpToPx(context,dp));
-	}
+
 }

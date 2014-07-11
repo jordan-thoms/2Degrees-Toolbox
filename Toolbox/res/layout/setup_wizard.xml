@@ -16,56 +16,67 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent" 
-              android:layout_height="fill_parent" 
->
-<LinearLayout
-  android:layout_width="fill_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
-     <TextView
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:gravity="left"
-        android:text="@string/setup_wizard_top"
-        android:layout_height="wrap_content" android:layout_width="fill_parent"/>
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content">
-     	<TextView
-        android:paddingTop="10dp"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:gravity="left"
-        android:text="@string/setup_wizard_username"
-        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/setup_wizard_line1"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/setup_wizard_line2"/>
+
         <EditText
-        	android:id="@+id/usernameSetupWizard"
-        	android:layout_height="wrap_content" android:layout_width="fill_parent" android:inputType="text" />
-  	</LinearLayout>
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content">
-     	<TextView
-        android:paddingTop="10dp"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:gravity="left"
-        android:text="@string/setup_wizard_password"
-        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+            android:id="@+id/usernameSetupWizard"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/setup_wizard_username"
+            android:inputType="text"/>
+
         <EditText
-        	android:id="@+id/passwordSetupWizard"
-        	android:layout_height="wrap_content" android:layout_width="fill_parent" android:inputType="textPassword"/>
-  	</LinearLayout>
-	<Button
-		android:id="@+id/setupWizardGoButton"
-		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:text="@string/setup_wizard_go_button"
-  	/>
-	
-</LinearLayout>
+            android:id="@+id/passwordSetupWizard"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/setup_wizard_password"
+            android:inputType="textPassword"/>
+
+        <Button
+            android:id="@+id/setupWizardGoButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_wizard_login_button"
+            />
+        <TextView
+            android:layout_gravity="bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/setup_wizard_line3"/>
+
+    </LinearLayout>
 </ScrollView>

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.util;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,7 +45,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     		"other_number VARCHAR(15) NULL, amount DECIMAL NULL, " +
     		"charge DECIMAL NOT NULL)";
 
-    DBOpenHelper(Context context) {
+    public DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

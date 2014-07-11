@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -27,6 +27,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import biz.shadowservices.DegreesToolbox.R;
 
 public class SetupWizard extends Activity {
     @Override

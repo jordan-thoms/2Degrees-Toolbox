@@ -1,4 +1,4 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
 
 import android.R.color;
 import android.app.AlertDialog;
@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.util.Linkify;
 import android.widget.TextView;
+
+import biz.shadowservices.DegreesToolbox.R;
 
 public class AboutDialog {
 	/* code from http://www.itkrauts.com/archives/26-Creating-a-simple-About-Dialog-in-Android-1.6.html */

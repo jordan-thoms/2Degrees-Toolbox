@@ -14,13 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.widget;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.util.DBOpenHelper;
+import biz.shadowservices.DegreesToolbox.net.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.util.DateFormatters;
+import biz.shadowservices.DegreesToolbox.util.Line;
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.util.Util;
+import biz.shadowservices.DegreesToolbox.util.Values;
+import biz.shadowservices.DegreesToolbox.activities.MainActivity;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -32,7 +39,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
 
 public class WidgetUpdater {

@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Copyright (c) 2011 Jordan Thoms.
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
-  
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
-  
+
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-    
+
     <string name="app_name">2Degrees Toolbox</string>
-<string name="widget_name_1x2">2Degrees Toolbox Widget 1x2</string>
-<string name="widget_name_2x2">2Degrees Toolbox Widget 2x2</string>
-<string name="widget_text_placeholder"></string>
-<string name="configure">Click here to configure</string>
-<string name="refresh">Refresh Data</string>
+    <string name="widget_name_1x2">2Degrees Toolbox Widget 1x2</string>
+    <string name="widget_name_2x2">2Degrees Toolbox Widget 2x2</string>
+    <string name="widget_text_placeholder"></string>
+    <string name="configure">Click here to configure</string>
+    <string name="refresh">Refresh Data</string>
 <string name="seemenu">Press menu for options. You may add the widget to a homescreen to see the details easily.
  Updates happen automatically as configured, if enabled, or can be requested manually through menu.</string>
-<string name="buypack">Buy Value Pack</string>
-<string name="setup_wizard_top">Welcome to 2Degrees Toolbox. To begin using this application, enter your Phone number and password below. (These are what
-you use on the 2degrees website)</string>
-<string name="setup_wizard_username">Phone Number / Username</string>
-<string name="setup_wizard_password">Password</string>
-<string name="setup_wizard_go_button">Go</string>
-<string name="is_an_invalid_number"> is an invalid number </string>
-<string name="save">Save</string>
-<string name="cancel">Cancel</string>
-<string name="transparency">Transparency: (Android 2.2+ only)</string>
-<string name="selectedBackground">Selected Background</string>
-<string name="set_text_colour">Set Text Colour</string>
-<string name="about_dialog_text">2Degrees Toolbox by Jordan Thoms.  For more information go to http://www.shadowservices.biz/blog/2degrees-toolbox/ </string>
-<string name="clear_logs">Clear the Log</string>
-<string name="send_log">Send the Log to developer</string>
-<string name="widget_name">Widget Name</string>
+    <string name="buypack">Buy Value Pack</string>
+    <string name="setup_wizard_line1">Welcome to 2Degrees Toolbox.</string>
+    <string name="setup_wizard_line2">Enter your 2Degrees details to get started...</string>
+    <string name="setup_wizard_line3">Your personal information is stored on your device only.</string>
+
+    <string name="setup_wizard_username">Phone Number / Username</string>
+    <string name="setup_wizard_password">Password</string>
+    <string name="setup_wizard_login_button">Login</string>
+    <string name="is_an_invalid_number"> is an invalid number </string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="transparency">Transparency: (Android 2.2+ only)</string>
+    <string name="selectedBackground">Selected Background</string>
+    <string name="set_text_colour">Set Text Colour</string>
+    <string name="about_dialog_text">2Degrees Toolbox by Jordan Thoms.  For more information go to http://thoms.net.nz/blog/2degrees-toolbox/ </string>
+    <string name="clear_logs">Clear the Log</string>
+    <string name="send_log">Send the Log to developer</string>
+    <string name="widget_name">Widget Name</string>
 
 </resources>

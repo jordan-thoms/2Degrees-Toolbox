@@ -14,22 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.widget;
 
 
 
 import java.util.Date;
 
-import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.net.DataFetcher;
+import biz.shadowservices.DegreesToolbox.net.DataFetcher.FetchResult;
 
-import de.quist.app.errorreporter.ReportingService;
+import biz.shadowservices.DegreesToolbox.util.DateFormatters;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Binder;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 

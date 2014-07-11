@@ -1,10 +1,9 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import biz.shadowservices.DegreesToolbox.ValuePack.Type;
+import biz.shadowservices.DegreesToolbox.util.PackTreeNode.PackTreeLeaf;
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.util.ValuePack.Type;
 
 public class Values {
 

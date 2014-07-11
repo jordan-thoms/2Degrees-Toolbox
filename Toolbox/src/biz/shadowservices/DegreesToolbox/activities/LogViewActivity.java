@@ -1,7 +1,7 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
 
-import biz.shadowservices.DegreesToolbox.util.StackTraceUtil;
-import de.quist.app.errorreporter.ExceptionReporter;
+import biz.shadowservices.DegreesToolbox.util.DBOpenHelper;
+import biz.shadowservices.DegreesToolbox.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

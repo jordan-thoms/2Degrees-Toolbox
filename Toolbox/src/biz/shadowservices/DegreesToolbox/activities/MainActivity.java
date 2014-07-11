@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.activities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,9 +50,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import biz.shadowservices.DegreesToolbox.DataFetcher.FetchResult;
-import biz.shadowservices.DegreesToolbox.Preferences.BalancePreferencesActivity;
-import biz.shadowservices.DegreesToolbox.util.StackTraceUtil;
+
+import biz.shadowservices.DegreesToolbox.util.DBOpenHelper;
+import biz.shadowservices.DegreesToolbox.net.DataFetcher;
+import biz.shadowservices.DegreesToolbox.net.DataFetcher.FetchResult;
+import biz.shadowservices.DegreesToolbox.util.DateFormatters;
+import biz.shadowservices.DegreesToolbox.util.PackTreeNode;
+import biz.shadowservices.DegreesToolbox.R;
+import biz.shadowservices.DegreesToolbox.widget.UpdateWidgetService;
+import biz.shadowservices.DegreesToolbox.util.Values;
+import biz.shadowservices.DegreesToolbox.preferences.BalancePreferencesActivity;
 
 public class MainActivity extends Activity {
 	private static String TAG = "2DegreesPhoneBalanceMainActivity";
@@ -138,6 +145,7 @@ public class MainActivity extends Activity {
     	// it will be updated
     	registerReceiver(reciever, new IntentFilter(UpdateWidgetService.NEWDATA));
     }
+
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
@@ -179,9 +187,9 @@ public class MainActivity extends Activity {
     	}
     };
     private void valuePackMenuNodeView(final PackTreeNode node) {
-    	if (node instanceof PackTreeLeaf) {
+    	if (node instanceof PackTreeNode.PackTreeLeaf) {
     		// We have reached a leaf in the menu, ask for confirmation to send.
-    		askToSend((PackTreeLeaf) node);
+    		askToSend((PackTreeNode.PackTreeLeaf) node);
     		return;
     	}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -197,7 +205,7 @@ public class MainActivity extends Activity {
 		AlertDialog alert = builder.create();
 		alert.show();
     }
-    public void askToSend(final PackTreeLeaf leaf) {
+    public void askToSend(final PackTreeNode.PackTreeLeaf leaf) {
     	AlertDialog.Builder confirmDialog = new AlertDialog.Builder(MainActivity.this);
     	confirmDialog.setMessage(leaf.getConfirmText() + leaf.getTitle() + " by sending '" + leaf.getMessage() + "' to 233?")
     		.setCancelable(false)

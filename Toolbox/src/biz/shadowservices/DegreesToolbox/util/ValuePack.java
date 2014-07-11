@@ -1,4 +1,4 @@
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.util;
 
 public class ValuePack {
 	enum Type {

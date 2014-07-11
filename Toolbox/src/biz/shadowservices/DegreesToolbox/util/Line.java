@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package biz.shadowservices.DegreesToolbox;
+package biz.shadowservices.DegreesToolbox.util;
 
 public class Line {
 	// Used when constructing the lines for the widgets.
 	private String lineContent;
 	private float size = -1;
-	Line(String lineContent) {
+	public Line(String lineContent) {
 		this.lineContent = lineContent;
 	}
 	String getLineContent() {
