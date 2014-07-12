@@ -205,21 +205,25 @@ public class DataFetcher {
 				// Parse result
 
                 String loginResponse = sendLoginPoster.execute();
+                Document loginResponseParsed = Jsoup.parse(loginResponse);
+                // Determine if this is a pre-pay or post-paid account.
+                boolean postPaid;
+                if (loginResponseParsed.getElementById("p_CustomerPortalPostPaidHomePage_WAR_customerportalhomepage") == null) {
+                    Log.d(TAG, "Pre-pay account or no account.");
+                    postPaid = false;
+                } else {
+                    Log.d(TAG, "Post-paid account.");
+                    postPaid = true;
+                }
 
-                HttpGetter homepageGetter = new HttpGetter("https://secure.2degreesmobile.co.nz/group/ip/home");
+                String homepageUrl = "https://secure.2degreesmobile.co.nz/group/ip/home";
+                if (postPaid) {
+                    homepageUrl = "https://secure.2degreesmobile.co.nz/group/ip/postpaid";
+                }
+                HttpGetter homepageGetter = new HttpGetter(homepageUrl);
                 String homepageHTML = homepageGetter.execute();
+                Document homePage = Jsoup.parse(homepageHTML);
 
-				Document homePage = Jsoup.parse(homepageHTML);
-				// Determine if this is a pre-pay or post-paid account.
-				boolean postPaid;
-				if (homePage.getElementById("p_p_id_PostPaidHomePage_WAR_Homepage_") == null) {
-					Log.d(TAG, "Pre-pay account or no account.");
-					postPaid = false;
-				} else {
-					Log.d(TAG, "Post-paid account.");
-					postPaid = true;
-				}
-				
 				Element accountSummary = homePage.getElementById("accountSummary");
 				if (accountSummary == null) {
 					Log.d(TAG, "Login failed.");
