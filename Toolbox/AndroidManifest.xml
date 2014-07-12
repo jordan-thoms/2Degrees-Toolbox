@@ -17,8 +17,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="biz.shadowservices.DegreesToolbox"
-    android:versionCode="53"
-    android:versionName="1.5.9.2" >
+    android:versionCode="54"
+    android:versionName="1.5.9.3" >
 
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" >
     </uses-permission>
